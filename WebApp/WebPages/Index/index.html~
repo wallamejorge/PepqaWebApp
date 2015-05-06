@@ -36,7 +36,7 @@
 <!--------------------------------------------------------------------------------------->
 <!--  Cargar Archivos CSS Estaticos  ----------------------------------------------------> 
 {% load staticfiles %}
-<link href="{% static " Login/css/style.css" %}" rel='stylesheet' type='text/css' >
+<link href="{% static "Login/css/style.css" %}" rel='stylesheet' type='text/css' >
 <!---------------------------------------------------------------------------------------> 
 
 

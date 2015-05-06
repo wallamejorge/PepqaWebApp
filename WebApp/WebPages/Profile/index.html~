@@ -3,7 +3,7 @@
 <html>
 <head>
 <title>PEPQUAPP</title>
-% load staticfiles %}
+{% load staticfiles %}
 <link href="{% static "Profile/css/style.css" %}" rel='stylesheet' type='text/css' >
 </head>
 <body>
@@ -13,7 +13,10 @@
 	<div class="wrap">
 	<div class="content-info">
 	<div class="header">
-			<img src="images/profilepic.png" />
+
+			{% load staticfiles %}
+			<img src="{% static "Login/images/profilepic.png" %}" alt=""/>
+
 				<h3>{{FirstName}} de los {{LastName}}</h3>
 					<a href="#"><h2>{{Age}} - {{Occupation}}/{{Company}}/{{Charge}}</h2></a>	
 					<a href="#"><h2>Interests: .</h2></a>
@@ -80,7 +83,11 @@
 									<div class="clear"> </div>
 					          </div>
 
-						<script type="text/javascript" src="js/main.js"></script> 
+					        {% load staticfiles %}
+						<script src="{% static "Profile/js/jquery.min.js" %}"></script>
+
+						{% load staticfiles %}
+						<script src="{% static "Profile/js/main.js" %}" type="text/javascript"></script>
 								 <script>
 						 				var colors = [
 						 						['#202835', '#00ae55'], ['#202835', '#00ae55'], ['#202835', '#00ae55'], ['#202835', '#00ae55']
