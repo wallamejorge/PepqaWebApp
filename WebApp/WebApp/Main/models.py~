@@ -29,11 +29,11 @@ class User(models.Model):
 
 class Friendship(models.Model):
 
-	user1 =  models.CharField(max_length=200)
-	user2 =  models.CharField(max_length=200)
+	owner =  models.CharField(max_length=200)
+	friend =  models.CharField(max_length=200)
 
 	def __str__(self):
-		return self.user1
+		return self.owner
 
 
 

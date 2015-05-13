@@ -4,7 +4,7 @@ article, aside, details, figcaption, figure,footer, header, hgroup, menu, nav, s
 ol,ul{list-style:none;margin:0px;padding:0px;}
 blockquote,q{quotes:none;}
 blockquote:before,blockquote:after,q:before,q:after{content:'';content:none;}
-table{border-collapse:collapse;border-spacing:0;}
+table{border-collapse:collapse;border-spacing:0;margin: 10px auto;}
 /* start editing from here */
 a{text-decoration:none;}
 .txt-rt{text-align:right;}/* text align right */
@@ -820,5 +820,32 @@ a.behance:hover {
   height: 32px;
   background-size: 180px;
 	}
+}
+
+
+
+
+
+
+
+
+
+
+
+table {
+    border: 1px solid green;
+    border-collapse: collapse;
+    width:100%;
+}
+
+table td {
+    border: 1px solid green;
+}
+
+table td.shrink {
+    white-space:nowrap
+}
+table td.expand {
+    width: 99%
 }
 /*--end-responsive-design--*/

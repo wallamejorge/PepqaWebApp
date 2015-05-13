@@ -24,4 +24,6 @@ urlpatterns = [
     url(r'^Profile/$',authentication),
     url(r'^SignUp/$',registration),
     url(r'(?:.*?/)?(?P<path>(css|jquery|jscripts|images)/.+)$','django.views.static.serve',{'document_root': settings.STATIC_ROOT}),
+
 ]
+

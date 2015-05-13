@@ -89,15 +89,22 @@ def authentication(request):
 			userlast_name=getattr(usuario,'last_name');
 			userage=getattr(usuario,'age');
 			user=getattr(usuario,'occupation');
+			profile_photo = username;
 			useruseroccupation=getattr(usuario,'occupation');
 			usercompany=getattr(usuario,'occupation');
 			usercharge=getattr(usuario,'occupation');
+
+
+			userlist = getFriendsList(username);
+			foto = 'http://postimg.org/image/urq21y5cj/'		
 
 			fp=open(PATH_SITE+PATH_PAGES+'Profile/index.html')
 			t= Template(fp.read())
 			fp.close()	
 			html=t.render(Context({
 					       'Name':username,
+					       'urldir':foto,
+					       'profile_photo':profile_photo,
 					       'Pass':userpass,
 					       'FirstName':userfirst_name,
 					       'LastName':userlast_name,
@@ -105,10 +112,11 @@ def authentication(request):
 					       'Occupation':useruseroccupation,
 					       'Company':usercompany,
 					       'Charge':usercharge,
+					       'List':userlist,
 					       'SKILL1':'Ingles',
 					       'SKILL2':'Chismes',
 					       'SKILL3':'Simpsons',
-					       'SKILL4':'Control',
+					       'SKILL4':'Control'
 						}))
 			return HttpResponse(html)
 		else:
@@ -154,6 +162,15 @@ def registration(request):
 
 #----------------------------------------------------------------------------- #
 
+
+
+
+def getFriendsList(usremail):
+	li = Friendship.objects.filter(user1=usremail)
+	elements = []
+	for i in li:
+    		elements.append(i.user2)
+	return elements
 
 
 
