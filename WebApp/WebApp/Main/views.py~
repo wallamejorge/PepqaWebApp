@@ -63,8 +63,90 @@ def login(request):
 
 	return HttpResponse(html)
 # **************************************************************************** #
+def demologin(request):
+	nowDateVar = datetime.datetime.now()
+	fp=open(PATH_SITE+PATH_PAGES+'Demo/index.html')
+	page= Template(fp.read())
+	fp.close()	
+	html=page.render(Context({'Date':nowDateVar}))
+	return HttpResponse(html)
+def demostartpage(request):
+	if 'username' in request.GET and request.GET['username']:
+		now = datetime.datetime.now()
+		usrname=request.GET['username']
+		usrpass=request.GET['userpass']
+		usuario=User.objects.get(user_email=usrname)
+		email=getattr(usuario,'user_email')
+		password=getattr(usuario,'user_password')
+		if (password == usrpass) and (usrname == email) :
+			
+			# Profile Data
+			myemail = getattr(usuario,'user_email');
+			mypassword = getattr(usuario,'user_password');
+			myfirstname = getattr(usuario,'user_firstname');
+			mylastname  = getattr(usuario,'user_lastname');
+			# Personal Data
+			myage       = getattr(usuario,'user_age');
+			mygender    = getattr(usuario,'user_gender');
+			mycountry   = getattr(usuario,'user_country');
+			mylanguage  = getattr(usuario,'user_language');
+			# Professional Data
+			mycategory  = getattr(usuario,'user_category');
+			mycompany   = getattr(usuario,'user_company');
+			mystudies   = getattr(usuario,'user_studies');
+			mytopics    = getattr(usuario,'user_topics');
+			# Social Data
+			myphotourl  = getattr(usuario,'user_photourl');
+			mycvurl     = getattr(usuario,'user_cvurl');
+			myabstract  = getattr(usuario,'user_abstract');
+			myfburl = getattr(usuario,'user_fburl');
+			mytwitterurl  = getattr(usuario,'user_twitterurl');
+			mylinkedlnurl = getattr(usuario,'user_linkedlnurl');
+			
+			# FriendsList
+			myfriendslist = getMyFriendsList(email);
+			# FriendsRequestList
+			myfriendsrequestlist = getMyFriendsRequestList(email);
+			# GroupsList
+			mygroupslist = getMyGroupsList(email);
+			# MyOffersList
+			myofferlist= getMyOffersList(email);
+			# MyOfferRequestedList
+			myofferrquestedlist= getMyOfferAcceptedList(email);
 
-
+			fp=open(PATH_SITE+PATH_PAGES+'Demo/startpage.html')
+			t= Template(fp.read())
+			fp.close()				
+			html=t.render(Context({
+					        'Email':myemail,
+					        'Password':mypassword,
+						'FirstName':myfirstname,
+						'LastName':mylastname,
+						'Age':myage,
+						'Gender':mygender,
+						'Country':mycountry,
+						'Language':mylanguage,
+						'Category':mycategory,
+						'Company':mycompany,
+						'Studies':mystudies,
+						'Topics':mytopics,
+						'Photo':myphotourl,
+						'CV':mycvurl,
+						'Facebook':myfburl,
+						'Twitter':mytwitterurl,
+						'Linkedln':mylinkedlnurl,
+						'FriendsList':myfriendslist,
+						'FriendsRequestList':myfriendsrequestlist,
+						'GroupsList':mygroupslist,
+						'OfferList':myofferlist,
+						'OfferRequestList':myofferrquestedlist,
+						}))
+			return HttpResponse(html)
+		else:
+			var = u'Usuario/Contraseña invalida'
+			return HttpResponse(var)
+	else:
+		return HttpResponse('Ingrese algo por el amor de  Dios!')
 
 
 
@@ -79,31 +161,58 @@ def authentication(request):
 		usrname=request.GET['username']
 		usrpass=request.GET['userpass']
 
-		usuario=User.objects.get(email=usrname)
+		usuario=User.objects.get(user_email=usrname)
 		
-		username=getattr(usuario,'email')
-		userpass=getattr(usuario,'password')
+		email=getattr(usuario,'user_email')
+		password=getattr(usuario,'user_password')
 
-		if (userpass == usrpass) and (username == usrname) :
-			userfirst_name=getattr(usuario,'first_name');
-			userlast_name=getattr(usuario,'last_name');
-			userage=getattr(usuario,'age');
-			user=getattr(usuario,'occupation');
-			profile_photo = username;
-			useruseroccupation=getattr(usuario,'occupation');
-			usercompany=getattr(usuario,'occupation');
-			usercharge=getattr(usuario,'occupation');
-
-
-			userlist = getFriendsList(username);
-			foto = 'http://postimg.org/image/urq21y5cj/'		
+		if (password == usrpass) and (username == email) :
+			
+			# Profile Data
+			myemail = getattr(usuario,'user_email');
+			mypassword = getattr(usuario,'user_password');
+			myfirstname = getattr(usuario,'user_firstname');
+			mylastname  = getattr(usuario,'user_lastname');
+			# Personal Data
+			myage       = getattr(usuario,'user_age');
+			mygender    = getattr(usuario,'user_gender');
+			mycountry   = getattr(usuario,'user_country');
+			mylanguage  = getattr(usuario,'user_language');
+			# Professional Data
+			mycategory  = getattr(usuario,'user_category');
+			mycompany   = getattr(usuario,'user_company');
+			mystudies   = getattr(usuario,'user_studies');
+			mytopics    = getattr(usuario,'user_topics');
+			# Social Data
+			myphotourl  = getattr(usuario,'user_photourl');
+			mycvurl     = getattr(usuario,'user_cvurl');
+			myabstract  = getattr(usuario,'user_abstract');
+			myfburl = getattr(usuario,'user_fburl');
+			mytwitterurl  = getattr(usuario,'user_twitterurl');
+			mylinkedlnurl = getattr(usuario,'user_linkedlnurl');
+			
+			# FriendsList
+			myfriendslist = getMyFriendsList(email);
+			# FriendsRequestList
+			myfriendsrequestlist = getMyFriendsRequestList(email);
+			# GroupsList
+			mygroupslist = getMyGroupsList(email);
+			# MyOffersList
+			myofferlist= getMyOffersList(email);
+			# MyOfferRequestedList
+			myofferrquestedlist= getMyOffersRequestedList(email);
+			# ArticlesList	
+			myarticleslist = getMyArticlesList(email);
+			# IdeasList	
+			myideaslist = getMyIdeasList(email);
+			# IdeasList	
+			mycommentslist = getMyCommentsList(email);
 
 			fp=open(PATH_SITE+PATH_PAGES+'Profile/index.html')
 			t= Template(fp.read())
 			fp.close()	
 			html=t.render(Context({
 					       'Name':username,
-					       'urldir':foto,
 					       'profile_photo':profile_photo,
 					       'Pass':userpass,
 					       'FirstName':userfirst_name,
@@ -113,10 +222,10 @@ def authentication(request):
 					       'Company':usercompany,
 					       'Charge':usercharge,
 					       'List':userlist,
-					       'SKILL1':'Ingles',
-					       'SKILL2':'Chismes',
-					       'SKILL3':'Simpsons',
-					       'SKILL4':'Control'
+					       'SKILL1':'English',
+					       'SKILL2':'Programming',
+					       'SKILL3':'Managment Skills',
+					       'SKILL4':'Human Resources'
 						}))
 			return HttpResponse(html)
 		else:
@@ -162,18 +271,51 @@ def registration(request):
 
 #----------------------------------------------------------------------------- #
 
+def getMyFriendsList(email):
+	OwnerList = Friendship.objects.filter(friendship_from=email)
+	friends = []
+	for fi in OwnerList:
+    		friends.append(fi.friendship_to)
+	return friends
+
+def getMyFriendsRequestList(email):
+	OwnerList = FriendshipRequested.objects.filter(friendship_owner=email)
+	friends = []
+	for fi in OwnerList:
+    		friends.append(fi.friendship_requester)
+	return friends
+
+
+def getMyGroupsList(email):
+	MyGroups = GroupMembers.objects.filter(groupmembers_groupmember=email)
+	groups= []
+	for fi in MyGroups:
+    		groups.append(fi.groupmembers_groupname)
+	return groups
+
+
+def getMyOffersList(email):
+	MyOffers = Offer.objects.filter(offer_owner=email)
+	offers= []
+	for fi in MyOffers:
+    		offers.append(fi.offer_name)
+	return offers
+
+
+def getMyOfferAcceptedList(email):
+	MyOffers = Offer.objects.filter(offer_owner=email)
+	offers= []
+	for fi in MyOffers:
+    		offers.append(fi.offer_name)
+	return offers
 
 
 
-def getFriendsList(usremail):
-	li = Friendship.objects.filter(user1=usremail)
-	elements = []
-	for i in li:
-    		elements.append(i.user2)
-	return elements
-
-
-
-
+def getMyArticleAuthorsList(email):
+	MyArticles = ArticleAuthors.objects.filter(articleauthors_articleauthor=email)
+	articles= []
+	for fi in MyArticles:
+    		articles.append(fi.articleauthors_articlename )
+	return articles
 
 

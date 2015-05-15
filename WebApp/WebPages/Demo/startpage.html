@@ -1,0 +1,67 @@
+<html>
+<head>
+<title>Demo Login </title>
+</head>
+<body>
+<div class="main">
+	<h1>Start Page of {{FirstName}} {{LastName}}</h1>
+	<p>Hoy es {{Date}} <p>
+
+
+<p> Los links de los menus son :</p>
+	<ul>
+	<li><a href="/DemoLogin/"> Profile </a></li>
+	<li><a href="./groups.html"> Groups </a></li> 
+	<li><a href="./friends.html"> Friends </a></li>
+	<li><a href="./articles.html"> Articles </a></li>
+	<li><a href="./offers.html"> Offers </a></li> 
+	<li><a href="./ideas.html"> Ideas </a></li>  
+	</ul>
+</div>	
+
+<ul>
+	<li> {{Email}} </li>
+	<li> {{Password}} </li>
+	<li> {{FirstName}} </li>
+	<li> {{LastName}} </li>
+	<li> {{Age}} </li>
+	<li> {{Gender}} </li>
+	<li> {{Country}} </li>
+	<li> {{Language}} </li>
+	<li> {{Category}} </li>
+	<li> {{Company}} </li>
+	<li> {{Studies}} </li>
+	<li> {{Topics}} </li>
+	<li> {{Photo}} </li>
+	<li> {{CV}} </li>
+
+	
+	</ul>
+		
+<ul> Amigos 
+{% for o in FriendsList %}
+<li> {{o}} </li>
+<input type="button" value="Eliminar">
+{% endfor %} 
+</ul>
+<ul> Solicitudes de Amistad
+{% for o in FriendsRequestList %}
+<li> {{o}} </li>
+<input type="button" value="Aceptar">
+<input type="button" value="Rechazar">
+{% endfor %} 
+</ul>	
+<ul> Mis Grupos
+{% for o in GroupsList %}
+<li> {{o}} </li>
+{% endfor %} 
+</ul>							
+
+					
+
+
+
+</body>
+
+
+</html>

@@ -107,8 +107,9 @@
 
 <!-- Cargar Foto de Perfil ----------------------------------------------------------- -->
 {% load staticfiles %}
-<img src={{urldir}} />
-
+{% with 'Profile/images/'|add:urldir|add:'.png' as image_static %}
+ <img src= {% static image_static %} "/>
+{% endwith %}
 <!-- <img src= {{urlPhoto}} > -->
 <!-- --------------------------------------------------------------------------------- -->
 			
