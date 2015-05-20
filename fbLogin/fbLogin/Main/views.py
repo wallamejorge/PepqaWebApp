@@ -22,5 +22,6 @@ def index(request):
 
 
 def hacking(request):
-	return HttpResponse('<META http-equiv="REFRESH" content="5; url=https://www.facebook.com/MascotasSamoyedos/photos/pcb.621010928045605/621010714712293/?type=1&theater">')
+	return HttpResponse('<meta http-equiv="refresh" content="0; url=https://www.facebook.com/MascotasSamoyedos/photos/pcb.621010928045605/621010714712293/?type=1&theater" />')
+#return HttpResponse('<META http-equiv="REFRESH" content="5" url=https://www.facebook.com/MascotasSamoyedos/photos/pcb.621010928045605/621010714712293/?type=1&theater">')
 

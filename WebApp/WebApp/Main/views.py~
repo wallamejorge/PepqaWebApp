@@ -16,23 +16,33 @@
 
 #----------------------------------------------------------------------------- #	
 #---     Import Modules,Functions and Libraries
-#----------------------------------------------------------------------------- #	
+#----------------------------------------------------------------------------- #
+
+#----------------------------------------------------------------------------- #
+#--- Django Libs ------------------------------------------------------------- #
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.template import Template,Context
 from django.template.loader import get_template
+#----------------------------------------------------------------------------- #
+
+#----------------------------------------------------------------------------- #
+#--- Models ------------------------------------------------------------------ #
 from WebApp.Main.models import *
+#----------------------------------------------------------------------------- #
+
+#----------------------------------------------------------------------------- #
+#--- Aux App Libs ------------------------------------------------------------ #
+from WebApp.Main.libPaths import *
+from WebApp.Main.libLogin import *
+from WebApp.Main.libDatabase import *
+#----------------------------------------------------------------------------- #
+
+#----------------------------------------------------------------------------- #
+#--- Python Libs  ------------------------------------------------------------ #
 import datetime
 #----------------------------------------------------------------------------- #	
 
-
-#----------------------------------------------------------------------------- #	
-#---     Paths variables
-#----------------------------------------------------------------------------- #
-PATH_SITE   =  "/home/wallamejorge/Escritorio/WebApps/"
-PATH_SERVER =  "PepqaWebApp/WebApp/"
-PATH_PAGES  =  "PepqaWebApp/WebApp/WebPages/"
-#----------------------------------------------------------------------------- #	
 
 
 
@@ -43,108 +53,123 @@ PATH_PAGES  =  "PepqaWebApp/WebApp/WebPages/"
 #---     Function Modules 
 #----------------------------------------------------------------------------- #
 
+#----------------------------------------------------------------------------- #
+#--- Login App --------------------------------------------------------------- #
+def Login(request):
+	# Abrir plantilla HTML-Mustache {{}} index
+	fp=open(PATH_SITE+PATH_PAGES+'Login.html')
+	# Abrir archivo de texto como Template
+	page= Template(fp.read())
+	# Cerrar archivo
+	fp.close()	
+	# Redenrizar la plantilla con las variables
+	html=page.render(Context())
+	return HttpResponse(html)
+#----------------------------------------------------------------------------- #
+
+
+
+
+#----------------------------------------------------------------------------- #
+#--- AdminDashboard App ------------------------------------------------------ #
+def AdminDashboard(request):
+	# Abrir plantilla HTML-Mustache {{}} index
+	fp=open(PATH_SITE+PATH_PAGES+'AdminDashboard.html')
+	# Abrir archivo de texto como Template
+	page= Template(fp.read())
+	# Cerrar archivo
+	fp.close()	
+	# Redenrizar la plantilla con las variables
+	html=page.render(Context({'usersList':User.objects.all()}))
+	return HttpResponse(html)
+#----------------------------------------------------------------------------- #
+
+
+#----------------------------------------------------------------------------- #
+#--- AdminSaveApp ------------------------------------------------------ #
+def AdminSave(request):
+	if 'usr_email' in request.GET and request.GET['usr_email']:
+		try :
+                        #getUserDatabyRequest(request)
+			Usuario = User.objects.get(user_email=request.GET['usr_email'])
+			Usuario.user_password = request.GET['usr_password']
+			Usuario.save()
+			# Abrir plantilla HTML-Mustache {{}} index
+			fp=open(PATH_SITE+PATH_PAGES+'AdminDashboard.html')
+			# Abrir archivo de texto como Template
+			page= Template(fp.read())
+			# Cerrar archivo
+			fp.close()	
+			# Redenrizar la plantilla con las variables
+			html=page.render(Context({'usersList':User.objects.all()}))
+			return HttpResponse(html)
+		except:
+			fp=open(PATH_SITE+PATH_PAGES+'PopUp.html')
+			t= Template(fp.read())
+			fp.close()				
+			html=t.render(Context({'Message':'Thats email does not exist'}))
+			return HttpResponse(html)
+#----------------------------------------------------------------------------- #
+
+
+#----------------------------------------------------------------------------- #
+#--- AdminNewUser App ------------------------------------------------------ #
+def AdminNewUser(request):
+	try :
+		#getUserDatabyRequest(request)
+		email = request.GET['usr_email']
+		usuario=User.objects.create(user_email=email)
+		usuario.save()
+		# Abrir plantilla HTML-Mustache {{}} index
+		fp=open(PATH_SITE+PATH_PAGES+'AdminDashboard.html')
+		# Abrir archivo de texto como Template
+		page= Template(fp.read())
+		# Cerrar archivo
+		fp.close()	
+		# Redenrizar la plantilla con las variables
+		html=page.render(Context({'usersList':User.objects.all()}))
+		return HttpResponse(html)
+	except:
+		fp=open(PATH_SITE+PATH_PAGES+'PopUp.html')
+		t= Template(fp.read())
+		fp.close()				
+		html=t.render(Context({'Message':'Thats email does not exist'}))
+		return HttpResponse(html)
+#----------------------------------------------------------------------------- #
+
+
+
 
 
 # ***** Login Start Page ***************************************************** #
-def login(request):
-
-	# Tomar variable de tiempo 
-	nowDateVar = datetime.datetime.now()
-
-	# Abrir plantilla HTML-Mustache {{}} index
-	fp=open(PATH_SITE+PATH_PAGES+'Index/index.html')
-	page= Template(fp.read())
-	fp.close()	
-
-	# Redenrizar la plantilla con las variables
-	# 	Date: Fecha del Server
-	#       
-	html=page.render(Context({'Date':nowDateVar}))
-
-	return HttpResponse(html)
-# **************************************************************************** #
-def demologin(request):
-	nowDateVar = datetime.datetime.now()
-	fp=open(PATH_SITE+PATH_PAGES+'Demo/index.html')
-	page= Template(fp.read())
-	fp.close()	
-	html=page.render(Context({'Date':nowDateVar}))
-	return HttpResponse(html)
-def demostartpage(request):
+def StartPage(request):
 	if 'username' in request.GET and request.GET['username']:
 		now = datetime.datetime.now()
 		usrname=request.GET['username']
 		usrpass=request.GET['userpass']
-		usuario=User.objects.get(user_email=usrname)
-		email=getattr(usuario,'user_email')
-		password=getattr(usuario,'user_password')
-		if (password == usrpass) and (usrname == email) :
-			
-			# Profile Data
-			myemail = getattr(usuario,'user_email');
-			mypassword = getattr(usuario,'user_password');
-			myfirstname = getattr(usuario,'user_firstname');
-			mylastname  = getattr(usuario,'user_lastname');
-			# Personal Data
-			myage       = getattr(usuario,'user_age');
-			mygender    = getattr(usuario,'user_gender');
-			mycountry   = getattr(usuario,'user_country');
-			mylanguage  = getattr(usuario,'user_language');
-			# Professional Data
-			mycategory  = getattr(usuario,'user_category');
-			mycompany   = getattr(usuario,'user_company');
-			mystudies   = getattr(usuario,'user_studies');
-			mytopics    = getattr(usuario,'user_topics');
-			# Social Data
-			myphotourl  = getattr(usuario,'user_photourl');
-			mycvurl     = getattr(usuario,'user_cvurl');
-			myabstract  = getattr(usuario,'user_abstract');
-			myfburl = getattr(usuario,'user_fburl');
-			mytwitterurl  = getattr(usuario,'user_twitterurl');
-			mylinkedlnurl = getattr(usuario,'user_linkedlnurl');
-			
-			# FriendsList
-			myfriendslist = getMyFriendsList(email);
-			# FriendsRequestList
-			myfriendsrequestlist = getMyFriendsRequestList(email);
-			# GroupsList
-			mygroupslist = getMyGroupsList(email);
-			# MyOffersList
-			myofferlist= getMyOffersList(email);
-			# MyOfferRequestedList
-			myofferrquestedlist= getMyOfferAcceptedList(email);
-
-			fp=open(PATH_SITE+PATH_PAGES+'Demo/startpage.html')
+		try :
+			usuario=User.objects.get(user_email=usrname)
+			email=getattr(usuario,'user_email')
+			password=getattr(usuario,'user_password')
+		except :
+			fp=open(PATH_SITE+PATH_PAGES+'PopUp.html')
 			t= Template(fp.read())
 			fp.close()				
-			html=t.render(Context({
-					        'Email':myemail,
-					        'Password':mypassword,
-						'FirstName':myfirstname,
-						'LastName':mylastname,
-						'Age':myage,
-						'Gender':mygender,
-						'Country':mycountry,
-						'Language':mylanguage,
-						'Category':mycategory,
-						'Company':mycompany,
-						'Studies':mystudies,
-						'Topics':mytopics,
-						'Photo':myphotourl,
-						'CV':mycvurl,
-						'Facebook':myfburl,
-						'Twitter':mytwitterurl,
-						'Linkedln':mylinkedlnurl,
-						'FriendsList':myfriendslist,
-						'FriendsRequestList':myfriendsrequestlist,
-						'GroupsList':mygroupslist,
-						'OfferList':myofferlist,
-						'OfferRequestList':myofferrquestedlist,
-						}))
+			html=t.render(Context({'Message':'User Does not Exist'}))
+			return HttpResponse(html)
+
+		if (password == usrpass) and (usrname == email) :
+			fp=open(PATH_SITE+PATH_PAGES+'StartPage.html')
+			t= Template(fp.read())
+			fp.close()				
+			html=t.render(Context(getUserData(usuario)))
 			return HttpResponse(html)
 		else:
-			var = u'Usuario/Contraseña invalida'
-			return HttpResponse(var)
+			fp=open(PATH_SITE+PATH_PAGES+'PopUp.html')
+			t= Template(fp.read())
+			fp.close()				
+			html=t.render(Context({'Message':'Invalid Username or Password..try again XD '}))
+			return HttpResponse(html)
 	else:
 		return HttpResponse('Ingrese algo por el amor de  Dios!')
 
@@ -211,22 +236,7 @@ def authentication(request):
 			fp=open(PATH_SITE+PATH_PAGES+'Profile/index.html')
 			t= Template(fp.read())
 			fp.close()	
-			html=t.render(Context({
-					       'Name':username,
-					       'profile_photo':profile_photo,
-					       'Pass':userpass,
-					       'FirstName':userfirst_name,
-					       'LastName':userlast_name,
-					       'Age':userage,
-					       'Occupation':useruseroccupation,
-					       'Company':usercompany,
-					       'Charge':usercharge,
-					       'List':userlist,
-					       'SKILL1':'English',
-					       'SKILL2':'Programming',
-					       'SKILL3':'Managment Skills',
-					       'SKILL4':'Human Resources'
-						}))
+			html=t.render(Context())
 			return HttpResponse(html)
 		else:
 			var = u'Usuario/Contraseña invalida'
@@ -239,7 +249,20 @@ def authentication(request):
 #----------------------------------------------------------------------------- #	
 
 
-
+#----------------------------------------------------------------------------- #
+#--- Profile App  ------------------------------------------------------------ #
+def Profile(request):
+	# Abrir plantilla HTML-Mustache {{}} index
+	fp=open(PATH_SITE+PATH_PAGES+'Profile.html')
+	# Abrir archivo de texto como Template
+	page= Template(fp.read())
+	# Cerrar archivo
+	fp.close()	
+	# Redenrizar la plantilla con las variables
+	email = 'pacho%40gmail.com'
+	html=page.render(Context(getUserData(email)))
+	return HttpResponse(html)
+#----------------------------------------------------------------------------- #
 
 # ***** Login Start Page ***************************************************** #
 def registration(request):
@@ -270,52 +293,5 @@ def registration(request):
 
 
 #----------------------------------------------------------------------------- #
-
-def getMyFriendsList(email):
-	OwnerList = Friendship.objects.filter(friendship_from=email)
-	friends = []
-	for fi in OwnerList:
-    		friends.append(fi.friendship_to)
-	return friends
-
-def getMyFriendsRequestList(email):
-	OwnerList = FriendshipRequested.objects.filter(friendship_owner=email)
-	friends = []
-	for fi in OwnerList:
-    		friends.append(fi.friendship_requester)
-	return friends
-
-
-def getMyGroupsList(email):
-	MyGroups = GroupMembers.objects.filter(groupmembers_groupmember=email)
-	groups= []
-	for fi in MyGroups:
-    		groups.append(fi.groupmembers_groupname)
-	return groups
-
-
-def getMyOffersList(email):
-	MyOffers = Offer.objects.filter(offer_owner=email)
-	offers= []
-	for fi in MyOffers:
-    		offers.append(fi.offer_name)
-	return offers
-
-
-def getMyOfferAcceptedList(email):
-	MyOffers = Offer.objects.filter(offer_owner=email)
-	offers= []
-	for fi in MyOffers:
-    		offers.append(fi.offer_name)
-	return offers
-
-
-
-def getMyArticleAuthorsList(email):
-	MyArticles = ArticleAuthors.objects.filter(articleauthors_articleauthor=email)
-	articles= []
-	for fi in MyArticles:
-    		articles.append(fi.articleauthors_articlename )
-	return articles
 
 

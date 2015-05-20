@@ -1,0 +1,140 @@
+ <!DOCTYPE html>
+<html>
+<head>
+<style>
+    input {
+        resize: horizontal;
+        width: auto;
+    }
+
+    input:active {
+        width: auto;   
+    }
+
+    input:focus {
+        min-width: 5px;
+    }
+</style>
+</head>
+<body>
+
+<h1>Welcome Admin, There is your App Dashboard</h1>
+
+
+<h1>Users List</h1>
+<form name="NewUser"  action="/AdminNewUser/" >
+<input type="submit" value="Crear Usuario Nuevo" />
+<input type="text" name="usr_email" value="" />
+</form>
+
+<input type="button" value="Eliminar Usuario" action="/AdminDeleteUser/">
+
+
+
+{% for usr in usersList %}
+    <form id='{{usr.user_email}}' action="/AdminSave/">
+    <ul> 
+	<h2> -------------------------------------------------- <h2>
+	<h2>User {{usr.user_email}}</h2>
+    	<h2> -------------------------------------------------- <h2>
+			<li>
+				Email :  <input type="text" name="usr_email" value="{{usr.user_email}}" > 
+			</li>
+			<li>
+				Password : <input type="text" name="usr_password" value="{{usr.user_password}}" > 
+			</li>
+			<li>
+				FirstName : <input type="text" name="usr_firstname" value="{{usr.user_firstname}}" > 
+			</li>
+			<li>
+				LastName : <input type="text" name="usr_lastname" value="{{usr.user_lastname}}" > 
+			</li>
+			<li>
+				Age : <input type="text" name="usr_age" value="{{usr.user_age}}" > 
+			</li>
+			<li>
+				Gender : <input type="text" name="usr_gender" value="{{usr.user_gender}}" > 
+			</li>
+			<li>
+				Country : <input type="text" name="usr_country" value="{{usr.user_country}}" > 
+			</li>
+			<li>
+				Language : <input type="text" name="usr_language" value="{{usr.user_language}}" > 
+			</li>
+			<li>
+				Category : <input type="text" name="usr_category" value="{{usr.user_category}}" > 
+			</li>
+			<li>
+				Company : <input type="text" name="usr_company" value="{{usr.user_company}}" > 
+			</li>
+			<li>
+				Studies : <input type="text" name="usr_studies" value="{{usr.user_studies}}" > 
+			</li>
+			<li>
+				Topics : <input type="text" name="usr_topics" value="{{usr.user_topics}}" > 
+			</li>	
+			<li>
+				PhotoFile : <input type="text" name="usr_photourl" value="{{usr.user_photourl}}" > 
+			</li>
+			<li>
+				CVFile : <input type="text" name="usr_cvurl" value="{{usr.user_cvurl}}" > 
+			</li>
+			<li>
+				Abstract : <textarea name="usr_abstract" rows="3" cols="40" >{{usr.user_abstract}}</textarea> 	
+			</li>
+			<li>
+				Facebook : <input type="text" name="usr_fburl" value="{{usr.user_fburl}}" > 
+			</li>
+			<li>
+				Twitter : <input type="text" name="usr_twitterurl" value="{{usr.user_twitterurl}}" > 
+			</li>
+			<li>
+				Linkedln : <input type="text" name="usr_linkedlnurl" value="{{usr.user_linkedlnurl}}" > 
+			</li>
+			<li>
+				English.Reading : <input type="text" name="usr_englishReading" value="{{usr.user_englishReading}}" > 
+			</li>
+			<li>
+				English.Writing : <input type="text" name="usr_englishWriting" value="{{usr.user_englishWriting}}" > 
+			</li>
+			<li>
+				English.Listening : <input type="text" name="usr_englishListening" value="{{usr.user_englishListening}}" > 
+			</li>
+			<li>
+				English.Speaking : <input type="text" name="usr_englishSpeaking" value="{{usr.user_englishSpeaking}}" > 
+			</li>
+			<li>
+				Communication Skills : <input type="text" name="usr_skillCommunication" value="{{usr.user_skillCommunication}} "> %  
+			</li>
+			<li>
+				Teamwork Skills : <input type="text" name="usr_skillTeamwork" value="{{usr.user_skillTeamwork}} " > %
+			</li>
+			<li>
+				Initiative SKills : <input type="text" name="usr_skillInitiative" value="{{usr.user_skillInitiative}} " > %
+			</li>
+			<li>
+				Problem Solving Skills : <input type="text" name="usr_skillProblemSolving" value="{{usr.user_skillProblemSolving}} " > %
+			</li>
+			<li>
+			 	Flexibility Skills : <input type="text" name="usr_skillFlexibility" value="{{usr.user_skillFlexibility}} " > %
+			</li>	
+			<li>
+				Computer Skills : <input type="text" name="usr_skillComputer" value="{{usr.user_skillComputer}} " > %
+			</li>
+			<li>
+				Technical Skills : <input type="text" name="usr_skillTechnical" value="{{usr.user_skillTechnical}} " > %
+			</li>
+			<li>
+				Leadership Skills : <input type="text" name="usr_skillLeadership" value="{{usr.user_skillLeadership}} " > %
+			</li>
+    </ul> 
+   <input type="submit" value="Guardar Cambios"/>
+    </form>
+{% endfor %}
+
+
+</body>
+</html>
+
+
+

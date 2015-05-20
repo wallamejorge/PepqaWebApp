@@ -20,8 +20,12 @@ import settings
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^Login/$',login),
-    url(r'^Start/$',startpage),
+    url(r'^Dash/$', AdminDashboard),
+    url(r'^AdminSave/$',AdminSave),
+    url(r'^AdminNewUser/$',AdminNewUser),
+    url(r'^Login/$',Login),
+    url(r'^Start/$',StartPage),
+    url(r'^Profile/$',Profile),
     url(r'(?:.*?/)?(?P<path>(css|jquery|jscripts|images)/.+)$','django.views.static.serve',{'document_root': settings.STATIC_ROOT}),
 ]
 

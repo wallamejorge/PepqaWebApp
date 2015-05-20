@@ -1,0 +1,16 @@
+
+from django.shortcuts import render
+from django.http import HttpResponse
+from django.template import Template,Context
+from django.template.loader import get_template
+
+# ***** Login Start Page ***************************************************** #
+def Login(request):
+	# Abrir plantilla HTML-Mustache {{}} index
+	fp=open(PATH_SITE+PATH_PAGES+'Login.html')
+	page= Template(fp.read())
+	fp.close()	
+	# Redenrizar la plantilla con las variables
+	html=page.render(Context())
+	return HttpResponse(html)
+# **************************************************************************** #
