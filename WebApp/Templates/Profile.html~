@@ -81,30 +81,44 @@
 
 
   </head>
-  <body class="onepage">
-    <div id="preloader"></div>
 
-    <a id="top"></a>
 
-    <!-- HEADER -->
 
+<body class="onepage">
+
+
+
+
+
+
+<!-- Cargar la pantalla con loading.gif -->
+<div id="preloader">
+</div>
+
+
+
+<!-- Imagen y Descripción del Perfil -->
 <section id="profile" class="parallax">
-         <div class="profile">
-			{% load staticfiles %}
-                   <img  src="{% static "Profile/img/profilepic.png" %}"/>
-          <div class="info">
+<div class="profile">
+{% load staticfiles %}
+<img  src="{% static "Profile/img/profilepic.png" %}" />
+
+<div class="info">
                     <h1>{{user_firstname}} {{user_lastname}}</h1>
                     <h2>{{user_age}} - {{user_studies}}/{{user_company}}/{{user_category}}</h2>  
-                    <h2>Interests:{{user_topics}}.</h2>
-		    <h2>Abstract : user_abstract.</h2>
-                    <span class="links"><h2>{{www.dropbox.com}}</h2></span> 
-                    <table align="justify">
-                    <span class="links"><h2>Project 1</h2></span> 
-                    <span class="links"><h2>Project 2</h2></span>
-                  </table>
+                    <h2>Interests:{{user_topics}}.ddddddddddddddddddddddddddddddddddddddddddddddddddddd
+ddddddddddddddddddddddddddd
+ddddddddddddddddddddddddddddddddddddddddd
+
+
+dddddddddddddddddddddddd</h2>
+
           </div>
          </div>
+</section>
 
+
+<section id="profile" class="parallax">
          <div class="friends">
           <h1>Friends</h1>
 
@@ -131,10 +145,10 @@
       <div class="container">
         <h1 id="logo"><a class="scroll" href="#home"><img class="logo" alt=""></a></h1>
         <ul>
-          <li><a href="#profile"><span> Profile</span></a></li>
+          <li><a href="#profile"><span>My Profile</span></a></li>
           <li><a href="#offers"><span>My Offers</span></a></li>
-          <li><a href="#ofertas"><span>Applications</span></a></li>
-          <li><a href="#contact"><span>Requests</span></a></li>
+          <li><a href="#ofertas"><span>My Applications</span></a></li>
+          <li><a href="#contact"><span>My Friends</span></a></li>
           <li><a href="#contact"><span>Ideas</span></a></li>
         </ul>
       </div>

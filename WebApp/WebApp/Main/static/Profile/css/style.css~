@@ -27,13 +27,79 @@ Author URI: http://themecafe.serverkurd.com
 
 ---------------------------------------------------*/
 
-/* ------------------ 1.Body ------------------ */
+.aplicados {
+	height: 100%;
+	overflow:auto;
+}
 
+.aplicados img{
+	width: 20%;
+}
+
+
+.friends {
+	height: 180px;
+	overflow-y:scroll;
+	overflow-x:hidden;
+}
+
+.friends ul{
+  list-style: none;
+}
+
+.friends li{
+  display: inline;
+}
+
+.friends h1{
+  color: #fff;
+}
+
+.friends img{
+	border-radius: 50% 50% 50% 50%;
+	width: 11%;
+	padding: 15px;
+
+}
+
+.links { 
+    text-decoration: underline;
+    text-decoration-color: white;
+    text-decoration-color: white;
+}
+
+.profile img{
+	border-radius: 50% 50% 50% 50%;
+	width: 80%;
+    height: 80%;
+	padding: 15px;
+}
+
+.profile h1{
+	font-size: 2.5em;
+	color: #fff;
+}
+.profile h2{
+	font-size: 1.5em;
+	color: #fff;
+}
+
+.info {
+	float:right;
+	padding: 50px;
+}
+
+.infoapolicados {
+	text-align:right;
+	padding: 50px;
+}
+
+/* ------------------ 1.Body ------------------ */
 html, body{height: 100%;}
 body
 {
 	color: #000;
-    background:url('../images/bg.png') no-repeat;
+	background: #111;
 	overflow: hidden;
 	line-height: 1;
 	font-weight: 100;
@@ -245,12 +311,12 @@ strong {
 }
 
 .page-y{
-	background: url('../images/y-bg.jpg') fixed;
+	background: url('../images/background/y-bg.jpg') fixed;
 	padding-bottom: 20px;
 }
 
 .page-fix-2{
-	background: #b5c6b2;
+	background: #569DFF;
 }
 .page-fix-3{
 	background: #444;
@@ -376,7 +442,7 @@ strong {
 
 .pattern
 {
-	background: none;
+	background: url('../images/pattern.jpg') repeat;
 	position: absolute;
 	width: 100%;
 	height: 100%;
@@ -394,11 +460,11 @@ strong {
 }
 
 
-#home .bg-parallax{			background: url('../img/background/home.jpg');}
-#site-counter .bg-parallax{	background: url('../img/background/counter.jpg');}
-#tweets .bg-parallax{		background: url('../img/background/tweet.jpg');}
-#process .bg-parallax{		background: url('../img/background/process.jpg');}
-#testimonials .bg-parallax{	background: url('../img/background/testimonial.jpg');}
+#home .bg-parallax{			background: url('../images/background/home.jpg');}
+#site-counter .bg-parallax{	background: url('../images/background/counter.jpg');}
+#tweets .bg-parallax{		background: url('../images/background/tweet.jpg');}
+#process .bg-parallax{		background: url('../images/background/process.jpg');}
+#testimonials .bg-parallax{	background: url('../images/background/testimonial.jpg');}
 
 
 
@@ -408,7 +474,7 @@ strong {
 #home
 {
 	width: 100%;
-	height: 100%;
+	height: 90%;
 	display: table;
 }
 
@@ -2205,4 +2271,6 @@ blockquote p {
 .alert-message span.close:hover {
 	opacity: 1;
 }
+
+
 

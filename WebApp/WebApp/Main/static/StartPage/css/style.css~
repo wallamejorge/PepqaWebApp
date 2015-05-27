@@ -33,8 +33,7 @@ html, body{height: 100%;}
 body
 {
 	color: #000;
-    background-image:url('../images/pattern.jpg') repeat;
-	background: #111;
+    background:url('../images/bg.png') no-repeat;
 	overflow: hidden;
 	line-height: 1;
 	font-weight: 100;
