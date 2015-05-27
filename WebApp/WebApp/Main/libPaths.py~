@@ -15,7 +15,7 @@
 #----------------------------------------------------------------------------- #	
 #---     Paths variables
 #----------------------------------------------------------------------------- #
-PATH_SITE   =  "/home/juanfe/Desktop/"
+PATH_SITE   =  "/home/wallamejorge/Escritorio/WebApps/"
 PATH_SERVER =  "PepqaWebApp/WebApp/"
 PATH_PAGES  =  "PepqaWebApp/WebApp/Templates/"
 #----------------------------------------------------------------------------- #	

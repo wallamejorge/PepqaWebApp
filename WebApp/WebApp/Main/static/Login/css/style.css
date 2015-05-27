@@ -28,14 +28,13 @@ img{max-width:100%;}
 /*end reset*/
 /****-----start-body----****/
 body{
-  background:url("../images/bg.jpg") no-repeat 0px 0px; 
-  background-color: #fff;
+  background:none 0px 0px; 
+  background-color: #000;
   background-size:cover;
   -o-background-size:cover;
   -moz-background-size:cover;
   -webkit-background-size:cover;
   font-family: 'Source Sans Pro', sans-serif;
-
 }
 .main h1{
   font-size:3em;
@@ -628,6 +627,10 @@ form.sub input[type="password"] {
   body {
   background: url("../images/bg.jpg") no-repeat 0px 0px;
   padding-bottom: 4em;
+webkit-transition: background 0.5s linear;
+-moz-transition: background 0.5s linear;
+-o-transition: background 0.5s linear;
+transition: background 0.5s linear;
 }
  .sap_tabs {
   clear: both;
@@ -732,7 +735,6 @@ form.sub input[type="password"] {
   font-size: 1em;
   line-height: 1.5em;
   }
-  .main h1 {
   font-size: 2em;
   padding:1em 0;
   }
@@ -809,4 +811,15 @@ form.sub input[type="password"] {
 .main h1 {
   font-size: 1.45em;
   }
+}
+
+
+
+
+
+#Contenido{
+z-index: 1000;
+}
+#Fondo{
+z-index: -1000;
 }

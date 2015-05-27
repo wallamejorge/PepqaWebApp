@@ -162,7 +162,7 @@ header.container {
 	float:left;
 	width:200px;
 	height:200px;
-	background:  url("../img/nav-bg-1.png");
+	background:  url("../images/nav-sq-1.png");
 	text-align:center;
 	vertical-align: middle;
 }
@@ -190,7 +190,7 @@ header.container {
 	float:left;
 	width:200px;
 	height:200px;
-	background:  url("../img/navi-sq-2.png");
+	background:  url("../images/nav-sq-2.png");
 	text-align:center;
 	vertical-align: middle;
 }
@@ -217,7 +217,7 @@ header.container {
 	float:left;
 	width:200px;
 	height:200px;
-	background:  url("../img/nav-bg-3.png");
+	background:  url("../images/nav-bg-3.png");
 	text-align:center;
 	vertical-align: middle;
 }
@@ -245,7 +245,7 @@ header.container {
 	float:left;
 	width:200px;
 	height:200px;
-	background:  url("../img/nav-bg-4.png");
+	background:  url("../images/nav-bg-4.png");
 	text-align:center;
 	vertical-align: middle;
 }
@@ -272,7 +272,7 @@ header.container {
 	float:left;
 	width:200px;
 	height:200px;
-	background:  url("../img/nav-bg-5.png");
+	background:  url("../images/nav-bg-5.png");
 	text-align:center;
 	vertical-align: middle;
 }

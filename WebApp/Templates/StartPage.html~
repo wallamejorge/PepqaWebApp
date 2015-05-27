@@ -279,11 +279,11 @@
 <!--  Begin: tile : Icono Profile ---------------------------------------------------- -->
 <!-- --------------------------------------------------------------------------------- -->
 <!-- Begin : live-tile ------------------------------------------------------------ -->
-<div class="live-tile" id="bick2"   data-mode=""  data-delay="" data-direction="" >
+<div class="live-tile" id="bick2"  data-mode="flip"  data-delay="17000" data-direction="vertical" >
 <!-- Begin : navi-sq-1 --------------------------------------------------------------- -->
 <div class="navi-sq-1">
 <!-- Begin : scroll  --------------------------------------------------------------- -->
-<a class="scroll" href="/Profile/?user_email=pacho%40gmail.com&user_password=123456">
+<a class="scroll" href="/Profile/?user_email={{user_email}}%40gmail.com">
 <br>
 <br>
 <br>
@@ -296,14 +296,11 @@
 <!-- --------------------------------------------------------------------------------- -->
      
 
-       
 
 <!-- --------------------------------------------------------------------------------- -->
 <!--  Begin: ilve-tile :  ---------------------------------------------------- -->
 <!-- --------------------------------------------------------------------------------- -->
 <div class="live-tile carousel" id="bick3"  data-mode="carousel"  data-delay="14000" data-direction="horizontal" >
-
-
 <div class="slide active" style="left: 0px; top: 0px; -webkit-transition-duration: 500ms; transition-duration: 500ms; -webkit-transition-property: left; transition-property: left; -webkit-transition-timing-function: ease; transition-timing-function: ease;">
 <br>
 <br>
@@ -311,8 +308,6 @@
 {% load staticfiles %}
 <img src="{% static "StartPage/images/logo.png"  %} " alt="" class="avatar">
 </div>
-
-
 <div class="slide" style="left: -165px; top: 0px; -webkit-transition-duration: 500ms; transition-duration: 500ms; -webkit-transition-property: left; transition-property: left; -webkit-transition-timing-function: ease; transition-timing-function: ease;">
 <br>
 <br>

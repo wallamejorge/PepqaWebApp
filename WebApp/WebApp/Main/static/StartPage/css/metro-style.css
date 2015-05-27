@@ -162,7 +162,7 @@ header.container {
 	float:left;
 	width:200px;
 	height:200px;
-	background:  url("../image/nav-bg-1.png");
+	background:  url("../images/nav-bg-1.png");
 	text-align:center;
 	vertical-align: middle;
 }
@@ -190,7 +190,7 @@ header.container {
 	float:left;
 	width:200px;
 	height:200px;
-	background:  url("../images/navi-sq-2.png");
+	background:  url("../images/nav-bg-2.png");
 	text-align:center;
 	vertical-align: middle;
 }

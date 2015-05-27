@@ -33,6 +33,7 @@ html, body{height: 100%;}
 body
 {
 	color: #000;
+    background-image:url('../images/pattern.jpg') repeat;
 	background: #111;
 	overflow: hidden;
 	line-height: 1;
@@ -219,7 +220,7 @@ strong {
 }
 
 #preloader {
-    background: #FFF url('../img/loading.gif') center center no-repeat;
+    background: #FFF url('../images/loading.gif') center center no-repeat;
     position:fixed;
     top:0;
     left:0;
@@ -245,7 +246,7 @@ strong {
 }
 
 .page-y{
-	background: url('../images/background/y-bg.jpg') fixed;
+	background: url('../images/y-bg.jpg') fixed;
 	padding-bottom: 20px;
 }
 
@@ -376,7 +377,7 @@ strong {
 
 .pattern
 {
-	background: url('../image/pattern.jpg') repeat;
+	background: none;
 	position: absolute;
 	width: 100%;
 	height: 100%;
