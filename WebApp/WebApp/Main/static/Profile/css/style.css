@@ -70,8 +70,8 @@ Author URI: http://themecafe.serverkurd.com
 
 .profile img{
 	border-radius: 50% 50% 50% 50%;
-	width: 350px;
-    height:350px;
+	width: 30%;
+    height:width;
 	padding: 15px;
 }
 
@@ -87,6 +87,9 @@ Author URI: http://themecafe.serverkurd.com
 .info {
 	float:right;
 	padding: 50px;
+    position: absolute;
+    left: calc(30% + 10px);
+    top: 10px;
 }
 
 .infoapolicados {
@@ -99,7 +102,7 @@ html, body{height: 100%;}
 body
 {
 	color: #000;
-	background: #111;
+	background: url('../img/bg.png');
 	overflow: hidden;
 	line-height: 1;
 	font-weight: 100;
@@ -403,6 +406,7 @@ strong {
 .parallax{
 	position: relative;
 	overflow: hidden;
+	height: 500px;
 	z-index: 0;
 }
 
@@ -2271,6 +2275,4 @@ blockquote p {
 .alert-message span.close:hover {
 	opacity: 1;
 }
-
-
 

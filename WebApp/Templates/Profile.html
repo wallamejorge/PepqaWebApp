@@ -10,6 +10,10 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+
     <!-- CSS -->
 
     <{% load staticfiles %}
@@ -99,27 +103,30 @@
 
 <!-- Imagen y Descripción del Perfil -->
 <section id="profile" class="parallax">
+
 <div class="profile">
 {% load staticfiles %}
 <img  src="{% static "Profile/img/profilepic.png" %}" />
-
 <div class="info">
-                    <h1>{{user_firstname}} {{user_lastname}}</h1>
-                    <h2>{{user_age}} - {{user_studies}}/{{user_company}}/{{user_category}}</h2>  
-                    <h2>Interests:{{user_topics}}</h2>
+
+<div class="container" style="max-width: 100%;">
+<h2>{{user_firstname}} {{user_lastname}}</h2>
+<h2>Age: {{user_age}}</h2>
+<h2>Studies: {{user_studies}}</h2>  
+<h2>Company: {{user_company}}
 <h2>Interests:{{user_topics}}</h2>
-<h2>Interests:{{user_topics}}</h2>
-<h2>Interests:{{user_topics}}</h2>
-<h2>Interests:{{user_topics}}</h2>
-<h2>Interests:{{user_topics}}</h2>
-<h2>Interests:{{user_topics}}</h2>
-<h2>Interests:{{user_topics}}</h2>
-<h2>Interests:{{user_topics}}</h2>
-<h2>Interests:{{user_topics}}</h2>
-<h2>Interests:{{user_topics}}</h2>
-<h2>Interests:{{user_topics}}</h2>
-<h2>Interests:{{user_topics}}</h2>
-<h2>Interests:{{user_topics}}</h2>
+  <div class="panel panel-primary" style="max-width: 33%;">
+  <div class="panel-heading" >{{user_firstname}} {{user_lastname}}</div>
+  <div class="panel-body" >
+<h3 style="color: rgb(51,51,51);">Age: {{user_age}} </h3>
+<h3 style="color: rgb(51,51,51);">Studies: {{user_studies}}</h3>  
+<h3 style="color: rgb(51,51,51);">Company: {{user_company}} </h3>
+<h3 style="color: rgb(51,51,51);">Interests:{{user_topics}}</h3>
+
+</div>
+</div>
+</div>
+
 
           </div>
          </div>
