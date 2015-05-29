@@ -53,6 +53,7 @@ import datetime
 #---     Function Modules 
 #----------------------------------------------------------------------------- #
 
+
 #----------------------------------------------------------------------------- #
 #--- Login App --------------------------------------------------------------- #
 def Login(request):
@@ -70,6 +71,10 @@ def Login(request):
 
 
 
+
+
+
+
 #----------------------------------------------------------------------------- #
 #--- AdminDashboard App ------------------------------------------------------ #
 def AdminDashboard(request):
@@ -80,9 +85,15 @@ def AdminDashboard(request):
 	# Cerrar archivo
 	fp.close()	
 	# Redenrizar la plantilla con las variables
-	html=page.render(Context({'usersList':User.objects.all()}))
+	html=page.render(Context({'usersList':User.objects.all(),'groupsList':Group.objects.all(),'offersList':Offer.objects.all()}))
 	return HttpResponse(html)
 #----------------------------------------------------------------------------- #
+
+
+
+
+
+
 
 
 #----------------------------------------------------------------------------- #

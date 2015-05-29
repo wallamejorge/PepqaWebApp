@@ -39,9 +39,15 @@
     {% load staticfiles %}
 	<link href="{% static "Profile/css/Met-Js.css" %}" rel="stylesheet">
 
+	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+
+	<link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
+
+	<link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Architects+Daughter" />
+
 
 	{% load staticfiles %}  
-<script src="{% static "Profile/js/jquery.min.js" %}"></script>
+	<script src="{% static "Profile/js/jquery.min.js" %}"></script>
     {% load staticfiles %}
     <script type="text/javascript" src="{% static "Profile/js/jquery.easing.1.3.js" %}"></script>
     {% load staticfiles %}
@@ -83,6 +89,34 @@
     {% load staticfiles %}      
     <script src="{% static "Profile/js/service-js.js" %}"></script>
 
+	<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript">
+      google.load("visualization", "1", {packages:["gauge"]});
+      google.setOnLoadCallback(drawChart);
+      function drawChart() {
+
+        var data = google.visualization.arrayToDataTable([
+          ['Label', 'Value'],
+          ['EnglishReading', {{user_englishReading}}],
+          ['EnglishWritring', {{user_englishWriting}}],
+          ['EnglishSpeaking', {{user_englishListening}}],
+		  ['EnglishListening', {{user_englishSpeaking}}],
+        ]);
+
+        var options = {
+          width: 400, height: 120,
+          redFrom: 90, redTo: 100,
+          yellowFrom:75, yellowTo: 90,
+          minorTicks: 5
+        };
+
+        var chart = new google.visualization.Gauge(document.getElementById('chart_div'));
+
+        chart.draw(data, options);
+
+      }
+    </script>
+
 
   </head>
 
@@ -104,32 +138,102 @@
 <!-- Imagen y Descripción del Perfil -->
 <section id="profile" class="parallax">
 
+
+
+
 <div class="profile">
 {% load staticfiles %}
 <img  src="{% static "Profile/img/profilepic.png" %}" />
-<div class="info">
 
+
+
+
+
+<div class="info">
 <div class="container" style="max-width: 100%;">
-<h2>{{user_firstname}} {{user_lastname}}</h2>
-<h2>Age: {{user_age}}</h2>
-<h2>Studies: {{user_studies}}</h2>  
-<h2>Company: {{user_company}}
-<h2>Interests:{{user_topics}}</h2>
   <div class="panel panel-primary" style="max-width: 33%;">
-  <div class="panel-heading" >{{user_firstname}} {{user_lastname}}</div>
+  <div class="panel-heading" ><h3 style="color: rgb(255,255,255);">{{user_firstname}} {{user_lastname}}</h3></div>
   <div class="panel-body" >
 <h3 style="color: rgb(51,51,51);">Age: {{user_age}} </h3>
 <h3 style="color: rgb(51,51,51);">Studies: {{user_studies}}</h3>  
 <h3 style="color: rgb(51,51,51);">Company: {{user_company}} </h3>
+<h3 style="color: rgb(51,51,51);">Country: {{user_country}}</h3>  
 <h3 style="color: rgb(51,51,51);">Interests:{{user_topics}}</h3>
 
+<a target="_blank" href="http://{{user_fburl}}">
+{% load staticfiles %}
+<img alt="Facebook" src="{% static "Profile/ico/Facebook-icon.png" %}" border=0  style="border-radius: 0% 0% 0% 0%;width:75px;heigth:75px;" >
+</a>
+
+<a target="_blank" href="http://{{user_fburl}}">
+{% load staticfiles %}
+<img alt="Twitter" src="{% static "Profile/ico/Twitter-icon.png" %}" border=0  style="border-radius: 0% 0% 0% 0%;width:75px;heigth:75px;" >
+</a>
+
+<a target="_blank" href="http://{{user_fburl}}">
+{% load staticfiles %}
+<img alt="Linkedln" src="{% static "Profile/ico/LinkedIn-icon.png" %}" border=0  style="border-radius: 0% 0% 0% 0%;width:75px;heigth:75px;" >
+</a>
+
+<a target="_blank" href="http://{{user_email}}">
+{% load staticfiles %}
+<img alt="CVLAC" src="{% static "Profile/ico/CVLAC-icon.png" %}" border=0  style="border-radius: 0% 0% 0% 0%;width:75px;heigth:75px;" >
+</a>
+<div class="wrap">
+  
+<div class="progress-radial progress-25">
+  <div class="overlay">25%</div>
+</div>
+
+<div class="progress-radial progress-50">
+  <div class="overlay">50%</div>
+</div>
+
+<div class="progress-radial progress-75">
+  <div class="overlay">75%</div>
+</div>
+
+<div class="progress-radial progress-90">
+  <div class="overlay">90%</div>
+</div>
+  
+</div>
+
 </div>
 </div>
 </div>
 
+</div>
 
-          </div>
-         </div>
+
+
+
+
+
+
+<div class="info" style="left: calc(60% + 50px);">
+<div class="container" style="max-width: 100%;">
+  <div class="panel panel-primary" style="max-width: 33%;">
+  <div class="panel-heading" ><h3 style="color: rgb(255,255,255);">About Me!</h3></div>
+  <div class="panel-body" style="font-family: Architects Daughter;	font-size: 23px; font-style: normal; font-variant: normal; font-weight: 500; line-height: 23px;">
+   " {{user_abstract}} "
+   <a href="{{user_email}}" >by {{user_firstname}} </a>
+</div>
+</div>
+</div>
+
+</div>
+
+
+
+
+
+
+
+
+
+</div>
+</div>
 </section>
 
 

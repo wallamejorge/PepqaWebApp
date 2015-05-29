@@ -1,6 +1,11 @@
  <!DOCTYPE html>
 <html>
+
+
+
+
 <head>
+
 <style>
     input {
         resize: horizontal;
@@ -15,20 +20,371 @@
         min-width: 5px;
     }
 </style>
+
+
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+
+
 </head>
+
+
+
+
 <body>
 
-<h1>Welcome Admin, There is your App Dashboard</h1>
 
 
-<h1>Users List</h1>
-<form name="NewUser"  action="/AdminNewUser/" >
-<input type="submit" value="Crear Usuario Nuevo" />
-<input type="text" name="usr_email" value="" />
+ <div class="container">
+
+
+  <div class="jumbotron">
+    <h1>Admin Dashboard </h1>
+    <p>Web App Dashboard for Users,Groups,Offers Control</p>
+  </div>
+
+
+  <div class="row">
+      <h3>Add Objects to Database</h3>
+		<div class="panel panel-default">
+		  <div class="panel-heading">Web App Main Control's</div>
+		  <div class="panel-body">
+
+			<div class="row">
+		        <div class="col-md-3">
+			    	<h3><i class="fa fa-user"></i>Users & Persons</h3>
+				</div>
+				<div class="col-md-3">
+					<h3><i class="fa fa-graduation-cap"></i>Offers & Projects</h3>
+				</div>
+				<div class="col-md-3">
+					<h3><i class="fa fa-users"></i>Groups</h3>
+				</div>
+			    <div class="col-md-3">
+					<h3><i class="fa fa-newspaper-o"></i>Papers & Articles</h3>
+				</div>
+		    </div> 
+        	
+			<div class="row">
+		        <div class="col-md-3">
+			    	<form name="NewUser"  action="/AdminNewUser/" >
+					<input type="text" name="usr_email" value=" " size="15"/>
+					<input type="submit" value="Add User" />
+		        	</form>
+				</div>
+				<div class="col-md-3">
+					<form name="NewUser"  action="/AdminNewOffer/" >
+					<input type="text" name="usr_email" value="" size="15"/>
+					<input type="submit" value="Add Offer" />
+		        	</form>
+				</div>
+				<div class="col-md-3">
+					<form name="NewUser"  action="/AdminNewGroup/" >
+					<input type="text" name="usr_email" value="" size="15"/>
+					<input type="submit" value="Add Group" />
+		        	</form>
+				</div>
+			    <div class="col-md-3">
+					<form name="NewUser"  action="/AdminNewArticle/" >
+					<input type="text" name="usr_email" value="" size="15"/>
+					<input type="submit" value="Add Article" />
+		        	</form>
+				</div>
+		    </div> 
+
+
+			<div class="row">
+		        <div class="col-md-3">
+			    	<h3><i class="fa fa-check-square-o"></i><i class="fa fa-user"></i>Friendship</h3>
+				</div>
+				<div class="col-md-3">
+					<h3><i class="fa fa-check-square-o"></i><i class="fa fa-user"></i>Friendship Request</h3>
+				</div>
+				<div class="col-md-3">
+					<h3><i class="fa fa-check-square-o"></i><i class="fa fa-users"></i>Group Request</h3>
+				</div>
+			    <div class="col-md-3">
+					<h3><i class="fa fa-check-square-o"></i><i class="fa fa-newspaper-o"></i>Offer Request</h3>
+				</div>
+		    </div> 
+
+			<div class="row">
+		        <div class="col-md-3">
+			    	<form name="NewUser"  action="/AdminNewUser/" >
+					<select name="FromFriend">
+						  <option value="jorge@gmail.com">jorge@gmail.com</option>
+					</select>
+					<select name="ToFriend">
+						  <option value="jorge@gmail.com">jorge@gmail.com</option>
+					</select>
+					<input type="submit" value="Link Friends" />
+		        	</form>
+				</div>
+				<div class="col-md-3">
+			    	<form name="NewUser"  action="/AdminNewUser/" >
+					<select name="FromFriend">
+						  <option value="jorge@gmail.com">jorge@gmail.com</option>
+					</select>
+					<select name="ToFriend">
+						  <option value="jorge@gmail.com">jorge@gmail.com</option>
+					</select>
+					<input type="submit" value="Add Request" />
+		        	</form>
+				</div>
+				<div class="col-md-3">
+			    	<form name="NewUser"  action="/AdminNewUser/" >
+					<select name="User">
+						  <option value="jorge@gmail.com">Select---User's</option>
+					</select>
+					<select name="Group">
+						  <option value="pepqa">Select---Group's </option>
+					</select>
+					<input type="submit" value="Add Request" />
+		        	</form>
+				</div>
+				<div class="col-md-3">
+			    	<form name="NewUser"  action="/AdminNewUser/" >
+					<select name="User">
+						  <option value="jorge@gmail.com">Select----User's</option>
+					</select>
+					<select name="Offer">
+						  <option value="pepqa">Select----Offer's </option>
+					</select>
+					<input type="submit" value="Add Request" />
+		        	</form>
+				</div>
+		    </div> 
+		  </div>
+		</div>
+  </div>
+</div>
+
+
+
+{% for usr in usersList %}
+<div class="container">
+	<div class="panel panel-primary">
+		<div class="panel-heading">Name:Email</div>
+		<div class="panel-body">
+    	<form id='{{usr.user_email}}' action="/AdminSave/">
+		<div class="row">
+			<div class="col-md-4">
+			<div class="well">
+			{% with 'Photos/'|add:'hola' as image_static %}
+				 <img src="{% static image_static %}" width=100% />
+			{% endwith %}
+			<br/><br/>
+			<br/>
+			PhotoFile : <input type="text" name="usr_photourl" value="{{usr.user_photourl}}" > 
+			<br/>
+			</div>
+			</div>
+			<div class="col-md-8">
+
+        <div class="row">
+
+            <div class="col-md-6">
+			<div class="well">
+			Email :  <input type="text" name="usr_email" value="{{usr.user_email}}" > 
+			</div>
+			</div>
+
+            <div class="col-md-6"><div class="well">
+			Password : <input type="text" name="usr_password" value="{{usr.user_password}}" > 
+			</div>
+			</div>
+
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+			<div class="well">
+			FirstName : <input type="text" name="usr_firstname" value="{{usr.user_firstname}}" > 
+			</div>
+			</div>
+            <div class="col-md-6">
+			<div class="well">
+			LastName : <input type="text" name="usr_lastname" value="{{usr.user_lastname}}" > 
+			</div>
+			</div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+			<div class="well">
+			Age : <input type="text" name="usr_age" value="{{usr.user_age}}" > 
+			</div>
+			</div>
+            <div class="col-md-6">
+			<div class="well">
+			Gender : <input type="text" name="usr_gender" value="{{usr.user_gender}}" > 
+			</div>
+			</div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+			<div class="well">
+			Country : <input type="text" name="usr_country" value="{{usr.user_country}}" > 
+			</div>
+			</div>
+            <div class="col-md-6">
+			<div class="well">
+			Language : <input type="text" name="usr_language" value="{{usr.user_language}}" > 
+			</div>
+			</div>
+        </div>
+
+
+        <div class="row">
+            <div class="col-md-6">
+			<div class="well">
+			Category : <input type="text" name="usr_category" value="{{usr.user_category}}" > 
+			</div>
+			</div>
+            <div class="col-md-6">
+			<div class="well">
+			Company : <input type="text" name="usr_company" value="{{usr.user_company}}" > 
+			</div>
+			</div>
+        </div>
+
+
+    </div>
+</div>
+
+
+        <div class="row">
+            <div class="col-md-4">
+			<div class="well">
+			Studies : <input type="text" name="usr_studies" value="{{usr.user_studies}}" >  
+			</div>
+			</div>
+            <div class="col-md-4">
+			<div class="well">
+			Topics : <input type="text" name="usr_topics" value="{{usr.user_topics}}" > 
+			</div>
+			</div>
+			<div class="col-md-4">
+			<div class="well">
+			CVFile : <input type="text" name="usr_cvurl" value="{{usr.user_cvurl}}" >  
+			</div>
+			</div>
+        </div>
+
+
+        <div class="row">
+            <div class="col-md-4">
+			<div class="well">
+			Facebook : <input type="text" name="usr_fburl" value="{{usr.user_fburl}}"  >   
+			</div>
+			</div>
+            <div class="col-md-4">
+			<div class="well">
+			Twitter : <input type="text" name="usr_twitterurl" value="{{usr.user_twitterurl}}" > 
+			</div>
+			</div>
+			<div class="col-md-4">
+			<div class="well">
+			Linkedln : <input type="text" name="usr_linkedlnurl" value="{{usr.user_linkedlnurl}}" > 
+			</div>
+			</div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+			<div class="well">
+			Abstract : <textarea name="usr_abstract" rows="10" cols="120" >{{usr.user_abstract}}</textarea> 	   
+			</div>
+			</div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-3">
+			<div class="well">
+			English.Reading : <input type="text" name="usr_englishReading" value="{{usr.user_englishReading}}" > 
+			</div>
+			</div>
+            <div class="col-md-3">
+			<div class="well">
+			English.Writing : <input type="text" name="usr_englishWriting" value="{{usr.user_englishWriting}}" > 
+			</div>
+			</div>
+			<div class="col-md-3">
+			<div class="well">
+			English.Listening : <input type="text" name="usr_englishListening" value="{{usr.user_englishListening}}" >
+			</div>
+			</div>
+			<div class="col-md-3">
+			<div class="well">
+			English.Speaking : <input type="text" name="usr_englishSpeaking" value="{{usr.user_englishSpeaking}}" > 
+			</div>
+			</div>
+        </div>
+
+
+        <div class="row">
+            <div class="col-md-3">
+			<div class="well">
+			Communication Skills : <input type="text" name="usr_skillCommunication" value="{{usr.user_skillCommunication}} "> % 
+			</div>
+			</div>
+            <div class="col-md-3">
+			<div class="well">
+			Teamwork Skills : <input type="text" name="usr_skillTeamwork" value="{{usr.user_skillTeamwork}} " > %
+			</div>
+			</div>
+			<div class="col-md-3">
+			<div class="well">
+			Initiative SKills : <input type="text" name="usr_skillInitiative" value="{{usr.user_skillInitiative}} " > %
+			</div>
+			</div>
+			<div class="col-md-3">
+			<div class="well">
+			Problem Solving Skills : <input type="text" name="usr_skillProblemSolving" value="{{usr.user_skillProblemSolving}} " > %
+			</div>
+			</div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-3">
+			<div class="well">
+			Flexibility Skills : <input type="text" name="usr_skillFlexibility" value="{{usr.user_skillFlexibility}} " > %
+			</div>
+			</div>
+            <div class="col-md-3">
+			<div class="well">
+			Computer Skills : <input type="text" name="usr_skillComputer" value="{{usr.user_skillComputer}} " > %
+			</div>
+			</div>
+			<div class="col-md-3">
+			<div class="well">
+			Technical Skills : <input type="text" name="usr_skillTechnical" value="{{usr.user_skillTechnical}} " > %
+			</div>
+			</div>
+			<div class="col-md-3">
+			<div class="well">
+			Leadership Skills : <input type="text" name="usr_skillLeadership" value="{{usr.user_skillLeadership}} " > %
+			</div>
+			</div>
+        </div>
+
+<input type="submit" value="Guardar Cambios"/>
 </form>
-
-<input type="button" value="Eliminar Usuario" action="/AdminDeleteUser/">
-
+</div>
+</div>
+</div>
+</div>
+{% endfor %}
 
 
 {% for usr in usersList %}
