@@ -3,8 +3,9 @@ from django.db import models
 
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ #
-#  					Users
+#  Main Class's
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ #
+
 
 
 # -------------------------------------------------------------------------------------- #
@@ -72,29 +73,22 @@ class User(models.Model):
 		return self.user_email
 
 
+
+
 # -------------------------------------------------------------------------------------- #
-# --- Friendship : Modelo de base de datos que relaciona User's ------------------------ #
+# --- Offer: Modelo de base de datos que identifica cada Offer ------------------------ #
 # -------------------------------------------------------------------------------------- #
-class Friendship(models.Model):
+class Offer(models.Model):
 
-	friendship_from =  models.CharField(max_length=200)
-	friendship_to =  models.CharField(max_length=200)
-
+	offer_name =  models.CharField(max_length=200)
+	offer_owner = models.CharField(max_length=200)
+	offer_photourl = models.CharField(max_length=200)
+	offer_abstract =  models.CharField(max_length=5000)
+	offer_deadline = models.CharField(max_length=200)
+	offer_date = models.CharField(max_length=200)
 	def __str__(self):
-		return self.friendship_from
+		return self.offer_name
 
-class FriendshipRequested(models.Model):
-
-	friendship_owner =  models.CharField(max_length=200)
-	friendship_requester =  models.CharField(max_length=200)
-
-	def __str__(self):
-		return self.friendship_owner
-
-
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ #
-#  					Groups
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ #
 
 # -------------------------------------------------------------------------------------- #
 # --- Group : Modelo de base de datos que identifica un Group  ------------------------- #
@@ -102,27 +96,11 @@ class FriendshipRequested(models.Model):
 class Group(models.Model):
 
 	group_name =  models.CharField(max_length=200)
-	grou_admin =  models.CharField(max_length=200)
-
+	group_owner =  models.CharField(max_length=200)
+	group_photourl =  models.CharField(max_length=200)
+	group_abstract =  models.CharField(max_length=200)
 	def __str__(self):
 		return self.group_name
-
-# -------------------------------------------------------------------------------------- #
-# --- GroupMembers: Modelo de base de datos que relaciona Groups con User's ------------ #
-# -------------------------------------------------------------------------------------- #
-class GroupMembers(models.Model):
-	
-	groupmembers_groupname =  models.CharField(max_length=200)
-	groupmembers_groupmember =  models.CharField(max_length=200)
-
-	def __str__(self):
-		return self.groupmembers_groupname
-
-
-
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ #
-#  					Articles
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ #
 
 # -------------------------------------------------------------------------------------- #
 # --- Article: Modelo de base de datos que identifica un Article ----------------------- #
@@ -132,60 +110,143 @@ class  Article(models.Model):
 	article_name =  models.CharField(max_length=200)
 	article_published =  models.CharField(max_length=200)
 	article_date = models.CharField(max_length=200)
+	article_url = models.CharField(max_length=200)
 	article_abstract = models.CharField(max_length=5000)
-	article_topic = models.CharField(max_length=200)
-
 	def __str__(self):
 		return self.article_name
 
 # -------------------------------------------------------------------------------------- #
+# --- Ads: Modelo de base de datos que identifica un Advertisement  -------------------- #
+# -------------------------------------------------------------------------------------- #
+class  Ad(models.Model):
+
+	ad_name =  models.CharField(max_length=200)
+	ad_owner =  models.CharField(max_length=200)
+	ad_photourl =  models.CharField(max_length=200)
+	ad_link = models.CharField(max_length=5000)
+	ad_abstract = models.CharField(max_length=5000)
+	def __str__(self):
+		return self.ad_name
+
+# -------------------------------------------------------------------------------------- #
+# --- Topics: Modelo de base de datos que identifica un Topics      -------------------- #
+# -------------------------------------------------------------------------------------- #
+class  Topic(models.Model):
+
+	topic_name =  models.CharField(max_length=200)
+	topic_abstract =  models.CharField(max_length=5000)
+	ad_photourl =  models.CharField(max_length=200)
+	def __str__(self):
+		return self.topic_name
+
+# -------------------------------------------------------------------------------------- #
+# --- Ideas: Modelo de base de datos que identifica una Idea      -------------------- #
+# -------------------------------------------------------------------------------------- #
+class  Idea(models.Model):
+
+	idea_name =  models.CharField(max_length=200)
+	idea_owner =  models.CharField(max_length=200)
+	idea_photourl = models.CharField(max_length=200)
+	idea_abstract =  models.CharField(max_length=5000)
+	def __str__(self):
+		return self.idea_name
+
+# -------------------------------------------------------------------------------------- #
+# --- Comments: Modelo de base de datos que identifica un Comments  -------------------- #
+# -------------------------------------------------------------------------------------- #
+class  Comment(models.Model):
+
+	comment_name =  models.CharField(max_length=200)
+	comment_owner =  models.CharField(max_length=200)
+	comment_group =  models.CharField(max_length=200)
+	comment_abstract =  models.CharField(max_length=5000)
+
+	def __str__(self):
+		return self.comment_name
+		
+		
+
+
+
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ #
+#  Relationships Class's
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ #
+		
+		
+		
+# -------------------------------------------------------------------------------------- #
+# --- Friendship : Modelo de base de datos que relaciona User's ------------------------ #
+# -------------------------------------------------------------------------------------- #
+class Friendship(models.Model):
+
+	friendship_from =  models.CharField(max_length=200)
+	friendship_to =  models.CharField(max_length=200)
+	friendship_date=  models.CharField(max_length=200)
+	friendship_level =  models.CharField(max_length=200)
+	def __str__(self):
+		return self.friendship_from
+		
+class FriendshipRequest(models.Model):
+
+	friendshiprequest_from =  models.CharField(max_length=200)
+	friendshiprequest_to =  models.CharField(max_length=200)
+	friendshiprequest_date=  models.CharField(max_length=200)
+	def __str__(self):
+		return self.friendshiprequest_from
+
+
+# -------------------------------------------------------------------------------------- #
+# --- GroupMembership: Modelo de base de datos que relaciona Groups con User's --------- #
+# -------------------------------------------------------------------------------------- #
+class GroupMembership(models.Model):
+	
+	groupmembership_name =  models.CharField(max_length=200)
+	groupmembership_user =  models.CharField(max_length=200)
+	groupmembership_date =  models.CharField(max_length=200)
+	def __str__(self):
+		return self.groupmembership_name
+
+class GroupMembershipRequest(models.Model):
+	
+	groupmembershiprequest_name =  models.CharField(max_length=200)
+	groupmembershiprequest_from =  models.CharField(max_length=200)
+	groupmembershiprequest_date =  models.CharField(max_length=200)
+	def __str__(self):
+		return self.groupmembershiprequest_name
+
+
+
+# -------------------------------------------------------------------------------------- #
+# --- Offer: Modelo de base de datos que relaciona  Offers con Users  ------------------ #
+# -------------------------------------------------------------------------------------- #
+class OfferAssigned(models.Model):
+	
+	offerassigned_name =  models.CharField(max_length=200)
+	offerassigned_user =  models.CharField(max_length=200)
+	offerassigned_date =  models.CharField(max_length=200)
+	def __str__(self):
+		return self.offerassigned_name
+
+class OfferRequest(models.Model):
+	
+	groupmembershiprequest_name =  models.CharField(max_length=200)
+	groupmembershiprequest_from =  models.CharField(max_length=200)
+	groupmembershiprequest_date =  models.CharField(max_length=200)
+	groupmembershiprequest_comment =  models.CharField(max_length=5000)
+	groupmembershiprequest_status =  models.CharField(max_length=200)
+	def __str__(self):
+		return self.groupmembershiprequest_name
+
+
+# -------------------------------------------------------------------------------------- #
 # --- ArticleAuthors: Modelo de base de datos que relaciona Articles con User's -------- #
 # -------------------------------------------------------------------------------------- #
-class ArticleAuthors(models.Model):
+class ArticleAuthor(models.Model):
 	
-	articleauthors_articlename =  models.CharField(max_length=200)
-	articleauthors_articleauthor =  models.CharField(max_length=200)
-
+	articleauthor_articlename =  models.CharField(max_length=200)
+	articleauthor_articleauthor =  models.CharField(max_length=200)
 	def __str__(self):
 		return self.articleauthors_articlename
-
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ #
-#  					Offers
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ #
-
-# -------------------------------------------------------------------------------------- #
-# --- Offer: Modelo de base de datos que identifica cada Offer ------------------------ #
-# -------------------------------------------------------------------------------------- #
-class Offer(models.Model):
-
-	offer_name =  models.CharField(max_length=200)
-	offer_owner = models.CharField(max_length=200)
-	offer_abstract =  models.CharField(max_length=5000)
-	offer_deadline = models.CharField(max_length=5000)
-
-	def __str__(self):
-		return self.offer_name
-
-# -------------------------------------------------------------------------------------- #
-# --- OfferAcepted: Modelo de base de datos que relaciona Offer con User's ------------- #
-# -------------------------------------------------------------------------------------- #
-class OfferAccepted(models.Model):
-
-	offer_name =  models.CharField(max_length=200)
-	offer_user = models.CharField(max_length=200)
-
-	def __str__(self):
-		return self.offer_name
-
-class OfferRequested(models.Model):
-
-	offer_name =  models.CharField(max_length=200)
-	offer_user = models.CharField(max_length=200)
-
-	def __str__(self):
-		return self.offer_name
-
-
 
 
 

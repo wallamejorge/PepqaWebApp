@@ -88,7 +88,7 @@ def AdminDashboard(request):
 	# Cerrar archivo
 	fp.close()	
 	# Redenrizar la plantilla con las variables
-	html=page.render(Context({'usersList':User.objects.all(),'groupsList':Group.objects.all(),'offersList':Offer.objects.all()}))
+	html=page.render(Context({'usersList':User.objects.all(),'groupsList':Group.objects.all(),'offersList':Offer.objects.all(),'friendsList':Friendship.objects.all()}))
 	return HttpResponse(html)
 #----------------------------------------------------------------------------- #
 
@@ -135,17 +135,34 @@ def AdminSave(request):
 			Usuario.user_skillFlexibility = request.GET['usr_skillFlexibility']
 			Usuario.user_skillComputer = request.GET['usr_skillComputer']					
 			Usuario.user_skillTechnical = request.GET['usr_skillTechnical']
-			Usuario.user_skillLeadership = request.GET['usr_skillLeadership']					
-
-														
+			Usuario.user_skillLeadership = request.GET['usr_skillLeadership']									
 			Usuario.save()
 			return HttpResponseRedirect('/Dash/')
 		except:
 			fp=open(PATH_SITE+PATH_PAGES+'PopUp.html')
 			t= Template(fp.read())
 			fp.close()				
-			html=t.render(request)
+			html=t.render(Context({'Message':'Thats email does not exist'}))
 			return HttpResponse(html)
+	else:
+		if 'off_name' in request.GET and request.GET['off_name']:
+			try :
+				Oferta = Offer.objects.get(offer_name=request.GET['off_name'])
+				Oferta.offer_name = request.GET['off_name']
+				Oferta.offer_owner = request.GET['off_owner']
+				Oferta.offer_photourl = request.GET['off_photourl']
+				Oferta.offer_date = request.GET['off_date']
+				Oferta.offer_deadline = request.GET['off_deadline']	
+				Oferta.offer_abstract = request.GET['off_abstract']		
+				Oferta.save()
+				return HttpResponseRedirect('/Dash/')
+			except:
+				fp=open(PATH_SITE+PATH_PAGES+'PopUp.html')
+				t= Template(fp.read())
+				fp.close()				
+				html=t.render(Context({'Message':'Thats offers does not exist'}))
+				return HttpResponse(html)
+		
 #----------------------------------------------------------------------------- #
 
 
@@ -223,15 +240,7 @@ def AdminNewUser(request):
 		email = request.GET['usr_email']
 		usuario=User.objects.create(user_email=email)
 		usuario.save()
-		# Abrir plantilla HTML-Mustache {{}} index
-		fp=open(PATH_SITE+PATH_PAGES+'AdminDashboard.html')
-		# Abrir archivo de texto como Template
-		page= Template(fp.read())
-		# Cerrar archivo
-		fp.close()	
-		# Redenrizar la plantilla con las variables
-		html=page.render(Context({'usersList':User.objects.all()}))
-		return HttpResponse(html)
+		return HttpResponseRedirect('/Dash/')
 	except:
 		fp=open(PATH_SITE+PATH_PAGES+'PopUp.html')
 		t= Template(fp.read())
@@ -239,9 +248,37 @@ def AdminNewUser(request):
 		html=t.render(Context({'Message':'Thats email does not exist'}))
 		return HttpResponse(html)
 #----------------------------------------------------------------------------- #
-
-
-
+#----------------------------------------------------------------------------- #
+#--- AdminNewOffer App ------------------------------------------------------ #
+def AdminNewOffer(request):
+	try :
+		name = request.GET['off_name']
+		Oferta=Offer.objects.create(offer_name=name)
+		Oferta.save()
+		return HttpResponseRedirect('/Dash/')
+	except:
+		fp=open(PATH_SITE+PATH_PAGES+'PopUp.html')
+		t= Template(fp.read())
+		fp.close()				
+		html=t.render(Context({'Message':'Thats email does not exist'}))
+		return HttpResponse(html)
+#----------------------------------------------------------------------------- #
+#----------------------------------------------------------------------------- #
+#--- AdminNewFrienship App ------------------------------------------------------ #
+def AdminNewFriendship(request):
+	try :
+		UserFrom = request.GET['FromFriend']
+		ToFrom = request.GET['ToFriend']
+		FriendshipFrom =Frienship.objects.create(friendship_from=UserFrom,friendship_to=ToFrom)
+		FriendshipFrom.save()
+		return HttpResponseRedirect('/Dash/')
+	except:
+		fp=open(PATH_SITE+PATH_PAGES+'PopUp.html')
+		t= Template(fp.read())
+		fp.close()				
+		html=t.render(Context({'Message':'Thats email does not exist'}))
+		return HttpResponse(html)
+#----------------------------------------------------------------------------- #
 
 
 # ***** Login Start Page ***************************************************** #

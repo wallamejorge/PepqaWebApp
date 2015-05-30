@@ -24,6 +24,7 @@ urlpatterns = [
     url(r'^AdminSave/$',AdminSave),
     url(r'^AdminNewUser/$',AdminNewUser),
     url(r'^AdminRemoveUser/$',AdminUserRemove),
+    url(r'^AdminNewOffer/$',AdminNewOffer),
     url(r'^Upload/$',upload),
     url(r'^Upload/upload_pic/$',upload_pic),
     url(r'^Login/$',Login),

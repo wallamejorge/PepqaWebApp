@@ -104,7 +104,7 @@ def getUserData(usuario):
 	# FriendsList
 	myfriendslist = getMyFriendsList(myemail);
 	# FriendsRequestList
-	myfriendsrequestlist = getMyFriendsRequestList(myemail);
+	myfriendsrequestlist = getMyFriendsList(myemail);
 	# GroupsList
 	mygroupslist = getMyGroupsList(myemail);
 	# MyOffersList
@@ -150,7 +150,7 @@ def getUserData(usuario):
 
 
 def getUserDatabyRequest(request):
-    puser_email = request.GET['user_email']
+	puser_email = request.GET['user_email']
 	puser_password = request.GET['user_password']
 	puser_firstname = request.GET['user_firstname']
 	puser_lastname = request.GET['user_lastname']
@@ -199,19 +199,13 @@ def getMyFriendsList(email):
     		friends.append(fi.friendship_to)
 	return friends
 
-def getMyFriendsRequestList(email):
-	OwnerList = FriendshipRequested.objects.filter(friendship_owner=email)
-	friends = []
-	for fi in OwnerList:
-    		friends.append(fi.friendship_requester)
-	return friends
 
 
 def getMyGroupsList(email):
-	MyGroups = GroupMembers.objects.filter(groupmembers_groupmember=email)
+	MyGroups = GroupMembership.objects.filter(groupmembership_userr=email)
 	groups= []
 	for fi in MyGroups:
-    		groups.append(fi.groupmembers_groupname)
+    		groups.append(fi.groupmembership_name)
 	return groups
 
 
@@ -233,7 +227,7 @@ def getMyOfferAcceptedList(email):
 
 
 def getMyArticleAuthorsList(email):
-	MyArticles = ArticleAuthors.objects.filter(articleauthors_articleauthor=email)
+	MyArticles = ArticleAuthor.objects.filter(articleauthors_articleauthor=email)
 	articles= []
 	for fi in MyArticles:
     		articles.append(fi.articleauthors_articlename )

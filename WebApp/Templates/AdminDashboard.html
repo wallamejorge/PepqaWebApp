@@ -5,6 +5,11 @@
 
 
 <head>
+<script>
+$(document).ready(function(){
+    $('[data-toggle="popover"]').popover(); 
+});
+</script>
 
 <style>
     input {
@@ -22,16 +27,15 @@
 </style>
 
 
-<!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-<!-- Optional theme -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
-<!-- Latest compiled and minified JavaScript -->
+
+<script src="http://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-<!-- Include all compiled plugins (below), or include individual files as needed -->
-<script src="js/bootstrap.min.js"></script>
+
+
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
 <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 
 
@@ -82,8 +86,8 @@
 		        	</form>
 				</div>
 				<div class="col-md-3">
-					<form name="NewUser"  action="/AdminNewOffer/" >
-					<input type="text" name="usr_email" value="" size="15"/>
+					<form name="NewOffer"  action="/AdminNewOffer/" >
+					<input type="text" name="off_name" value="" size="15"/>
 					<input type="submit" value="Add Offer" />
 		        	</form>
 				</div>
@@ -113,7 +117,7 @@
 		        	</form>
 				</div>
 				<div class="col-md-3">
-					<form name="NewUser"  action="/AdminNewOffer/" >
+					<form name="NewUser"  action="/AdminRemoveOffer/" >
 					<select name="FromFriend">
 						{% for off in offersList %}
 						  <option value="{{off.offer_name}}">{{off.offer_name}}</option>
@@ -484,7 +488,7 @@
 			</div>
 			</div>
 			<div class="col-md-3">
-			<div class="well">AdminRemoveUser
+			<div class="well">
 			Problem Solving Skills : <input type="text" name="usr_skillProblemSolving" value="{{usr.user_skillProblemSolving}} " > %
 			</div>
 			</div>
@@ -520,6 +524,80 @@
 </div>
 </div>
 {% endfor %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <div class="jumbotron">
+    <h2>Friendships and Amigos</h2>
+    <p>Editable List for Users and Persons</p>
+  </div>
+
+{% for usr in usersList %}
+<div class="container">
+<div class="panel panel-primary">
+<div class="panel-heading">ID:{{usr.pk}} Friends of {{usr.user_firstname}}  , {{usr.user_lastname}} [Email:{{usr.user_email}}] </div>
+<div class="panel-body">
+
+    	<form id='{{usr.user_email}}' action="/AdminSave/">
+		 <div class="list-group">
+		 {% for frnd in usersList %}
+		  <a class="list-group-item">
+		  {% with "Photos/"|add:frnd.user_photourl as image_name %}
+		  {% load staticfiles %}
+				<img src="{% static image_name %}" width=50px  data-toggle="popover" title="{{frnd.user_firstname}} {{frnd.user_lastname}} " data-content="{{frnd.user_abstract}}" data-trigger="hover" / >
+		  {% endwith %}
+		  {{frnd.user_firstname}} {{frnd.user_lastname}} 
+
+		  </a>
+		  {% endfor %}
+		</div>
+		<input type="submit" value="Save"/>
+		</form>
+		
+</div>
+</div>
+</div>
+</div>
+{% endfor %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -578,43 +656,84 @@
 		<div class="panel-heading">ID:{{off.pk}} Name:{{off.offer_name}} </div>
 		<div class="panel-body">
 		
-    	<form id='{{usr.user_email}}' action="/AdminSave/">
+    	<form id='{{off.offer_name}}' action="/AdminSave/">
     	
     	
 		<div class="row">
 		
 			<div class="col-md-4">
 			<div class="well">
-			{% with "Photos/"|add:off.offer_name as image_name %}
+			{% with "Photos/"|add:off.offer_photourl as image_name %}
 			{% load staticfiles %}
 				<img alt="Linkedln" src="{% static image_name %}" width=100% / >
 					"{% static image_name %}"
 			{% endwith %}
 			<br/><br/>
 			<br/>
-			PhotoFile : <input type="text" name="off_photourl" value="{{off.offer_name}}" > 
+			PhotoFile : <input type="text" name="off_photourl" value="{{off.offer_photourl}}" > 
 			<br/>
 			</div>
 			</div>
-			
 			<div class="col-md-8">
 
+            
+             <div class="row">
+             
+             <div class="col-md-6">
+             <div class="well">
+				Name:  <input type="text" name="off_name" value="{{off.offer_name}}" > 
+			 </div></div>
+             
+             <div class="col-md-6">
+             <div class="well">
+             Owner :
+			  <select name="off_owner">
+						 {% for usr in usersList %}
+						  <option value="{{usr.user_email}}">{{usr.user_email}}</option>
+						{% endfor %}
+					</select>
+			  </div></div>
+			
+             </div>
+             
+             <div class="row">
+             
+             <div class="col-md-6">
+             <div class="well">
+				Created Date:  <input type="text" name="off_date" value="{{off.offer_date}}" > 
+			 </div></div>
+             
+             <div class="col-md-6">
+             <div class="well">
+				Deadline:  <input type="text" name="off_deadline" value="{{off.offer_deadline}}" > 
+			  </div></div>
+			
+             </div>
+             
             <div class="row">
-            <div class="col-md-8">
+            <div class="col-md-12">
 			<div class="well">
-			Name:  <input type="text" name="off_name" value="{{off.offer_name}}" > 
+			Abstract : <textarea name="off_abstract" rows="10" cols="80" >{{off.offer_abstract}}</textarea> 	   
 			</div>
 			</div>
+       	    </div>
+             
+             </div>
+            
 
-            <div class="col-md-8"><div class="well">
-			Owner: <input type="text" name="off_owner" value="{{off.offer_owner}}" > 
-			</div>
-			</div>
+          
 
+            
+            
+            
+            
+            </div>
+            
+            <input type="submit" value="Save"/>
         </div>
 
 
-<input type="submit" value="Save"/>
+
 </form>
 </div>
 </div>
@@ -631,17 +750,21 @@
 
 
 
+<script>
+$(document).ready(function(){
+    $('[data-toggle="popover"]').popover();   
+});
 
-
-
-
-
-
-
-
-
-
-
+$('body').on('click', function (e) {
+    $('[data-toggle="popover"]').each(function () {
+        //the 'is' for buttons that trigger popups
+        //the 'has' for icons within a button that triggers a popup
+        if (!$(this).is(e.target) && $(this).has(e.target).length === 0 && $('.popover').has(e.target).length === 0) {
+            $(this).popover('hide');
+        }
+    });
+});
+</script>
 
 
 
