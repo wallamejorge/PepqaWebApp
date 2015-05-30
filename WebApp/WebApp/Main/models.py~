@@ -116,7 +116,7 @@ class GroupMembers(models.Model):
 	groupmembers_groupmember =  models.CharField(max_length=200)
 
 	def __str__(self):
-		return self.articleauthors_articlename
+		return self.groupmembers_groupname
 
 
 
@@ -184,5 +184,17 @@ class OfferRequested(models.Model):
 
 	def __str__(self):
 		return self.offer_name
+
+
+
+
+
+# -------------------------------------------------------------------------------------- #
+# --- Files : Subir Archivos/Fotos  ---------------------------------------------------- #
+# -------------------------------------------------------------------------------------- #
+class Imagen(models.Model):
+	model_name = models.CharField(max_length=200)
+	model_pic = models.ImageField(upload_to = 'Photos/', default = 'Photos/no-image.jpg')
+
 
 

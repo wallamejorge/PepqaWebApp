@@ -22,6 +22,7 @@
 #--- Django Libs ------------------------------------------------------------- #
 from django.shortcuts import render
 from django.http import HttpResponse
+from django.http import HttpResponseRedirect
 from django.template import Template,Context
 from django.template.loader import get_template
 #----------------------------------------------------------------------------- #
@@ -52,6 +53,8 @@ import datetime
 #----------------------------------------------------------------------------- #	
 #---     Function Modules 
 #----------------------------------------------------------------------------- #
+
+
 
 
 #----------------------------------------------------------------------------- #
@@ -85,7 +88,7 @@ def AdminDashboard(request):
 	# Cerrar archivo
 	fp.close()	
 	# Redenrizar la plantilla con las variables
-	html=page.render(Context({'usersList':User.objects.all(),'groupsList':Groups.objects.all(),'offersList':Offer.objects.all()}))
+	html=page.render(Context({'usersList':User.objects.all(),'groupsList':Group.objects.all(),'offersList':Offer.objects.all()}))
 	return HttpResponse(html)
 #----------------------------------------------------------------------------- #
 
@@ -101,19 +104,60 @@ def AdminDashboard(request):
 def AdminSave(request):
 	if 'usr_email' in request.GET and request.GET['usr_email']:
 		try :
-                        #getUserDatabyRequest(request)
+            #getUserDatabyRequest(request)
 			Usuario = User.objects.get(user_email=request.GET['usr_email'])
+			Usuario.user_email = request.GET['usr_email']
 			Usuario.user_password = request.GET['usr_password']
+			Usuario.user_firstname = request.GET['usr_firstname']
+			Usuario.user_lastname = request.GET['usr_lastname']
+			Usuario.user_age = request.GET['usr_age']
+			Usuario.user_gender = request.GET['usr_gender']
+			Usuario.user_country = request.GET['usr_country']
+			Usuario.user_language = request.GET['usr_language']
+			Usuario.user_category = request.GET['usr_category']
+			Usuario.user_company = request.GET['usr_company']
+			Usuario.user_studies = request.GET['usr_studies']
+			Usuario.user_topics = request.GET['usr_topics']
+			Usuario.user_photourl = request.GET['usr_photourl']
+			Usuario.user_cvurl = request.GET['usr_cvurl']
+			Usuario.user_abstract = request.GET['usr_abstract']
+			Usuario.user_fburl = request.GET['usr_fburl']
+			Usuario.user_twitterurl = request.GET['usr_twitterurl']
+			Usuario.user_linkedlnurl = request.GET['usr_linkedlnurl']
+			Usuario.user_englishReading = request.GET['usr_englishReading']
+			Usuario.user_englishWriting = request.GET['usr_englishWriting']
+			Usuario.user_englishListening = request.GET['usr_englishListening']	
+			Usuario.user_skillCommunication = request.GET['usr_englishSpeaking']	
+			Usuario.user_skillCommunication = request.GET['usr_skillCommunication']					
+			Usuario.user_skillTeamwork = request.GET['usr_skillTeamwork']					
+			Usuario.user_skillInitiative = request.GET['usr_skillInitiative']
+			Usuario.user_skillProblemSolving = request.GET['usr_skillProblemSolving']
+			Usuario.user_skillFlexibility = request.GET['usr_skillFlexibility']
+			Usuario.user_skillComputer = request.GET['usr_skillComputer']					
+			Usuario.user_skillTechnical = request.GET['usr_skillTechnical']
+			Usuario.user_skillLeadership = request.GET['usr_skillLeadership']					
+
+														
 			Usuario.save()
-			# Abrir plantilla HTML-Mustache {{}} index
-			fp=open(PATH_SITE+PATH_PAGES+'AdminDashboard.html')
-			# Abrir archivo de texto como Template
-			page= Template(fp.read())
-			# Cerrar archivo
-			fp.close()	
-			# Redenrizar la plantilla con las variables
-			html=page.render(Context({'usersList':User.objects.all()}))
+			return HttpResponseRedirect('/Dash/')
+		except:
+			fp=open(PATH_SITE+PATH_PAGES+'PopUp.html')
+			t= Template(fp.read())
+			fp.close()				
+			html=t.render(request)
 			return HttpResponse(html)
+#----------------------------------------------------------------------------- #
+
+
+
+#----------------------------------------------------------------------------- #
+#--- AdminSaveApp ------------------------------------------------------ #
+def AdminUserRemove(request):
+	if 'usr_email' in request.GET and request.GET['usr_email']:
+		try :
+			Usuario = User.objects.get(user_email=request.GET['usr_email'])
+			Usuario.delete()
+			return HttpResponseRedirect('/Dash/')
 		except:
 			fp=open(PATH_SITE+PATH_PAGES+'PopUp.html')
 			t= Template(fp.read())
@@ -121,6 +165,54 @@ def AdminSave(request):
 			html=t.render(Context({'Message':'Thats email does not exist'}))
 			return HttpResponse(html)
 #----------------------------------------------------------------------------- #
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+def upload(request):
+	fp=open(PATH_SITE+PATH_PAGES+'Upload.html')
+	t= Template(fp.read())
+	fp.close()				
+	html=t.render(request)
+	return HttpResponse(html)
+
+def upload_pic(request):
+	try :
+		if request.method == 'POST':
+			form = ImageUploadForm(request.POST, request.FILES)
+			if form.is_valid():
+				m = Imagen.objects.get(pk=course_id)
+				m.model_pic = form.cleaned_data['image']
+				m.name = "DemoImage"
+				m.save()
+				return HttpResponse('image upload success')
+			return HttpResponse('image upload success')
+		else:
+			return HttpResponse('image upload success')
+	except:
+		fp=open(PATH_SITE+PATH_PAGES+'PopUp.html')
+		t= Template(fp.read())
+		fp.close()				
+		html=t.render(Context({'Message':'No Method POST'}))
+		return HttpResponse(html)
+
 
 
 #----------------------------------------------------------------------------- #

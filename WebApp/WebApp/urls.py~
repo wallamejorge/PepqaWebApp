@@ -23,8 +23,11 @@ urlpatterns = [
     url(r'^Dash/$', AdminDashboard),
     url(r'^AdminSave/$',AdminSave),
     url(r'^AdminNewUser/$',AdminNewUser),
+    url(r'^Upload/$',upload),
+    url(r'^Upload/upload_pic/$',upload_pic),
     url(r'^Login/$',Login),
     url(r'^Start/$',StartPage),
+    url(r'^Profile/$',Profile),
     url(r'(?:.*?/)?(?P<path>(css|jquery|jscripts|images)/.+)$','django.views.static.serve',{'document_root': settings.STATIC_ROOT}),
 ]
 

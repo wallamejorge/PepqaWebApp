@@ -160,9 +160,10 @@ class Offer(models.Model):
 
 	offer_name =  models.CharField(max_length=200)
 	offer_owner = models.CharField(max_length=200)
+	offer_photourl = models.CharField(max_length=200)
 	offer_abstract =  models.CharField(max_length=5000)
-	offer_deadline = models.CharField(max_length=5000)
-
+	offer_deadline = models.CharField(max_length=200)
+	offer_date = models.CharField(max_length=200)
 	def __str__(self):
 		return self.offer_name
 
@@ -184,5 +185,17 @@ class OfferRequested(models.Model):
 
 	def __str__(self):
 		return self.offer_name
+
+
+
+
+
+# -------------------------------------------------------------------------------------- #
+# --- Files : Subir Archivos/Fotos  ---------------------------------------------------- #
+# -------------------------------------------------------------------------------------- #
+class Imagen(models.Model):
+	model_name = models.CharField(max_length=200)
+	model_pic = models.ImageField(upload_to = 'Photos/', default = 'Photos/no-image.jpg')
+
 
 
