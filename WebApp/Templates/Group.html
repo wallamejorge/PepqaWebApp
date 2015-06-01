@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>{{grp.group_name}}</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+</head>
+<body>
+  
+<div class="container">
+
+	<div class="jumbotron">
+    <h1>{{grp.group_name}}</h1>
+  	</div>	 
+  	
+  	<div class="panel panel-default">
+	<div class="panel-body">
+	<div class="col-md-9">
+  	    <p>{{grp.group_abstract}}</p>
+  	</div>
+  	<div class="col-md-3">
+		{% with "Photos/"|add:grp.group_photourl as image_name %}
+		{% load staticfiles %}
+		<img src="{% static image_name %}" width=100%  / >
+		{% endwith %}
+   </div>
+
+   </div>
+   </div>	
+
+  	
+  	
+ 	<div class="panel panel-default">
+	<div class="panel-body">
+	
+	
+	<form action="/AddComment/">
+	<textarea name="comment" rows="4" cols="50">
+		
+	</textarea> 
+	<input type="submit" value="Send Comment">
+	</form>
+	
+	
+	</div>
+	</div>
+  
+  
+        
+</div>
+
+</body>
+</html>
+

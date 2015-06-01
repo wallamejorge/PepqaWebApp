@@ -38,6 +38,7 @@ urlpatterns = [
     url(r'^Offers/$',Offers),
     url(r'^LoginApp/$',LoginApp),
     url(r'^StartPageApp/$',StartPage),
+    url(r'^GroupApp/$',GroupApp),
     url(r'(?:.*?/)?(?P<path>(css|jquery|jscripts|images)/.+)$','django.views.static.serve',{'document_root': settings.STATIC_ROOT}),
 ]
 

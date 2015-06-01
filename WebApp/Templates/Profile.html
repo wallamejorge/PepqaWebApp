@@ -2,383 +2,185 @@
 <html class="" lang="en">
 
   <head>
- 
     <meta charset="UTF-8">
     <title>INICIO</title>
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" >
     <meta name="description" content="">
     <meta name="author" content="">
-
-    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-
-    <!-- CSS -->
 
     <{% load staticfiles %}
 	<link href="{% static "Profile/css/bootstrap.min.css" %}" rel="stylesheet">
     {% load staticfiles %}
 	<link href="{% static "Profile/css/font-awesome.min.css" %}" rel="stylesheet">
+	{% load staticfiles %}
+	<link href="{% static "Profile/css/icons.css"  %}" rel="stylesheet">
+	{% load staticfiles %}
+    <link href="{% static "Profile/css/jquery.bxslider.css" %}" rel="stylesheet">
     {% load staticfiles %}
-	<link href="{% static "Profile/css/icons.css" %}" rel="stylesheet">
+    <link href="{% static "Profile/css/supersized.css"  %}"rel="stylesheet">
+    {% load staticfiles %} 
+    <link href="{% static "Profile/css/effect.css"  %}" rel="stylesheet">
     {% load staticfiles %}
-	<link href="{% static "Profile/css/jquery.bxslider.css" %}" rel="stylesheet">
+    <link href="{% static "Profile/css/style.css"  %}" rel="stylesheet">
     {% load staticfiles %}
-	<link href="{% static "Profile/css/supersized.css" %}" rel="stylesheet">
+    <link href="{% static "Profile/css/responsive-body.css"  %}"rel="stylesheet">
     {% load staticfiles %}
-	<link href="{% static "Profile/css/effect.css"  %}" rel="stylesheet">
+    <link href="{% static "Profile/css/responsive.css"  %}" rel="stylesheet">
     {% load staticfiles %}
-	<link href="{% static "Profile/css/style.css" %}" rel="stylesheet">
+    <link href="{% static "Profile/css/metro-style.css"  %}" rel="stylesheet">
     {% load staticfiles %}
-	<link href="{% static "Profile/css/responsive-body.css" %}" rel="stylesheet">
-    {% load staticfiles %}
-	<link href="{% static "Profile/css/responsive.css" %}" rel="stylesheet">
-    {% load staticfiles %}
-	<link href="{% static "Profile/css/metro-style.css" %}" rel="stylesheet">
-    {% load staticfiles %}
-	<link href="{% static "Profile/css/Met-Js.css" %}" rel="stylesheet">
-
-	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-
-	<link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
-
-	<link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Architects+Daughter" />
-
-
+    <link href="{% static "Profile/css/Met-Js.css"  %}" rel="stylesheet">
 	{% load staticfiles %}  
 	<script src="{% static "Profile/js/jquery.min.js" %}"></script>
-    {% load staticfiles %}
-    <script type="text/javascript" src="{% static "Profile/js/jquery.easing.1.3.js" %}"></script>
-    {% load staticfiles %}
-    <script type="text/javascript" src="{% static "Profile/js/jquery.nicescroll.min.js" %}"></script>
-    {% load staticfiles %}
-    <script type="text/javascript" src="{% static "Profile/js/jquery.sticky.js" %}"></script>
-    {% load staticfiles %}
-    <script type="text/javascript" src="{% static "Profile/js/jquery.parallax.js" %}"></script>
-    {% load staticfiles %}
-    <script type="text/javascript" src="{% static "Profile/js/jquery.easypiechart.min.js" %}"></script>
-    {% load staticfiles %}
-    <script type="text/javascript" src="{% static "Profile/js/jquery.bxslider.min.js" %}"></script>
-    {% load staticfiles %}
-    <script type="text/javascript" src="{% static "Profile/js/jquery.timelinr-0.9.53.js" %}"></script>
-    {% load staticfiles %}
-    <script type="text/javascript" src="{% static "Profile/js/jquery.appear.js" %}"></script>
-    {% load staticfiles %}
-    <script type="text/javascript" src="{% static "Profile/js/jquery.isotope.min.js" %}"></script>
-    {% load staticfiles %}
-    <script type="text/javascript" src="{% static "Profile/js/jquery.fitvids.js" %}"></script>
-    {% load staticfiles %}
-    <script type="text/javascript" src="{% static "Profile/js/retina.min.js" %}"></script>
-    {% load staticfiles %}    
-    <script type="text/javascript" src="{% static "Profile/js/supersized.3.2.7.min.js" %}"></script>
-    {% load staticfiles %}    
-    <script type="text/javascript" src="{% static "Profile/js/supersized.shutter.min.js" %}"></script>
-    {% load staticfiles %}
-    <script type="text/javascript" src="{% static "Profile/js/main.js" %}"></script>
-    {% load staticfiles %}    
-    <script src="{% static "Profile/js/jquery.fittext.js" %}"></script>
-    {% load staticfiles %}
-    <script type="text/javascript" src="{% static "Profile/js/MetroJs.js" %}"></script>
-    {% load staticfiles %}
-    <script type="text/javascript" src="{% static "Profile/js/custom.metro.js" %}"></script>
-    {% load staticfiles %}    
-    <script src="{% static "Profile/js/jquery.superslides.min.js" %}"></script>
-    {% load staticfiles %}  
-    <script src="{% static "Profile/js/jquery.sudoslider.min.js" %}"></script>
-    {% load staticfiles %}      
-    <script src="{% static "Profile/js/service-js.js" %}"></script>
 
-	<script type="text/javascript" src="https://www.google.com/jsapi"></script>
-    <script type="text/javascript">
-      google.load("visualization", "1", {packages:["gauge"]});
-      google.setOnLoadCallback(drawChart);
-      function drawChart() {
 
-        var data = google.visualization.arrayToDataTable([
-          ['Label', 'Value'],
-          ['EnglishReading', {{user_englishReading}}],
-          ['EnglishWritring', {{user_englishWriting}}],
-          ['EnglishSpeaking', {{user_englishListening}}],
-		  ['EnglishListening', {{user_englishSpeaking}}],
-        ]);
-
-        var options = {
-          width: 400, height: 120,
-          redFrom: 90, redTo: 100,
-          yellowFrom:75, yellowTo: 90,
-          minorTicks: 5
-        };
-
-        var chart = new google.visualization.Gauge(document.getElementById('chart_div'));
-
-        chart.draw(data, options);
-
-      }
-    </script>
+<link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Architects+Daughter" /><link rel='stylesheet' href='//fonts.googleapis.com/css?family=Architects Daughter' type='text/css' /> <link rel='stylesheet' href='//fonts.googleapis.com/css?family=Architects Daughter' type='text/css' /> <link rel='stylesheet' href='//fonts.googleapis.com/css?family=Architects Daughter' type='text/css' /> <link rel='stylesheet' href='//fonts.googleapis.com/css?family=Architects Daughter' type='text/css' /> <link rel='stylesheet' href='//fonts.googleapis.com/css?family=Architects Daughter' type='text/css' />
 
 
   </head>
 
 
 
-<body class="onepage">
+<body>
 
 
+<div class="container">
 
 
+<div class="row">
 
-
-<!-- Cargar la pantalla con loading.gif -->
-<div id="preloader">
+<div class="col-md-4">
+		{% with "Photos/"|add:user_photourl as image_name %}
+		{% load staticfiles %}
+		<img class="img-circle" alt="ProfilePic" src="{% static image_name %}" width=100%  / >
+		{% endwith %}
 </div>
 
-
-
-<!-- Imagen y Descripción del Perfil -->
-<section id="profile" class="parallax">
-
-
-
-
-<div class="profile">
-{% load staticfiles %}
-<img  src="{% static "Profile/img/profilepic.png" %}" />
-
-
-
-
-
-<div class="info">
-<div class="container" style="max-width: 100%;">
-  <div class="panel panel-primary" style="max-width: 33%;">
-  <div class="panel-heading" ><h3 style="color: rgb(255,255,255);">{{user_firstname}} {{user_lastname}}</h3></div>
-  <div class="panel-body" >
-<h3 style="color: rgb(51,51,51);">Age: {{user_age}} </h3>
-<h3 style="color: rgb(51,51,51);">Studies: {{user_studies}}</h3>  
-<h3 style="color: rgb(51,51,51);">Company: {{user_company}} </h3>
-<h3 style="color: rgb(51,51,51);">Country: {{user_country}}</h3>  
-<h3 style="color: rgb(51,51,51);">Interests:{{user_topics}}</h3>
-
-<a target="_blank" href="http://{{user_fburl}}">
-{% load staticfiles %}
-<img alt="Facebook" src="{% static "Profile/ico/Facebook-icon.png" %}" border=0  style="border-radius: 0% 0% 0% 0%;width:75px;heigth:75px;" >
-</a>
-
-<a target="_blank" href="http://{{user_fburl}}">
-{% load staticfiles %}
-<img alt="Twitter" src="{% static "Profile/ico/Twitter-icon.png" %}" border=0  style="border-radius: 0% 0% 0% 0%;width:75px;heigth:75px;" >
-</a>
-
-<a target="_blank" href="http://{{user_fburl}}">
-{% load staticfiles %}
-<img alt="Linkedln" src="{% static "Profile/ico/LinkedIn-icon.png" %}" border=0  style="border-radius: 0% 0% 0% 0%;width:75px;heigth:75px;" >
-</a>
-
-<a target="_blank" href="http://{{user_email}}">
-{% load staticfiles %}
-<img alt="CVLAC" src="{% static "Profile/ico/CVLAC-icon.png" %}" border=0  style="border-radius: 0% 0% 0% 0%;width:75px;heigth:75px;" >
-</a>
-<div class="wrap">
-  
-<div class="progress-radial progress-25">
-  <div class="overlay">25%</div>
-</div>
-
-<div class="progress-radial progress-50">
-  <div class="overlay">50%</div>
-</div>
-
-<div class="progress-radial progress-75">
-  <div class="overlay">75%</div>
-</div>
-
-<div class="progress-radial progress-90">
-  <div class="overlay">90%</div>
-</div>
-  
-</div>
-
-</div>
-</div>
-</div>
-
+<div class="col-md-4">
+		{% with "Photos/"|add:user_photourl as image_name %}
+		{% load staticfiles %}
+		<img class="img-circle" alt="ProfilePic" src="{% static image_name %}" width=100%  / >
+		{% endwith %}
 </div>
 
 
 
 
+<div class="col-md-8">
+	<div class="panel panel-primary"> 
+	<div class="panel-heading" ><h3 style="color: rgb(255,255,255);">{{user_firstname}} {{user_lastname}}</h3></div>
+	<div class="panel-body" style="	height: 100%;">
+	
+	
+	<div class="col-md-4">
+	
+		<p style="color: rgb(51,51,51);">Age: {{user_age}} </p>
+		<p style="color: rgb(51,51,51);">Studies: {{user_studies}}</p>  
+		<p style="color: rgb(51,51,51);">Company: {{user_company}} </p>
+		<p style="color: rgb(51,51,51);">Country: {{user_country}}</p>  
+		<p style="color: rgb(51,51,51);">Interests:{{user_topics}}</p>
+	
+	
+	
+	</div>
+	
 
+	
+		<div class="col-md-4">
+	
+		<p style="color: rgb(51,51,51);">English Reading: {{user_englishReading}} %</p>
+		<p style="color: rgb(51,51,51);">English Writing: {{user_englishWriting}} %</p>  
+		<p style="color: rgb(51,51,51);">English Listening: {{user_englishListening}} %</p>
+		<p style="color: rgb(51,51,51);">English Speaking: {{user_englishSpeaking}} %</p>  
 
-
-<div class="info" style="left: calc(60% + 50px);">
-<div class="container" style="max-width: 100%;">
-  <div class="panel panel-primary" style="max-width: 33%;">
-  <div class="panel-heading" ><h3 style="color: rgb(255,255,255);">About Me!</h3></div>
-  <div class="panel-body" style="font-family: Architects Daughter;	font-size: 23px; font-style: normal; font-variant: normal; font-weight: 500; line-height: 23px;">
-   " {{user_abstract}} "
-   <a href="{{user_email}}" >by {{user_firstname}} </a>
+	
+	
+	    </div>
+	
+	
+	   <div class="col-md-4">
+	
+		<a target="_blank" href="http://{{user_fburl}}">
+		{% load staticfiles %}
+		<img alt="Facebook" src="{% static "Profile/ico/Facebook-icon.png" %}" border=0  style="border-radius: 0% 0% 0% 0%;width:20%;" >
+		</a>
+		<a target="_blank" href="http://{{user_fburl}}">
+		{% load staticfiles %}
+		<img alt="Twitter" src="{% static "Profile/ico/Twitter-icon.png" %}" border=0  style="border-radius: 0% 0% 0% 0%;width:20%;" >
+		</a>
+		<a target="_blank" href="http://{{user_fburl}}">
+		 {% load staticfiles %}
+		<img alt="Linkedln" src="{% static "Profile/ico/LinkedIn-icon.png" %}" border=0  style="border-radius: 0% 0% 0% 0%;;width:20%;" >
+		</a>
+		<a target="_blank" href="http://{{user_email}}">
+		{% load staticfiles %}
+		<img alt="CVLAC" src="{% static "Profile/ico/CVLAC-icon.png" %}" border=0  style="border-radius: 0% 0% 0% 0%;;width:20%;" >
+		</a>
+	</div>
+	</div>
+	</div>
+	
+	
+		<div class="col-md-12">
+		<div class="panel panel-primary"> 
+		<div class="panel-heading" ><h3 style="color: rgb(255,255,255);">Skill's</h3></div>
+		<div class="panel-body" style="	height: 100%;">
+		<div class="col-md-6">
+		<p style="color: rgb(51,51,51);">Communication Skill : {{user_skillCommunication}} %</p>  
+		<p style="color: rgb(51,51,51);">Teamwork Skill : {{user_skillTeamwork}} %</p> 
+		<p style="color: rgb(51,51,51);">Initiative Skill : {{user_skillInitiative}} %</p>  
+		<p style="color: rgb(51,51,51);">Flexibility Skill : {{user_skillFlexibility}} %</p>
+		</div>  
+		<div class="col-md-6">
+		<p style="color: rgb(51,51,51);">Computer Skill : {{user_skillComputer}} %</p>  
+		<p style="color: rgb(51,51,51);">Technical Skill : {{user_skillTechnical}} %</p> 
+		<p style="color: rgb(51,51,51);">Leadership Skill : {{user_skillLeadership}} %</p> 
+		</div>
+		</div>
+	    </div>
+		</div>
+	
 </div>
-</div>
-</div>
-
-</div>
-
-
-
-
 
 
 
 
 
 </div>
+
+<div class="row">
+<br>
+<br>
 </div>
-</section>
 
 
-<section id="profile" class="parallax">
-         <div class="friends">
-          <h1>Friends</h1>
 
-                  <ul>
-                  <li>
-			{% load staticfiles %}			
-			<img src="{% static "Profile/img/profilepic.png" %}"/>
-		  </li>
-		  <li>
-			{% load staticfiles %}			
-			<img src="{% static "Profile/img/profilepic.png" %}"/>
-		  </li>
-
-                  </ul>
-        </div>
-
-</section>
-
-    <!-- /HEADER -->
-
-    <!-- NAV -->
-
-    <nav id="nav-desktop" class="nav-normal"> 
-      <div class="container">
-        <h1 id="logo"><a class="scroll" href="#home"><img class="logo" alt=""></a></h1>
-        <ul>
-          <li><a href="#profile"><span>My Profile</span></a></li>
-          <li><a href="#offers"><span>My Offers</span></a></li>
-          <li><a href="#ofertas"><span>My Applications</span></a></li>
-          <li><a href="#contact"><span>My Friends</span></a></li>
-          <li><a href="#contact"><span>Ideas</span></a></li>
-        </ul>
-      </div>
-    </nav>
-
-    <!-- /NAV -->
-
-    <!-- TEAM -->
-
-    <section id="offers" class="page-g">
-
-    <div class="aplicados">
-      <h1>Histórico de Aplicaciones</h1>
-
-      <li></li><div class="aplicados"> 
-      <img align="middle" src="img/aplicados.png" />
-      
-        <ul align="middle">
-          <li><h2>Oferta Aplicada</h2></li>
-          <li><h2>Oferta Aplicada</h2></li>
-          <li><h2>Oferta Aplicada</h2></li>
-          <li><h2>Oferta Aplicada</h2></li>
-
-        </ul>
-
-    </div>
-      
-    </section>
+<div class="col-md-10">
+<div class="panel panel-primary">
+<div class="panel-heading" ><h3 style="color: rgb(255,255,255);">About Me!</h3></div>
+<div class="panel-body" style="font-family: Architects Daughter;	font-size: 18px; font-style: normal; font-variant: normal; font-weight: 500; line-height: 23px;">
+	   " {{user_abstract}} "
+	   <a href="{{user_email}}" >by {{user_firstname}} </a>
+</div>
+</div>
+</div>
 
 
-    <!-- /TEAM -->
-
-    <!-- SKILLS -->
-
-    <section id="ofertas" class="pad-hun page-fix-2">
-
-      
-      <div class="aplicados">
-      <h1>Histórico de Aplicaciones</h1>
-
-      <li></li><div class="aplicados"> 
-      <img align="middle" src="img/aplicados.png" />
-      
-        <ul align="middle">
-          <li><h2>Oferta Ofrecida</h2></li>
-          <li><h2>Oferta Ofrecida</h2></li>
-          <li><h2>Oferta Ofrecida</h2></li>
-          <li><h2>Oferta Ofrecida</h2></li>
-
-        </ul>
-
-    </div>
-
-      
-    </section>
-
-    <!-- /SKILLS -->
-
-    <!-- CONTACT -->
-
-    <section id="contact" class="pad-hun page-fix-3">
-      
-      
-
-      <div class="container">
-        <div class="row">
-
-               <div class="form-container"> 
-                <form id="contact-form" class="contact-form" method="post" action="process.php">
-
-                    <div class="result"></div>
-
-                    </div>
-                    <div class="col-md-6 pad-top" data-animated="bounceIn">
-                    <div class="form-group">
-                      <textarea cols="5" rows="4" name="comments" id="comm" placeholder="Message:" class="form-control"></textarea>
-                    </div>
-
-                     </div>
-                     <div class="col-md-2 pad-top" data-animated="bounceIn">
-                    <div class="form-group">
-                      <input type="submit" class="btn btn-dark" name="submit" value="submit">
-                    </div>
-                     </div>
-                </form>
-              </div>
-        </div>
-
-      </div>
-    </section>
 
 
-    <!-- /CONTACT -->
 
 
-    <!-- FOOTER -->
 
-    <footer id="footer">
-        <div class="container">
-          <div class="row">
-              <div class="col-md-6 col-sm-6 col-xs-6">
-                Juan Felipe Martínez, Jorge Luis Mayorga and Mónica Tuta
-              </div>
-             </div>
-        </div>
-    </footer>
-
-    <!-- /FOOTER -->
+</div>
 
 
-    <!-- JS -->
+
+
+
+
+
+
 
 
 

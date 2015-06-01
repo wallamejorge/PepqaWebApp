@@ -202,7 +202,7 @@ def getMyFriendsList(email):
 
 
 def getMyGroupsList(email):
-	MyGroups = GroupMembership.objects.filter(groupmembership_userr=email)
+	MyGroups = GroupMembership.objects.filter(groupmembership_user=email)
 	groups= []
 	for fi in MyGroups:
     		groups.append(fi.groupmembership_name)

@@ -286,7 +286,7 @@
 <!-- Begin : navi-sq-1 --------------------------------------------------------------- -->
 <div class="navi-sq-1">
 <!-- Begin : scroll  --------------------------------------------------------------- -->
-<a class="scroll" href="/Profile/?user_email={{user_name}}">
+<a class="scroll" href="/Profile/?user_email={{user_email}}"/>
 <br>
 <br>
 <br>

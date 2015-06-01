@@ -562,7 +562,6 @@ PhotoFile : <input type="text" name="usr_photourl" value="{{usr.user_photourl}}"
 
 
 {% for frnd in friendsList %}
-{{frnd.friendship_from}} {{frnd.friendship_to}}
 	{% ifequal usr.user_email frnd.friendship_from %}
 		{% for usr2 in usersList %}
 			{% ifequal usr2.user_email frnd.friendship_to %}

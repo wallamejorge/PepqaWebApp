@@ -143,7 +143,7 @@ def getCookie(request):
 		html=t.render(Context({'Message':'Login and Athentication Process'}))
 		return HttpResponse(html)
 	else:
-		return HttpResponseRedirect('/StartPageApp/?')
+		return HttpResponseRedirect('/StartPageApp/')
 #----------------------------------------------------------------------------- #
 #----------------------------------------------------------------------------- #	
 #----------------------------------------------------------------------------- #
@@ -210,6 +210,7 @@ def AdminSave(request):
 			Usuario.user_englishReading = request.GET['usr_englishReading']
 			Usuario.user_englishWriting = request.GET['usr_englishWriting']
 			Usuario.user_englishListening = request.GET['usr_englishListening']	
+			Usuario.user_englishSpeaking = request.GET['usr_englishSpeaking']
 			Usuario.user_skillCommunication = request.GET['usr_englishSpeaking']	
 			Usuario.user_skillCommunication = request.GET['usr_skillCommunication']					
 			Usuario.user_skillTeamwork = request.GET['usr_skillTeamwork']					
@@ -218,7 +219,7 @@ def AdminSave(request):
 			Usuario.user_skillFlexibility = request.GET['usr_skillFlexibility']
 			Usuario.user_skillComputer = request.GET['usr_skillComputer']					
 			Usuario.user_skillTechnical = request.GET['usr_skillTechnical']
-			Usuario.user_skillLeadership = request.GET['usr_skillLeadership']									
+			Usuario.user_skillLeadership |= request.GET['usr_skillLeadership']									
 			Usuario.save()
 			return HttpResponseRedirect('/Dash/')
 		except:
@@ -464,7 +465,7 @@ def AdminNewFriendship(request):
 def StartPage(request):
 	if 'CurrentUser' in request.COOKIES:
 		try :
-			usuario=User.objects.get(user_email=usrname)
+			usuario=User.objects.get(user_email=request.COOKIES['CurrentUser'])
 			email=getattr(usuario,'user_email')
 		except :
 			fp=open(PATH_SITE+PATH_PAGES+'PopUp.html')
@@ -513,6 +514,23 @@ def Offers(request):
 	html=page.render(Context({'offersList':Offer.objects.all()}))
 	return HttpResponse(html)
 #----------------------------------------------------------------------------- #
+
+#----------------------------------------------------------------------------- #
+#--- Group App  ------------------------------------------------------------ #
+def GroupApp (request):
+	# Abrir plantilla HTML-Mustache {{}} index
+	fp=open(PATH_SITE+PATH_PAGES+'Group.html')
+	# Abrir archivo de texto como Template
+	page= Template(fp.read())
+	# Cerrar archivo
+	fp.close()	
+	# Redenrizar la plantilla con las variables
+	name = request.GET['group_name']
+	Grupo = Group.objects.get(group_name=name)
+	html=page.render(Context())
+	return HttpResponse(html)
+#----------------------------------------------------------------------------- #
+
 
 
 
