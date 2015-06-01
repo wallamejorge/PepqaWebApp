@@ -26,11 +26,15 @@ $(document).ready(function(){
     }
 </style>
 
-
+{% load staticfiles %}
+<script src="{% static "Admin/jquery.min.js" %}"></script>
+{% load staticfiles %}
+<script src="{% static "Admin/bootstrap.min.js" %}"></script>
+{% load staticfiles %}
+<link href="{% static "Admin/bootstrap.min.css" %}" rel="stylesheet">
 
 <script src="http://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+
 
 
 
@@ -92,14 +96,14 @@ $(document).ready(function(){
 		        	</form>
 				</div>
 				<div class="col-md-3">
-					<form name="NewUser"  action="/AdminNewGroup/" >
-					<input type="text" name="usr_email" value="" size="15"/>
+					<form name="NewGroup"  action="/AdminNewGroup/" >
+					<input type="text" name="grp_name" value="" size="15"/>
 					<input type="submit" value="Add Group" />
 		        	</form>
 				</div>
 			    <div class="col-md-3">
-					<form name="NewUser"  action="/AdminNewArticle/" >
-					<input type="text" name="usr_email" value="" size="15"/>
+					<form name="NewArticle"  action="/AdminNewArticle/" >
+					<input type="text" name="art_name" value="" size="15"/>
 					<input type="submit" value="Add Article" />
 		        	</form>
 				</div>
@@ -117,8 +121,8 @@ $(document).ready(function(){
 		        	</form>
 				</div>
 				<div class="col-md-3">
-					<form name="NewUser"  action="/AdminRemoveOffer/" >
-					<select name="FromFriend">
+					<form name="NewOffer"  action="/AdminRemoveOffer/" >
+					<select name="off_name">
 						{% for off in offersList %}
 						  <option value="{{off.offer_name}}">{{off.offer_name}}</option>
 						{% endfor %}
@@ -127,10 +131,10 @@ $(document).ready(function(){
 		        	</form>
 				</div>
 				<div class="col-md-3">
-					<form name="NewUser"  action="/AdminNewGroup/" >
-					<select name="FromFriend">
+					<form name="NewGroup"  action="/AdminRemoveGroup/" >
+					<select name="grp_name">
 						{% for usr in groupsList %}
-						  <option value="{{usr.user_email}}">{{usr.user_email}}</option>
+						  <option value="{{usr.group_name}}">{{usr.group_name}}</option>
 						{% endfor %}
 					</select>
 					<input type="submit" value="Remove" />
@@ -139,8 +143,8 @@ $(document).ready(function(){
 			    <div class="col-md-3">
 					<form name="NewUser"  action="/AdminNewArticle/" >
 					<select name="FromFriend">
-						{% for usr in papersList %}
-						  <option value="{{usr.user_email}}">{{usr.user_email}}</option>
+						{% for usr in articlesList %}
+						  <option value="{{usr.article_name}}">{{usr.article_name}}</option>
 						{% endfor %}
 					</select>
 					<input type="submit" value="Remove" />
@@ -298,7 +302,10 @@ $(document).ready(function(){
 
 
 
-
+<!-- ----------------------------------------------------------------------------- -->
+<!-- 								Lista de Personas y Users        	           -->
+<!-- 																			   -->
+<!-- ----------------------------------------------------------------------------- -->
 
   <div class="jumbotron">
     <h2>Users & Persons List</h2>
@@ -307,216 +314,517 @@ $(document).ready(function(){
 
 {% for usr in usersList %}
 <div class="container">
-	<div class="panel panel-primary">
-		<div class="panel-heading">ID:{{usr.pk}} Name:{{usr.user_firstname}} </div>
-		<div class="panel-body">
-    	<form id='{{usr.user_email}}' action="/AdminSave/">
-		<div class="row">
-			<div class="col-md-4">
-			<div class="well">
-			{% with "Photos/"|add:usr.user_photourl as image_name %}
-			{% load staticfiles %}
-				<img alt="Linkedln" src="{% static image_name %}" width=100% / >
-					"{% static image_name %}"
-			{% endwith %}
+<div class="panel panel-primary">
+<div class="panel-heading">ID:{{usr.pk}} Name:{{usr.user_firstname}} </div>
+<div class="panel-body">
 
+<form id='{{usr.user_email}}' action="/AdminSave/">
+<div class="row">
+<div class="col-md-4">
+<div class="well">
+{% with "Photos/"|add:usr.user_photourl as image_name %}
+{% load staticfiles %}
+<img alt="Linkedln" src="{% static image_name %}" width=100% / >
+"{% static image_name %}"
+{% endwith %}
+<br/><br/><br/>
+PhotoFile : <input type="text" name="usr_photourl" value="{{usr.user_photourl}}" > 
+<br/>
+</div>
+</div>
 
-			<br/><br/>
-			<br/>
-			PhotoFile : <input type="text" name="usr_photourl" value="{{usr.user_photourl}}" > 
-			<br/>
-			</div>
-			</div>
-			<div class="col-md-8">
+<div class="col-md-8">
 
-        <div class="row">
+<div class="row">
+	<div class="col-md-6">
+	<div class="well">
+	  
+	Email :  <input type="text" name="usr_email" value="{{usr.user_email}}" > 
+	<input type="text" name="email" value="{{usr.user_email}}"  disabled = "disabled" />
+	</div>
+	</div>
 
-            <div class="col-md-6">
-			<div class="well">
-			Email :  <input type="text" name="usr_email" value="{{usr.user_email}}" > 
-			</div>
-			</div>
+	<div class="col-md-6">
+	<div class="well">
+	Password : <input type="text" name="usr_password" value="{{usr.user_password}}" > 
+	</div>
+	</div>
+</div>
 
-            <div class="col-md-6"><div class="well">
-			Password : <input type="text" name="usr_password" value="{{usr.user_password}}" > 
-			</div>
-			</div>
+<div class="row">
+	<div class="col-md-6">
+	<div class="well">
+	FirstName : <input type="text" name="usr_firstname" value="{{usr.user_firstname}}" > 
+	</div>
+	</div>
 
-        </div>
+	<div class="col-md-6">
+	<div class="well">
+	LastName : <input type="text" name="usr_lastname" value="{{usr.user_lastname}}" > 
+	</div>
+	</div>
+</div>
 
-        <div class="row">
-            <div class="col-md-6">
-			<div class="well">
-			FirstName : <input type="text" name="usr_firstname" value="{{usr.user_firstname}}" > 
-			</div>
-			</div>
-            <div class="col-md-6">
-			<div class="well">
-			LastName : <input type="text" name="usr_lastname" value="{{usr.user_lastname}}" > 
-			</div>
-			</div>
-        </div>
+<div class="row">
+	<div class="col-md-6">
+	<div class="well">
+	Age : <input type="text" name="usr_age" value="{{usr.user_age}}" > 
+	</div>
+	</div>
+	<div class="col-md-6">
+	<div class="well">
+	Gender : <input type="text" name="usr_gender" value="{{usr.user_gender}}" > 
+	</div>
+	</div>
+</div>
 
-        <div class="row">
-            <div class="col-md-6">
-			<div class="well">
-			Age : <input type="text" name="usr_age" value="{{usr.user_age}}" > 
-			</div>
-			</div>
-            <div class="col-md-6">
-			<div class="well">
-			Gender : <input type="text" name="usr_gender" value="{{usr.user_gender}}" > 
-			</div>
-			</div>
-        </div>
+<div class="row">
+	<div class="col-md-6">
+	<div class="well">
+	Country : <input type="text" name="usr_country" value="{{usr.user_country}}" > 
+	</div>
+	</div>
+	
+	<div class="col-md-6">
+	<div class="well">
+	Language : <input type="text" name="usr_language" value="{{usr.user_language}}" > 
+	</div>
+	</div>
+</div>
 
-        <div class="row">
-            <div class="col-md-6">
-			<div class="well">
-			Country : <input type="text" name="usr_country" value="{{usr.user_country}}" > 
-			</div>
-			</div>
-            <div class="col-md-6">
-			<div class="well">
-			Language : <input type="text" name="usr_language" value="{{usr.user_language}}" > 
-			</div>
-			</div>
-        </div>
-
-
-        <div class="row">
-            <div class="col-md-6">
-			<div class="well">
-			Category : <input type="text" name="usr_category" value="{{usr.user_category}}" > 
-			</div>
-			</div>
-            <div class="col-md-6">
-			<div class="well">
-			Company : <input type="text" name="usr_company" value="{{usr.user_company}}" > 
-			</div>
-			</div>
-        </div>
-
-
-    </div>
+<div class="row">
+	<div class="col-md-6">
+	<div class="well">
+	Category : <input type="text" name="usr_category" value="{{usr.user_category}}" > 
+	</div>
+	</div>
+	
+	<div class="col-md-6">
+	<div class="well">
+	Company : <input type="text" name="usr_company" value="{{usr.user_company}}" > 
+	</div>
+	</div>
 </div>
 
 
-        <div class="row">
-            <div class="col-md-4">
-			<div class="well">
-			Studies : <input type="text" name="usr_studies" value="{{usr.user_studies}}" >  
-			</div>
-			</div>
-            <div class="col-md-4">
-			<div class="well">
-			Topics : <input type="text" name="usr_topics" value="{{usr.user_topics}}" > 
-			</div>
-			</div>
-			<div class="col-md-4">
-			<div class="well">
-			CVFile : <input type="text" name="usr_cvurl" value="{{usr.user_cvurl}}" >  
-			</div>
-			</div>
-        </div>
+</div>
+</div>
+
+<div class="row">
+	<div class="col-md-4">
+	<div class="well">
+	Studies : <input type="text" name="usr_studies" value="{{usr.user_studies}}" >  
+	</div>
+	</div>
+	<div class="col-md-4">
+	<div class="well">
+	Topics : <input type="text" name="usr_topics" value="{{usr.user_topics}}" > 
+	</div>
+	</div>
+	<div class="col-md-4">
+	<div class="well">
+	CVFile : <input type="text" name="usr_cvurl" value="{{usr.user_cvurl}}" >  
+	</div>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-md-4">
+	<div class="well">
+	Facebook : <input type="text" name="usr_fburl" value="{{usr.user_fburl}}"  >   
+	</div>
+	</div>
+	<div class="col-md-4">
+	<div class="well">
+	Twitter : <input type="text" name="usr_twitterurl" value="{{usr.user_twitterurl}}" > 
+	</div>
+	</div>
+	<div class="col-md-4">
+	<div class="well">
+	Linkedln : <input type="text" name="usr_linkedlnurl" value="{{usr.user_linkedlnurl}}" > 
+	</div>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-md-12">
+	<div class="well">
+	Abstract : <textarea name="usr_abstract" rows="10" cols="120" >{{usr.user_abstract}}</textarea> 	   
+	</div>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-md-3">
+	<div class="well">
+	English.Reading : <input type="text" name="usr_englishReading" value="{{usr.user_englishReading}}" > 
+	</div>
+	</div>
+	<div class="col-md-3">
+	<div class="well">
+	English.Writing : <input type="text" name="usr_englishWriting" value="{{usr.user_englishWriting}}" > 
+	</div>
+	</div>
+	<div class="col-md-3">
+	<div class="well">
+	English.Listening : <input type="text" name="usr_englishListening" value="{{usr.user_englishListening}}" >
+	</div>
+	</div>
+	<div class="col-md-3">
+	<div class="well">
+	English.Speaking : <input type="text" name="usr_englishSpeaking" value="{{usr.user_englishSpeaking}}" > 
+	</div>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-md-3">
+	<div class="well">
+	Communication Skills : <input type="text" name="usr_skillCommunication" value="{{usr.user_skillCommunication}} "> % 
+	</div>
+	</div>
+	<div class="col-md-3">
+	<div class="well">
+	Teamwork Skills : <input type="text" name="usr_skillTeamwork" value="{{usr.user_skillTeamwork}} " > %
+	</div>
+	</div>
+	<div class="col-md-3">
+	<div class="well">
+	Initiative SKills : <input type="text" name="usr_skillInitiative" value="{{usr.user_skillInitiative}} " > %
+	</div>
+	</div>
+	<div class="col-md-3">
+	<div class="well">
+	Problem Solving Skills : <input type="text" name="usr_skillProblemSolving" value="{{usr.user_skillProblemSolving}} " > %
+	</div>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-md-3">
+	<div class="well">
+	Flexibility Skills : <input type="text" name="usr_skillFlexibility" value="{{usr.user_skillFlexibility}} " > %
+	</div>
+	</div>
+	<div class="col-md-3">
+	<div class="well">
+	Computer Skills : <input type="text" name="usr_skillComputer" value="{{usr.user_skillComputer}} " > %
+	</div>
+	</div>
+	<div class="col-md-3">
+	<div class="well">
+	Technical Skills : <input type="text" name="usr_skillTechnical" value="{{usr.user_skillTechnical}} " > %
+	</div>
+	</div>
+	<div class="col-md-3">
+	<div class="well">
+	Leadership Skills : <input type="text" name="usr_skillLeadership" value="{{usr.user_skillLeadership}} " > %
+	</div>
+	</div>
+</div>
+
+<input type="submit" value="Save"/>
+</form>
+</div>
+
+</div>
+</div>
+</div>
+{% endfor %}
+<!-- ----------------------------------------------------------------------------- -->
+<!-- ----------------------------------------------------------------------------- -->
 
 
-        <div class="row">
-            <div class="col-md-4">
-			<div class="well">
-			Facebook : <input type="text" name="usr_fburl" value="{{usr.user_fburl}}"  >   
-			</div>
-			</div>
-            <div class="col-md-4">
-			<div class="well">
-			Twitter : <input type="text" name="usr_twitterurl" value="{{usr.user_twitterurl}}" > 
-			</div>
-			</div>
-			<div class="col-md-4">
-			<div class="well">
-			Linkedln : <input type="text" name="usr_linkedlnurl" value="{{usr.user_linkedlnurl}}" > 
-			</div>
-			</div>
-        </div>
-
-        <div class="row">
-            <div class="col-md-12">
-			<div class="well">
-			Abstract : <textarea name="usr_abstract" rows="10" cols="120" >{{usr.user_abstract}}</textarea> 	   
-			</div>
-			</div>
-        </div>
-
-        <div class="row">
-            <div class="col-md-3">
-			<div class="well">
-			English.Reading : <input type="text" name="usr_englishReading" value="{{usr.user_englishReading}}" > 
-			</div>
-			</div>
-            <div class="col-md-3">
-			<div class="well">
-			English.Writing : <input type="text" name="usr_englishWriting" value="{{usr.user_englishWriting}}" > 
-			</div>
-			</div>
-			<div class="col-md-3">
-			<div class="well">
-			English.Listening : <input type="text" name="usr_englishListening" value="{{usr.user_englishListening}}" >
-			</div>
-			</div>
-			<div class="col-md-3">
-			<div class="well">
-			English.Speaking : <input type="text" name="usr_englishSpeaking" value="{{usr.user_englishSpeaking}}" > 
-			</div>
-			</div>
-        </div>
 
 
-        <div class="row">
-            <div class="col-md-3">
-			<div class="well">
-			Communication Skills : <input type="text" name="usr_skillCommunication" value="{{usr.user_skillCommunication}} "> % 
-			</div>
-			</div>
-            <div class="col-md-3">
-			<div class="well">
-			Teamwork Skills : <input type="text" name="usr_skillTeamwork" value="{{usr.user_skillTeamwork}} " > %
-			</div>
-			</div>
-			<div class="col-md-3">
-			<div class="well">
-			Initiative SKills : <input type="text" name="usr_skillInitiative" value="{{usr.user_skillInitiative}} " > %
-			</div>
-			</div>
-			<div class="col-md-3">
-			<div class="well">
-			Problem Solving Skills : <input type="text" name="usr_skillProblemSolving" value="{{usr.user_skillProblemSolving}} " > %
-			</div>
-			</div>
-        </div>
 
-        <div class="row">
-            <div class="col-md-3">
-			<div class="well">
-			Flexibility Skills : <input type="text" name="usr_skillFlexibility" value="{{usr.user_skillFlexibility}} " > %
-			</div>
-			</div>
-            <div class="col-md-3">
-			<div class="well">
-			Computer Skills : <input type="text" name="usr_skillComputer" value="{{usr.user_skillComputer}} " > %
-			</div>
-			</div>
-			<div class="col-md-3">
-			<div class="well">
-			Technical Skills : <input type="text" name="usr_skillTechnical" value="{{usr.user_skillTechnical}} " > %
-			</div>
-			</div>
-			<div class="col-md-3">
-			<div class="well">
-			Leadership Skills : <input type="text" name="usr_skillLeadership" value="{{usr.user_skillLeadership}} " > %
-			</div>
-			</div>
-        </div>
 
+
+<!-- ----------------------------------------------------------------------------- -->
+<!-- 								Lista de las Amistades 				           -->
+<!-- 																			   -->
+<!-- ----------------------------------------------------------------------------- -->
+
+<div class="jumbotron">
+	<h2>Friendships and Amigos</h2>
+	<p>Editable List for Users and Persons</p>
+</div>
+
+{% for usr in usersList %}
+<div class="container">
+<div class="panel panel-primary">
+<div class="panel-heading">ID:{{usr.pk}} Friends of {{usr.user_firstname}}  , {{usr.user_lastname}} [Email:{{usr.user_email}}] </div>
+<div class="panel-body">
+<div class="row">
+<div class="col-md-6">
+<div class="list-group">
+
+
+
+{% for frnd in friendsList %}
+{{frnd.friendship_from}} {{frnd.friendship_to}}
+	{% ifequal usr.user_email frnd.friendship_from %}
+		{% for usr2 in usersList %}
+			{% ifequal usr2.user_email frnd.friendship_to %}
+			<form id='{{usr.user_email}}' action="/AdminRemoveFriendship/">
+				<a class="list-group-item">
+				{% with "Photos/"|add:usr2.user_photourl as image_name %}
+				{% load staticfiles %}
+				<img src="{% static image_name %}" width=50px  data-toggle="popover" title="{{usr2.user_firstname}} {{usr2.user_lastname}} " data-content="{{usr2.user_abstract}}" data-trigger="hover" / >
+				{% endwith %}
+				{{usr2.user_firstname}} {{usr2.user_lastname}} 
+				<input type="submit" value="Remove"/>
+				</a>
+			</form>
+			{% endifequal %}
+		{% endfor %}
+	{% endifequal %}
+{% endfor %}
+
+
+
+
+</div>
+</div>	
+
+<div class="col-md-3">
+<div class="list-group">
+<li class="list-group-item">
+{% with "Photos/"|add:usr.user_photourl as image_name %}
+	{% load staticfiles %}
+	<img src="{% static image_name %}" width=100% / >
+	{% endwith %}
+	</li>
+</div>	
+</div>	
+
+<div class="col-md-3">
+<div class="list-group">
+<li class="list-group-item">{{usr.user_firstname}} {{usr.user_lastname}}</li>
+<li class="list-group-item">Age:{{usr.user_age}}</li>
+<li class="list-group-item">Country:{{usr.user_country}}</li>
+<li class="list-group-item">Language:{{usr.user_language}}</li>
+<li class="list-group-item">Abstract:{{usr.user_abstract}}</li>
+</div>
+</div>		
+	
+
+</div>
+</div>
+</div>
+</div>
+{% endfor %}
+<!-- ----------------------------------------------------------------------------- -->
+<!-- ----------------------------------------------------------------------------- -->
+
+
+
+
+<!-- ----------------------------------------------------------------------------- -->
+<!-- 								Lista de los Grupos 				           -->
+<!-- 																			   -->
+<!-- ----------------------------------------------------------------------------- -->
+
+  <div class="jumbotron">
+    <h2>Offers & Projects List</h2>
+    <p>Editable List for Offers & Projects</p>
+  </div>
+
+{% for off in offersList %}
+<div class="container">
+<div class="panel panel-primary">
+<div class="panel-heading">ID:{{off.pk}} Name:{{off.offer_name}} </div>
+<div class="panel-body">
+<form id='{{off.offer_name}}' action="/AdminSave/">
+<div class="row">
+<div class="col-md-4">
+<div class="well">
+{% with "Photos/"|add:off.offer_photourl as image_name %}
+{% load staticfiles %}
+<img alt="Linkedln" src="{% static image_name %}" width=100% / >
+"{% static image_name %}"
+{% endwith %}
+<br/><br/><br/>
+PhotoFile : <input type="text" name="off_photourl" value="{{off.offer_photourl}}" > 
+<br/>
+</div>
+</div>
+<div class="col-md-8">
+<div class="row">
+<div class="col-md-6">
+<div class="well">
+Name:  <input type="text" name="off_name" value="{{off.offer_name}}" > 
+</div></div>
+<div class="col-md-6">
+<div class="well">
+Owner :
+<select name="off_owner">
+{% for usr in usersList %}
+<option value="{{usr.user_email}}">{{usr.user_email}}</option>
+{% endfor %}
+</select>
+</div></div>
+</div>
+<div class="row">
+<div class="col-md-6">
+<div class="well">
+Created Date:  <input type="text" name="off_date" value="{{off.offer_date}}" > 
+</div></div>
+<div class="col-md-6">
+<div class="well">
+Deadline:  <input type="text" name="off_deadline" value="{{off.offer_deadline}}" > 
+</div></div>
+</div>
+<div class="row">
+<div class="col-md-12">
+<div class="well">
+Abstract : <textarea name="off_abstract" rows="10" cols="80" >{{off.offer_abstract}}</textarea> 	   
+</div>
+</div>
+</div>
+</div>
+</div>
+<input type="submit" value="Save"/>
+</div>
+</form>
+</div>
+</div>
+</div>
+</div>
+{% endfor %}
+<!-- ----------------------------------------------------------------------------- -->
+<!-- ----------------------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- ----------------------------------------------------------------------------- -->
+<!-- 								Lista de los Grupos 				           -->
+<!-- 																			   -->
+<!-- ----------------------------------------------------------------------------- -->
+<div class="jumbotron">
+	<h2>Groups & Societies List</h2>
+    <p>Editable List of Groups</p>
+</div>
+
+{% for grp in groupsList %}
+<div class="container">
+<div class="panel panel-primary">
+<div class="panel-heading">ID:{{grp.pk}} Name:{{grp.group_name}} </div>
+<div class="panel-body">
+<form id='{{grp.group_name}}' action="/AdminSave/">
+
+<div class="row">
+	<div class="col-md-4">
+	<div class="well">
+	{% with "Photos/"|add:grp.group_photourl as image_name %}
+	{% load staticfiles %}
+	<img alt="Linkedln" src="{% static image_name %}" width=100% / >
+	"{% static image_name %}"
+	{% endwith %}
+	<br/><br/>
+	<br/>
+	PhotoFile : <input type="text" name="grp_photourl" value="{{grp.group_photourl}}" > 
+	<br/>
+	</div>
+	</div>
+	<div class="col-md-8">
+	<div class="row">
+	<div class="col-md-4">
+    <div class="well">
+	Name:  <input type="text" name="grp_name" value="{{grp.group_name}}" > 
+	</div></div>
+    <div class="col-md-4">
+    <div class="well">
+    Owner :
+	<select name="grp_owner">
+	{% for usr in usersList %}
+	<option value="{{usr.user_email}}">{{usr.user_email}}</option>
+	{% endfor %}
+	</select>
+	</div></div>		   
+    <div class="col-md-4">
+    <div class="well">
+	Created Date:  <input type="text" name="grp_date" value="{{grp.group_date}}" > 
+	</div></div>      
+	</div>            
+    <div class="row">
+    <div class="col-md-12">
+	<div class="well">
+	Astract : <textarea name="grp_abstract" rows="10" cols="80" >{{grp.group_abstract}}</textarea> 	   
+	</div>
+	</div>
+    </div>       
+    </div>
+</div>
+<input type="submit" value="Save"/>
+</div>
+</form>
+</div>
+</div>
+</div>
+</div>
+{% endfor %}
+<!-- ----------------------------------------------------------------------------- -->
+<!-- ----------------------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+
+<!-- ----------------------------------------------------------------------------- -->
+<!-- 								Lista de Articulos   				           -->
+<!-- 																			   -->
+<!-- ----------------------------------------------------------------------------- -->
+<div class="jumbotron">
+	<h2>Articles & Projects</h2>
+    <p>Editable List of Articles & Projects</p>
+</div>
+
+{% for art in articlesList %}
+<div class="container">
+<div class="panel panel-primary">
+<div class="panel-heading">ID:{{art.pk}} Name:{{art.article_name}} </div>
+<div class="panel-body">
+<form id='{{art.article_name}}' action="/AdminSave/">
+<div class="row">
+	<div class="col-md-4">
+		<div class="list-group">
+		<li class="list-group-item">
+		Article Name : <input type="text" name="art_name" value="{{art.article_name}} " > 
+		</li>
+		<li class="list-group-item">
+		Article Published : <input type="text" name="art_name" value="{{art.article_published}} " > 
+		</li>
+		<li class="list-group-item">
+		Article Date : <input type="text" name="art_name" value="{{art.article_publisheddate}} " > 
+		</li>
+		<li class="list-group-item">
+		Article URL : <input type="text" name="art_name" value="{{art.article_url}} " > 
+		</li>
+	</div>
+	</div>
+	<div class="col-md-8">
+	<div class="list-group">
+		<li class="list-group-item">
+		Abstract : <textarea name="usr_abstract" rows="6" cols="80" >{{usr.user_abstract}}</textarea> 
+		</li>
+	</div>
+	</div>	
+</div>
 <input type="submit" value="Save"/>
 </form>
 </div>
@@ -524,224 +832,8 @@ $(document).ready(function(){
 </div>
 </div>
 {% endfor %}
-
-
-
-
-
-
-
-
-
-
-
-
-
-  <div class="jumbotron">
-    <h2>Friendships and Amigos</h2>
-    <p>Editable List for Users and Persons</p>
-  </div>
-
-{% for usr in usersList %}
-<div class="container">
-<div class="panel panel-primary">
-<div class="panel-heading">ID:{{usr.pk}} Friends of {{usr.user_firstname}}  , {{usr.user_lastname}} [Email:{{usr.user_email}}] </div>
-<div class="panel-body">
-
-    	<form id='{{usr.user_email}}' action="/AdminSave/">
-		 <div class="list-group">
-		 {% for frnd in usersList %}
-		  <a class="list-group-item">
-		  {% with "Photos/"|add:frnd.user_photourl as image_name %}
-		  {% load staticfiles %}
-				<img src="{% static image_name %}" width=50px  data-toggle="popover" title="{{frnd.user_firstname}} {{frnd.user_lastname}} " data-content="{{frnd.user_abstract}}" data-trigger="hover" / >
-		  {% endwith %}
-		  {{frnd.user_firstname}} {{frnd.user_lastname}} 
-
-		  </a>
-		  {% endfor %}
-		</div>
-		<input type="submit" value="Save"/>
-		</form>
-		
-</div>
-</div>
-</div>
-</div>
-{% endfor %}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  <div class="jumbotron">
-    <h2>Offers & Projects List</h2>
-    <p>Editable List for Offers & Projects</p>
-  </div>
-
-
-</div>
-
-{% for off in offersList %}
-<div class="container">
-	<div class="panel panel-primary">
-		<div class="panel-heading">ID:{{off.pk}} Name:{{off.offer_name}} </div>
-		<div class="panel-body">
-		
-    	<form id='{{off.offer_name}}' action="/AdminSave/">
-    	
-    	
-		<div class="row">
-		
-			<div class="col-md-4">
-			<div class="well">
-			{% with "Photos/"|add:off.offer_photourl as image_name %}
-			{% load staticfiles %}
-				<img alt="Linkedln" src="{% static image_name %}" width=100% / >
-					"{% static image_name %}"
-			{% endwith %}
-			<br/><br/>
-			<br/>
-			PhotoFile : <input type="text" name="off_photourl" value="{{off.offer_photourl}}" > 
-			<br/>
-			</div>
-			</div>
-			<div class="col-md-8">
-
-            
-             <div class="row">
-             
-             <div class="col-md-6">
-             <div class="well">
-				Name:  <input type="text" name="off_name" value="{{off.offer_name}}" > 
-			 </div></div>
-             
-             <div class="col-md-6">
-             <div class="well">
-             Owner :
-			  <select name="off_owner">
-						 {% for usr in usersList %}
-						  <option value="{{usr.user_email}}">{{usr.user_email}}</option>
-						{% endfor %}
-					</select>
-			  </div></div>
-			
-             </div>
-             
-             <div class="row">
-             
-             <div class="col-md-6">
-             <div class="well">
-				Created Date:  <input type="text" name="off_date" value="{{off.offer_date}}" > 
-			 </div></div>
-             
-             <div class="col-md-6">
-             <div class="well">
-				Deadline:  <input type="text" name="off_deadline" value="{{off.offer_deadline}}" > 
-			  </div></div>
-			
-             </div>
-             
-            <div class="row">
-            <div class="col-md-12">
-			<div class="well">
-			Abstract : <textarea name="off_abstract" rows="10" cols="80" >{{off.offer_abstract}}</textarea> 	   
-			</div>
-			</div>
-       	    </div>
-             
-             </div>
-            
-
-          
-
-            
-            
-            
-            
-            </div>
-            
-            <input type="submit" value="Save"/>
-        </div>
-
-
-
-</form>
-</div>
-</div>
-</div>
-</div>
-{% endfor %}
-
-
+<!-- ----------------------------------------------------------------------------- -->
+<!-- ----------------------------------------------------------------------------- -->
 
 
 

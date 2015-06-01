@@ -14,9 +14,23 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
 #----------------------------------------------------------------------------- #	
 #---     Import Modules,Functions and Libraries
 #----------------------------------------------------------------------------- #
+
 
 #----------------------------------------------------------------------------- #
 #--- Django Libs ------------------------------------------------------------- #
@@ -45,30 +59,93 @@ import datetime
 #----------------------------------------------------------------------------- #	
 
 
+#----------------------------------------------------------------------------- #	
+#---     End of Import Module 
+#----------------------------------------------------------------------------- #
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 
 
 #----------------------------------------------------------------------------- #	
-#---     Function Modules 
+#---     Login & Auth Function 
 #----------------------------------------------------------------------------- #
-
-
-
 
 #----------------------------------------------------------------------------- #
 #--- Login App --------------------------------------------------------------- #
-def Login(request):
-	# Abrir plantilla HTML-Mustache {{}} index
-	fp=open(PATH_SITE+PATH_PAGES+'Login.html')
-	# Abrir archivo de texto como Template
-	page= Template(fp.read())
-	# Cerrar archivo
+def LoginApp(request):
+	fp = open(PATH_SITE+PATH_PAGES+'Login.html')
+	page = Template(fp.read())
 	fp.close()	
-	# Redenrizar la plantilla con las variables
-	html=page.render(Context())
+	Data = LoginProcess(request)
+	html=page.render(Context(Data))
 	return HttpResponse(html)
+#----------------------------------------------------------------------------- #
+
+#----------------------------------------------------------------------------- #
+#--- Auth App ---------------------------------------------------------------- #
+def AuthenticationApp(request):
+	if 'usr_name' in request.GET and request.GET['usr_name']:
+		vStatus = AuthProcess(request)
+		if (vStatus['Status'] == 'Logged Succesfull'):
+			qUrl = '/setCookie/?user_email='+vStatus['User']
+			
+			return HttpResponseRedirect(qUrl)
+		else:
+			fp=open(PATH_SITE+PATH_PAGES+'PopUp.html')
+			t= Template(fp.read())
+			fp.close()				
+			html=t.render(Context({'Message':vStatus['Status']}))
+			return HttpResponse(html)
+	else:
+		fp=open(PATH_SITE+PATH_PAGES+'PopUp.html')
+		t= Template(fp.read())
+		fp.close()				
+		html=t.render(Context({'Message':'Input not valid'}))
+		return HttpResponse(html)
+#----------------------------------------------------------------------------- #
+
+#----------------------------------------------------------------------------- #
+#--- SetCookie App --------------------------------------------------------------- #
+def setCookie(request):
+	html = setCookieProcess(request)
+	return html
+#----------------------------------------------------------------------------- #
+
+#----------------------------------------------------------------------------- #
+def getCookie(request):
+	vUser = getCookieProcess(request)
+	if vUser == "NaN":
+		fp=open(PATH_SITE+PATH_PAGES+'PopUp.html')
+		t= Template(fp.read())
+		fp.close()				
+		html=t.render(Context({'Message':'Login and Athentication Process'}))
+		return HttpResponse(html)
+	else:
+		return HttpResponseRedirect('/StartPageApp/?')
+#----------------------------------------------------------------------------- #
+#----------------------------------------------------------------------------- #	
 #----------------------------------------------------------------------------- #
 
 
@@ -76,35 +153,41 @@ def Login(request):
 
 
 
+
+
+
+
+
+
+
+
+#----------------------------------------------------------------------------- #	
+#---     Admin & Dashboard Functions 
+#----------------------------------------------------------------------------- #
 
 
 #----------------------------------------------------------------------------- #
 #--- AdminDashboard App ------------------------------------------------------ #
 def AdminDashboard(request):
-	# Abrir plantilla HTML-Mustache {{}} index
-	fp=open(PATH_SITE+PATH_PAGES+'AdminDashboard.html')
-	# Abrir archivo de texto como Template
-	page= Template(fp.read())
-	# Cerrar archivo
+	fp =open(PATH_SITE+PATH_PAGES+'AdminDashboard.html')
+	page = Template(fp.read())
 	fp.close()	
-	# Redenrizar la plantilla con las variables
-	html=page.render(Context({'usersList':User.objects.all(),'groupsList':Group.objects.all(),'offersList':Offer.objects.all(),'friendsList':Friendship.objects.all()}))
+	Data = {'usersList':User.objects.all(),
+			'groupsList':Group.objects.all(),
+			'offersList':Offer.objects.all(),
+			'friendsList':Friendship.objects.all(),
+			'articlesList':Article.objects.all()
+			}
+	html = page.render(Context(Data))
 	return HttpResponse(html)
 #----------------------------------------------------------------------------- #
 
 
-
-
-
-
-
-
 #----------------------------------------------------------------------------- #
-#--- AdminSaveApp ------------------------------------------------------ #
+#--- AdminSaveApp ------------------------------------------------------------ #
 def AdminSave(request):
 	if 'usr_email' in request.GET and request.GET['usr_email']:
 		try :
-            #getUserDatabyRequest(request)
 			Usuario = User.objects.get(user_email=request.GET['usr_email'])
 			Usuario.user_email = request.GET['usr_email']
 			Usuario.user_password = request.GET['usr_password']
@@ -162,13 +245,45 @@ def AdminSave(request):
 				fp.close()				
 				html=t.render(Context({'Message':'Thats offers does not exist'}))
 				return HttpResponse(html)
+		else:
+			if 'grp_name' in request.GET and request.GET['grp_name']:
+				try :
+					Grupo = Group.objects.get(group_name=request.GET['grp_name'])
+					Grupo.group_name = request.GET['grp_name']
+					Grupo.group_owner = request.GET['grp_owner']
+					Grupo.group_photourl = request.GET['grp_photourl']
+					Grupo.group_date = request.GET['grp_date']
+					Grupo.group_abstract = request.GET['grp_abstract']		
+					Grupo.save()
+					return HttpResponseRedirect('/Dash/')
+				except:
+					fp=open(PATH_SITE+PATH_PAGES+'PopUp.html')
+					t= Template(fp.read())
+					fp.close()				
+					html=t.render(Context({'Message':'Thats group does not exist'}))
+					return HttpResponse(html)
 		
 #----------------------------------------------------------------------------- #
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 #----------------------------------------------------------------------------- #
-#--- AdminSaveApp ------------------------------------------------------ #
+#--- AdminSaveApp ----------------------------------------------------------- #
 def AdminUserRemove(request):
 	if 'usr_email' in request.GET and request.GET['usr_email']:
 		try :
@@ -182,7 +297,36 @@ def AdminUserRemove(request):
 			html=t.render(Context({'Message':'Thats email does not exist'}))
 			return HttpResponse(html)
 #----------------------------------------------------------------------------- #
-
+#----------------------------------------------------------------------------- #
+#--- AdminOfferRemove -------------------------------------------------------- #
+def AdminOfferRemove(request):
+	if 'off_name' in request.GET and request.GET['off_name']:
+		try :
+			Oferta = Offer.objects.get(offer_name=request.GET['off_name'])
+			Oferta.delete()
+			return HttpResponseRedirect('/Dash/')
+		except:
+			fp=open(PATH_SITE+PATH_PAGES+'PopUp.html')
+			t= Template(fp.read())
+			fp.close()				
+			html=t.render(Context({'Message':'Thats offer does not existe, please check up'}))
+			return HttpResponse(html)
+#----------------------------------------------------------------------------- #
+#----------------------------------------------------------------------------- #
+#--- AdminOfferRemove -------------------------------------------------------- #
+def AdminGroupRemove(request):
+	if 'grp_name' in request.GET and request.GET['grp_name']:
+		try :
+			Grupo = Group.objects.get(offer_name=request.GET['grp_name'])
+			Grupo.delete()
+			return HttpResponseRedirect('/Dash/')
+		except:
+			fp=open(PATH_SITE+PATH_PAGES+'PopUp.html')
+			t= Template(fp.read())
+			fp.close()				
+			html=t.render(Context({'Message':'Thats group does not existe, please check up'}))
+			return HttpResponse(html)
+#----------------------------------------------------------------------------- #
 
 
 
@@ -264,12 +408,47 @@ def AdminNewOffer(request):
 		return HttpResponse(html)
 #----------------------------------------------------------------------------- #
 #----------------------------------------------------------------------------- #
-#--- AdminNewFrienship App ------------------------------------------------------ #
+#--- AdminNewGroup App ------------------------------------------------------- #
+def AdminNewGroup(request):
+	try :
+		name = request.GET['grp_name']
+		Grupo=Group.objects.create(group_name=name)
+		Grupo.save()
+		return HttpResponseRedirect('/Dash/')
+	except:
+		fp=open(PATH_SITE+PATH_PAGES+'PopUp.html')
+		t= Template(fp.read())
+		fp.close()				
+		html=t.render(Context({'Message':'Thats Group Name are invalid'}))
+		return HttpResponse(html)
+#----------------------------------------------------------------------------- #
+#----------------------------------------------------------------------------- #
+#--- AdminNewArticle App ----------------------------------------------------- #
+def AdminNewArticle(request):
+	try :
+		name = request.GET['art_name']
+		Articulo=Article.objects.create(article_name=name)
+		Articulo.save()
+		return HttpResponseRedirect('/Dash/')
+	except:
+		fp=open(PATH_SITE+PATH_PAGES+'PopUp.html')
+		t= Template(fp.read())
+		fp.close()				
+		html=t.render(Context({'Message':'Thats Article/Project Name are invalid'}))
+		return HttpResponse(html)
+#----------------------------------------------------------------------------- #
+
+#----------------------------------------------------------------------------- #
+#--- AdminNewFrienship App --------------------------------------------------- #
 def AdminNewFriendship(request):
 	try :
 		UserFrom = request.GET['FromFriend']
 		ToFrom = request.GET['ToFriend']
-		FriendshipFrom =Frienship.objects.create(friendship_from=UserFrom,friendship_to=ToFrom)
+		FriendshipFrom =Friendship.objects.create(friendship_from=UserFrom,friendship_to=ToFrom)
+		FriendshipFrom.save()
+		UserFrom = request.GET['ToFriend']
+		ToFrom = request.GET['FromFriend']
+		FriendshipFrom =Friendship.objects.create(friendship_from=UserFrom,friendship_to=ToFrom)
 		FriendshipFrom.save()
 		return HttpResponseRedirect('/Dash/')
 	except:
@@ -283,33 +462,22 @@ def AdminNewFriendship(request):
 
 # ***** Login Start Page ***************************************************** #
 def StartPage(request):
-	if 'username' in request.GET and request.GET['username']:
-		now = datetime.datetime.now()
-		usrname=request.GET['username']
-		usrpass=request.GET['userpass']
+	if 'CurrentUser' in request.COOKIES:
 		try :
 			usuario=User.objects.get(user_email=usrname)
 			email=getattr(usuario,'user_email')
-			password=getattr(usuario,'user_password')
 		except :
 			fp=open(PATH_SITE+PATH_PAGES+'PopUp.html')
 			t= Template(fp.read())
 			fp.close()				
 			html=t.render(Context({'Message':'User Does not Exist'}))
 			return HttpResponse(html)
-
-		if (password == usrpass) and (usrname == email) :
-			fp=open(PATH_SITE+PATH_PAGES+'StartPage.html')
-			t= Template(fp.read())
-			fp.close()				
-			html=t.render(Context(getUserData(usuario)))
-			return HttpResponse(html)
-		else:
-			fp=open(PATH_SITE+PATH_PAGES+'PopUp.html')
-			t= Template(fp.read())
-			fp.close()				
-			html=t.render(Context({'Message':'Invalid Username or Password..try again XD '}))
-			return HttpResponse(html)
+		
+		fp=open(PATH_SITE+PATH_PAGES+'StartPage.html')
+		t= Template(fp.read())
+		fp.close()				
+		html=t.render(Context(getUserData(usuario)))
+		return HttpResponse(html)
 	else:
 		return HttpResponse('Ingrese algo por el amor de  Dios!')
 
@@ -318,75 +486,7 @@ def StartPage(request):
 
 
 	
-# ***** Login Start Page ***************************************************** #
-def authentication(request):
-	if 'username' in request.GET and request.GET['username']:
-		now = datetime.datetime.now()
-
-		usrname=request.GET['username']
-		usrpass=request.GET['userpass']
-
-		usuario=User.objects.get(user_email=usrname)
-		
-		email=getattr(usuario,'user_email')
-		password=getattr(usuario,'user_password')
-
-		if (password == usrpass) and (username == email) :
-			
-			# Profile Data
-			myemail = getattr(usuario,'user_email');
-			mypassword = getattr(usuario,'user_password');
-			myfirstname = getattr(usuario,'user_firstname');
-			mylastname  = getattr(usuario,'user_lastname');
-			# Personal Data
-			myage       = getattr(usuario,'user_age');
-			mygender    = getattr(usuario,'user_gender');
-			mycountry   = getattr(usuario,'user_country');
-			mylanguage  = getattr(usuario,'user_language');
-			# Professional Data
-			mycategory  = getattr(usuario,'user_category');
-			mycompany   = getattr(usuario,'user_company');
-			mystudies   = getattr(usuario,'user_studies');
-			mytopics    = getattr(usuario,'user_topics');
-			# Social Data
-			myphotourl  = getattr(usuario,'user_photourl');
-			mycvurl     = getattr(usuario,'user_cvurl');
-			myabstract  = getattr(usuario,'user_abstract');
-			myfburl = getattr(usuario,'user_fburl');
-			mytwitterurl  = getattr(usuario,'user_twitterurl');
-			mylinkedlnurl = getattr(usuario,'user_linkedlnurl');
-			
-			# FriendsList
-			myfriendslist = getMyFriendsList(email);
-			# FriendsRequestList
-			myfriendsrequestlist = getMyFriendsRequestList(email);
-			# GroupsList
-			mygroupslist = getMyGroupsList(email);
-			# MyOffersList
-			myofferlist= getMyOffersList(email);
-			# MyOfferRequestedList
-			myofferrquestedlist= getMyOffersRequestedList(email);
-			# ArticlesList	
-			myarticleslist = getMyArticlesList(email);
-			# IdeasList	
-			myideaslist = getMyIdeasList(email);
-			# IdeasList	
-			mycommentslist = getMyCommentsList(email);
-
-			fp=open(PATH_SITE+PATH_PAGES+'Profile/index.html')
-			t= Template(fp.read())
-			fp.close()	
-			html=t.render(Context())
-			return HttpResponse(html)
-		else:
-			var = u'Usuario/Contraseña invalida'
-			return HttpResponse(var)
-	else:
-		return HttpResponse('Ingrese algo por el amor de  Dios!')
-
-
-
-#----------------------------------------------------------------------------- #	
+	
 
 
 #----------------------------------------------------------------------------- #
@@ -404,6 +504,19 @@ def Profile(request):
 	html=page.render(Context(getUserData(usuario)))
 	return HttpResponse(html)
 #----------------------------------------------------------------------------- #
+#----------------------------------------------------------------------------- #
+#--- Offers App  ------------------------------------------------------------ #
+def Offers(request):
+	fp=open(PATH_SITE+PATH_PAGES+'Offers.html')
+	page= Template(fp.read())
+	fp.close()	
+	html=page.render(Context({'offersList':Offer.objects.all()}))
+	return HttpResponse(html)
+#----------------------------------------------------------------------------- #
+
+
+
+
 
 # ***** Login Start Page ***************************************************** #
 def registration(request):

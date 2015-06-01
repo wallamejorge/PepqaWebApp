@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<script>
+document.cookie="user=cvasa";
+window.location.replace("http://www.google.com");
+</script>
+
+
+</body>
+</html>
+

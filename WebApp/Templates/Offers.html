@@ -1,0 +1,204 @@
+<!DOCTYPE HTML>
+<html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<head>
+<title>Offers & Ads</title>
+<meta name="viewport"/>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<meta name="description" content="" />
+<meta name="keywords" content="" />
+	
+{% load staticfiles %}
+<link rel="stylesheet" href="{% static "Offers/bootstrap.min.css" %}" />		
+{% load staticfiles %}
+<script src="{% static "Offers/js/jquery.min.js" %}"></script>
+{% load staticfiles %}
+<script src="{% static "Offers/js/bootstrap.min.js" %}"></script>
+{% load staticfiles %}
+<script src="{% static "Offers/js/jquery.poptrox.min.js" %}"></script>
+
+
+
+<!-- Cuadro de ofertas -->
+<!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">-->
+{% load staticfiles %}
+<link rel="stylesheet" type="text/css" href="{% static "Offers/css/bootstrap.min.css" %}">
+<!-- Fin Cuadro de ofertas -->
+</head>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<body style="background-image: url('/static/Offers/images/bg.jpg');opacity:0.90;">
+
+
+<div class="container">
+   
+   
+	<div class="page-header">
+	<h1>Example Page Header</h1>
+	</div>
+
+
+
+<div class="row">
+
+<div class="col-md-3"></div>
+
+<div class="col-md-6">
+	<div id="myCarousel" class="carousel slide" data-ride="carousel" >
+	  <!-- Indicators -->
+	  <ol class="carousel-indicators">
+		<li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+		<li data-target="#myCarousel" data-slide-to="1"></li>
+		<li data-target="#myCarousel" data-slide-to="2"></li>
+		<li data-target="#myCarousel" data-slide-to="3"></li>
+	  </ol>
+	  <!-- Wrapper for slides -->
+	  <div class="carousel-inner" role="listbox">
+	  
+		<div class="item active">
+		  <img src="/static/Photos/img_chania.jpg" width=100% alt="Chania" onclick="window.alert('coi');">
+		</div>
+	
+	 {% for off in offersList %}
+      <div class="item">
+      {% with "Photos/"|add:off.offer_photourl as image_name %}
+      {% load staticfiles %}
+      <img src="{% static image_name %}" width=100% />
+      {% endwith %}
+      </div>
+    {% endfor %}
+		
+	  </div>
+
+	  <!-- Left and right controls -->
+	  <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+		<span class="sr-only">Previous</span>
+	  </a>
+	  <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+		<span class="sr-only">Next</span>
+	  </a>
+	</div>
+	</div>
+
+<div class="col-md-3"></div>
+</div>
+
+<div class="row">
+<br></br>
+<br></br>
+
+</div>
+
+<div class="row">
+
+<!- Industrial ->
+<div class="col-md-6">
+<div class="panel">
+ <div class="panel-heading">Find:  <input type="text" name="grp_date" value="{{grp.group_date}}" > </div>
+ <div class="panel-body">
+ <div class="list-group">
+{% for off in offersList %}
+{% with "Photos/"|add:off.offer_photourl as image_name %}
+{% load staticfiles %}
+<div class="form-group">
+<form id='{{off.offer_name}' action="/AddOfferRequest/">
+ <a class="list-group-item">
+		<img src="{% static image_name %}" data-toggle="popover" title="{{off.offer_name}}" data-content="{{off.offer_abstract}}" data-trigger="hover"  width=25% alt="Flower">
+<input type="submit" value="Add"/>
+ </form>
+ </a>
+ </div>
+{% endwith %}
+{% endfor %}
+</div>
+</div>
+</div>
+</div>
+
+
+<!- Academico ->
+<div class="col-md-6">
+<div class="panel">
+ <div class="panel-heading">Web App Main Control's</div>
+<div class="panel-body">
+		<img src="/static/Photos/img_flower2.jpg" width=100% alt="Flower">
+</div>
+</div>
+</div>
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+
+
+ <footer>
+<p>Buffallo Team Tech Challenge Contact information: 
+<a href="mailto:buffaloteam@gmail.com">buffaloteam@gmail.com</a>.
+</p>
+</footer> 
+
+
+
+
+<script>
+$(document).ready(function(){
+    $('[data-toggle="popover"]').popover();   
+});
+
+$('body').on('click', function (e) {
+    $('[data-toggle="popover"]').each(function () {
+        if (!$(this).is(e.target) && $(this).has(e.target).length === 0 && $('.popover').has(e.target).length === 0) {
+            $(this).popover('hide');
+        }
+    });
+});
+</script>
+
+
+</body>
+</html>
