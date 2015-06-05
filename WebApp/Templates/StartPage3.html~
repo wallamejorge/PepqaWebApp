@@ -1,0 +1,941 @@
+﻿<!DOCTYPE html>
+<!-- 
+	STARTPAGE
+	
+	Autor: Jorge Luis Mayorga Taborda
+	       Juan Felipe Martinez Ramos
+	       Monica Julieth Tuta 
+	Comentarios: 
+	
+-->
+	
+
+
+<!--------------------------------------------------------------------------------------->
+<!--  Inicio Documento HTML  ------------------------------------------------------------> 
+<html class="" lang="en">
+<!---------------------------------------------------------------------------------------> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--------------------------------------------------------------------------------------->
+<!--  Inicio HEAD  ----------------------------------------------------------------------> 
+<head>
+<!--------------------------------------------------------------------------------------->
+
+
+<!--------------------------------------------------------------------------------------->
+<!--  Definir Meta Parametros del HTML5  ------------------------------------------------>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords" content="Academi,Industri,Tecnologi,Uniandes"./>
+<!---------------------------------------------------------------------------------------> 
+
+ 
+<!--------------------------------------------------------------------------------------->
+<!--  Definir Meta Parametros del HTML5  ------------------------------------------------>
+<title>Start Page{{user_firstname}}</title>
+<!---------------------------------------------------------------------------------------> 
+
+<!--------------------------------------------------------------------------------------->
+<!--  Cargar Archivos CSS Estaticos  ----------------------------------------------------> 
+
+{% load staticfiles %}
+<link href="{% static "StartPage/metro-bootstrap.css" %}" rel="stylesheet" type='text/css' >
+{% load staticfiles %}
+<link href="{% static "StartPage/metro-bootstrap.css.map" %}" rel="stylesheet" type='text/css' >
+{% load staticfiles %}
+<link href="{% static "StartPage/metro-bootstrap.min.css" %}" rel="stylesheet" type='text/css' >
+<!---------------------------------------------------------------------------------------> 
+
+
+
+<!--------------------------------------------------------------------------------------->
+<!--  Cargar Archivos  JS Estaticos  ---------------------------------------------------->
+{% load staticfiles %}
+<script type="text/javascript" src="{% static "StartPage/js/jquery.min.js" %}"></script>
+{% load staticfiles %}
+<script type="text/javascript" src="{% static "StartPage/js/jquery.easing.1.3.js" %}"></script>
+{% load staticfiles %}
+<script type="text/javascript" src="{% static "StartPage/js/jquery.nicescroll.min.js" %}"></script>
+{% load staticfiles %}
+<script type="text/javascript" src="{% static "StartPage/js/jquery.sticky.js" %}"></script>
+{% load staticfiles %}
+<script type="text/javascript" src="{% static "StartPage/js/jquery.parallax.js" %}"></script>
+{% load staticfiles %}
+<script type="text/javascript" src="{% static "StartPage/js/jquery.easypiechart.min.js" %}"></script>
+{% load staticfiles %}
+<script type="text/javascript" src="{% static "StartPage/js/jquery.bxslider.min.js" %}"></script>
+{% load staticfiles %}
+<script type="text/javascript" src="{% static "StartPage/js/jquery.timelinr-0.9.53.js" %}"></script>
+{% load staticfiles %}
+<script type="text/javascript" src="{% static "StartPage/js/jquery.appear.js" %}"></script>
+{% load staticfiles %}
+<script type="text/javascript" src="{% static "StartPage/js/jquery.isotope.min.js" %}"></script>
+{% load staticfiles %}
+<script type="text/javascript" src="{% static "StartPage/js/jquery.fitvids.js" %}"></script>
+{% load staticfiles %}
+<script type="text/javascript" src="{% static "StartPage/js/retina.min.js" %}"></script>
+{% load staticfiles %}
+<script type="text/javascript" src="{% static "StartPage/js/supersized.3.2.7.min.js" %}"></script>
+{% load staticfiles %}
+<script type="text/javascript" src="{% static "StartPage/js/supersized.shutter.min.js" %}"></script>
+{% load staticfiles %}
+<script type="text/javascript" src="{% static "StartPage/js/main.js" %}"></script>
+{% load staticfiles %}
+<script type="/text/javascript" src="{% static "StartPage/js/jquery.fittext.js" %}"></script>
+{% load staticfiles %}
+<script type="/text/javascript" src="{% static "StartPage/js/MetroJs.js" %}"></script>
+{% load staticfiles %}
+<script type="/text/javascript" src="{% static "StartPage/js/custom.metro.js" %}"></script>
+{% load staticfiles %}
+<script type="/text/javascript" src="{% static "StartPage/js/jquery.superslides.min.js" %}"></script>
+{% load staticfiles %}
+<script type="/text/javascript" src="{% static "StartPage/js/jquery.sudoslider.min.js" %}"></script>
+{% load staticfiles %}
+<script type="/text/javascript" src="{% static "StartPage/js/service-js.js" %}"></script>
+
+<!---------------------------------------------------------------------------------------> 
+
+<script> 
+	$(document).ready(logCookies());
+</script>
+
+
+<!--------------------------------------------------------------------------------------->
+<!--- Fin de HEAD  ---------------------------------------------------------------------->
+</head>
+<!--------------------------------------------------------------------------------------->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------------------------- -->
+<!--  Begin:Body OnePage Class  ------------------------------------------------------ -->
+<body>
+<!-- --------------------------------------------------------------------------------- -->
+	
+    
+
+<!-- --------------------------------------------------------------------------------- -->
+<!--  Begin: Preloader --------------------------------------------------------------- -->
+<!--  Comments :
+		En esta pagina se carga la pagina en blanco inicial, para futuros cambios 
+		interesantes se puede poner un logo u otras cosas, basta poneras entre la 
+		etiquetas preloder
+-->
+<div id="preloader">
+
+</div>
+<!-- --------------------------------------------------------------------------------- -->
+
+
+
+<!-- --------------------------------------------------------------------------------- -->
+<div class="container" style="background:url("{% static "/StartPage/images/bg.png" %}"); ">
+
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">StartPage of {{me.user_firstnam}} {{me.user_lastname}} Email:{{me.user_email}}</a>
+    </div>
+    <div>
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="#">Home</a></li>
+        <li><a href="#">Page 1</a></li>
+        <li><a href="#">Page 2</a></li>
+        <li><a href="#">Page 3</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="row">
+
+
+	<div class="col-md-1"></div>
+	<div class="col-md-8">
+	<centering>
+	<h1>  </h1>
+	<a href="/Profile/?user_email={{me.user_name}}" >
+	<div class="thumbnail tile tile-medium tile-teal" style="max-width:200px">
+		
+
+			{% load staticfiles %}
+			{% with "Photos/"|add:me.user_photourl as image_name %}
+			<img src="{% static image_name  %}" width="100%">
+			{% endwith %}
+			
+	   
+	   </div>
+	   </a>
+	   </centering>
+
+</div>	
+</div>	
+	
+<div class="row">
+<div class="col-md-1"></div>
+	<div class="col-md-4">
+	<div class="thumbnail tile tile-medium tile-teal" style="max-width:200px">
+		<a href="/GroupsApp/" >
+		
+
+      <img src="{% static "StartPage/images/contactos.png" %} " width=100%  > 
+		</a>
+	</div>
+	</div>
+	<div class="col-md-1"></div>
+	<div class="col-md-4">
+	<div class="thumbnail tile tile-medium tile-teal" style="max-width:200px">
+		<a href="/OffersApp/" >
+		
+		<img src="{% static "StartPage/images/ofertas.png" %} " width=100% > 
+		
+	 </a>
+	</div>
+	</div>
+</div>	
+
+</div>
+
+
+
+
+
+
+    <!-- NAV -->
+
+    <nav id="nav-desktop" class="nav-normal"> 
+      <div class="container">
+        <h1 id="logo"><a class="scroll" href="#home">
+	{% load staticfiles %}	
+	<img class="logo" "{% static "StartPage/images/buffalo1.jpg" %}" alt=""></a></h1>
+        <ul>
+          <li><a href="#start"><span>StartMenu</span></a></li>
+          <li><a href="#MyProfile"><span>My Profile</span></a></li>
+          <li><a href="#groups"><span>My Groups</span></a></li>
+          <li><a href="#offers"><span>My Offers</span></a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <!-- /NAV -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- SKILLS -->
+
+    <section id="ofertas" class="pad-hun page-fix-2">
+
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12 pad-top">
+            <div class="title clearfix" data-animated="bounceIn">
+              <h1>Nuestras nuevas ofertas</h1>
+              </div>
+            <h1 class="under-lll" data-animated="bounceIn">Compartimos la experiencia de lo que sucede en la empresa y la academia<br> Y nuestras estadísticas son</h1>
+          </div>
+        </div>
+      </div>
+
+      <div class="container">
+        <div class="row">
+
+          <div  id="our-skill" class="pad-bottom">
+            <div class="col-sm-4 col-md-4">
+              <div class="piechart" data-percent="80">
+                <span></span>
+                <h3 class="skill-t">Published Articles </h3>
+              </div>
+            </div>
+            <div class="col-sm-4 col-md-4">
+              <div class="piechart" data-percent="60">
+                <span></span>
+                <h3 class="skill-t">Projects Involved Into</h3>
+              </div>
+            </div>
+            <div class="col-sm-4 col-md-4">
+              <div class="piechart" data-percent="95">
+                <span></span>
+                <h3 class="skill-t">Coolness Level</h3>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- /SKILLS -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--Manager-->
+  <section id="manager" class="pad-hun page-fix-3">
+        <div data-animated="bounceIn">
+              <center>
+              <br>
+              <br>
+              <h1>Manage your Pages</h1>
+              </center>
+        </div>
+        <br>
+            <center>
+            <h4 data-animated="bounceIn">Modify your offers, groups and friends</h4>
+            </center>
+<br>
+<br>
+<div class="row">
+<div class="btn-group btn-group-justified" role="group" aria-label="..." >
+  <div class="btn-group" role="group">
+    <a href="#manageoffers"><button type="button" class="btn btn-default" style="background: #444; font-size: 11px">Offers</button></a>
+  </div>
+  <div class="btn-group" role="group">
+   <a href="#managegroups"><button type="button" class="btn btn-default" style="background: #444; font-size: 11px">Groups</button></a>
+  </div>
+  <div class="btn-group" role="group">
+    <a href="#managefriends"><button type="button" class="btn btn-default" style="background: #444; font-size: 11px">Friends</button></a>
+  </div>
+</div>
+</div>
+<br>
+<br>
+
+    <!--Manage offers--> 
+
+<div class="title clearfix" data-animated="bounceIn">
+<h1>Manage your Offers</h1>
+</div> 
+
+	<div class="container" id="MyProfile">
+<div class="panel panel-primary">
+<div class="panel-heading">ID:{{me.pk}} Name:{{me.user_firstname}} </div>
+<div class="panel-body">
+
+<form id='{{me.user_email}}' action="/StartPageSave/">
+<div class="row">
+<div class="col-md-4">
+<div class="well">
+
+{% with "Photos/"|add:me.user_photourl as image_name %}
+	{% load staticfiles %}
+	<img src="{% static image_name %}" width="100%" >
+	{% endwith %}
+
+<br/><br/><br/>
+PhotoFile : <input type="text" name="usr_photourl" value="{{me.user_photourl}}" > 
+<br/>
+</div>
+</div>
+
+<div class="col-md-8">
+
+<div class="row">
+	<div class="col-md-6">
+	<div class="well">
+	  
+	Email :  <input type="text" name="usr_email" value="{{me.user_email}}" > 
+	</div>
+	</div>
+
+	<div class="col-md-6">
+	<div class="well">
+	Password : <input type="password" name="usr_password" value="{{me.user_password}}" > 
+	</div>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-md-6">
+	<div class="well">
+	FirstName : <input type="text" name="usr_firstname" value="{{me.user_firstname}}" > 
+	</div>
+	</div>
+
+	<div class="col-md-6">
+	<div class="well">
+	LastName : <input type="text" name="usr_lastname" value="{{me.user_lastname}}" > 
+	</div>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-md-6">
+	<div class="well">
+	Age : <input type="text" name="usr_age" value="{{me.user_age}}" > 
+	</div>
+	</div>
+	<div class="col-md-6">
+	<div class="well">
+	Gender : <input type="text" name="usr_gender" value="{{me.user_gender}}" > 
+	</div>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-md-6">
+	<div class="well">
+	Country : <input type="text" name="usr_country" value="{{me.user_country}}" > 
+	</div>
+	</div>
+	
+	<div class="col-md-6">
+	<div class="well">
+	Language : <input type="text" name="usr_language" value="{{me.user_language}}" > 
+	</div>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-md-6">
+	<div class="well">
+	Category : <input type="text" name="usr_category" value="{{me.user_category}}" > 
+	</div>
+	</div>
+	
+	<div class="col-md-6">
+	<div class="well">
+	Company : <input type="text" name="usr_company" value="{{me.user_company}}" > 
+	</div>
+	</div>
+</div>
+
+
+</div>
+</div>
+
+<div class="row">
+	<div class="col-md-4">
+	<div class="well">
+	Studies : <input type="text" name="usr_studies" value="{{me.user_studies}}" >  
+	</div>
+	</div>
+	<div class="col-md-4">
+	<div class="well">
+	Topics : <input type="text" name="usr_topics" value="{{me.user_topics}}" > 
+	</div>
+	</div>
+	<div class="col-md-4">
+	<div class="well">
+	CVFile : <input type="text" name="usr_cvurl" value="{{me.user_cvurl}}" >  
+	</div>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-md-4">
+	<div class="well">
+	Facebook : <input type="text" name="usr_fburl" value="{{me.user_fburl}}"  >   
+	</div>
+	</div>
+	<div class="col-md-4">
+	<div class="well">
+	Twitter : <input type="text" name="usr_twitterurl" value="{{me.user_twitterurl}}" > 
+	</div>
+	</div>
+	<div class="col-md-4">
+	<div class="well">
+	Linkedln : <input type="text" name="usr_linkedlnurl" value="{{me.user_linkedlnurl}}" > 
+	</div>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-md-12">
+	<div class="well">
+	Abstract : <textarea name="usr_abstract" cols="100" >{{me.user_abstract}}</textarea> 	   
+	</div>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-md-3">
+	<div class="well">
+	English.Reading : <input type="text" name="usr_englishReading" value="{{me.user_englishReading}}" > 
+	</div>
+	</div>
+	<div class="col-md-3">
+	<div class="well">
+	English.Writing : <input type="text" name="usr_englishWriting" value="{{me.user_englishWriting}}" > 
+	</div>
+	</div>
+	<div class="col-md-3">
+	<div class="well">
+	English.Listening : <input type="text" name="usr_englishListening" value="{{me.user_englishListening}}" >
+	</div>
+	</div>
+	<div class="col-md-3">
+	<div class="well">
+	English.Speaking : <input type="text" name="usr_englishSpeaking" value="{{me.user_englishSpeaking}}" > 
+	</div>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-md-3">
+	<div class="well">
+	Communication Skills : <input type="text" name="usr_skillCommunication" value="{{me.user_skillCommunication}} "> % 
+	</div>
+	</div>
+	<div class="col-md-3">
+	<div class="well">
+	Teamwork Skills : <input type="text" name="usr_skillTeamwork" value="{{me.user_skillTeamwork}} " > %
+	</div>
+	</div>
+	<div class="col-md-3">
+	<div class="well">
+	Initiative SKills : <input type="text" name="usr_skillInitiative" value="{{me.user_skillInitiative}} " > %
+	</div>
+	</div>
+	<div class="col-md-3">
+	<div class="well">
+	Problem Solving Skills : <input type="text" name="usr_skillProblemSolving" value="{{me.user_skillProblemSolving}} " > %
+	</div>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-md-3">
+	<div class="well">
+	Flexibility Skills : <input type="text" name="usr_skillFlexibility" value="{{me.user_skillFlexibility}} " > %
+	</div>
+	</div>
+	<div class="col-md-3">
+	<div class="well">
+	Computer Skills : <input type="text" name="usr_skillComputer" value="{{me.user_skillComputer}} " > %
+	</div>
+	</div>
+	<div class="col-md-3">
+	<div class="well">
+	Technical Skills : <input type="text" name="usr_skillTechnical" value="{{me.user_skillTechnical}} " > %
+	</div>
+	</div>
+	<div class="col-md-3">
+	<div class="well">
+	Leadership Skills : <input type="text" name="usr_skillLeadership" value="{{me.user_skillLeadership}} " > %
+	</div>
+	</div>
+</div>
+
+<input type="submit" value="Save"/>
+</form>
+</div>
+
+</div>
+</div>
+
+
+</div>  
+
+
+
+
+
+
+
+
+
+
+<div class="container">
+<div class="panel panel-primary">
+<div class="panel-heading">ID:{{me.pk}} Friends of {{me.user_firstname}}  , {{me.user_lastname}} [Email:{{me.user_email}}] </div>
+<div class="panel-body">
+<div class="row">
+<div class="col-md-6">
+<div class="list-group">
+
+
+
+{% for frnd in friendsList %}
+	{% ifequal me.user_email frnd.friendship_from %}
+		{% for usr2 in usersList %}
+			{% ifequal usr2.user_email frnd.friendship_to %}
+			<form id='{{me.user_email}}' action="/StartPageRemoveFriendship/">
+				<a class="list-group-item">
+				{% with "Photos/"|add:usr2.user_photourl as image_name %}
+				{% load staticfiles %}
+				<img src="{% static image_name %}" width=50px  data-toggle="popover" title="{{usr2.user_firstname}} {{usr2.user_lastname}} " data-content="{{usr2.user_abstract}}" data-trigger="hover" / >
+				{% endwith %}
+								<input type="text" name="friend1"  hidden value="{{me.user_email}}">
+								<input type="text" name="friend2"  hidden value="{{usr2.user_email}}">
+				{{usr2.user_firstname}} {{usr2.user_lastname}} 
+				<input type="submit" value="Remove"/>
+				</a>
+			</form>
+			{% endifequal %}
+		{% endfor %}
+	{% endifequal %}
+{% endfor %}
+
+
+
+
+</div>
+</div>	
+
+<div class="col-md-3">
+<div class="list-group">
+<li class="list-group-item">
+
+{% with "Photos/"|add:me.user_photourl as image_name %}
+	{% load staticfiles %}
+	<img src="{% static image_name %}" width="100%" >
+	{% endwith %}
+</li>
+</div>	
+</div>	
+
+<div class="col-md-3">
+<div class="list-group">
+<li class="list-group-item">{{me.user_firstname}} {{me.user_lastname}}</li>
+<li class="list-group-item">Age:{{me.user_age}}</li>
+<li class="list-group-item">Country:{{me.user_country}}</li>
+<li class="list-group-item">Language:{{me.user_language}}</li>
+<li class="list-group-item">Abstract:{{me.user_abstract}}</li>
+</div>
+</div>		
+	
+
+</div>
+</div>
+</div>
+</div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+        <!--Solicitudes de la oferta-->
+        <div class="col-md-4">
+            <div class="panel panel-primary">
+              <div class="panel-heading">REQUEST</div>
+              <div class="panel-body">
+            <form>
+            <div class="row">
+            <div class="col-md-3">
+            Foto
+            </div>
+            <div class="col-md-5">
+            User description
+            </div>
+            <div class="col-md-3">
+            <form action="demo_form.asp" method="get">
+            <button type="button" style="background: #BCF5A9; font-size: 13px">OK</button>
+            <button type="button" style="background: #F78181; font-size: 13px">X</button>
+            </form>
+            </div>                       
+            </div>
+            <div class="row">
+            <div class="col-md-3">
+            Foto2
+            </div>
+            <div class="col-md-5">
+            User description2
+            </div>
+            <div class="col-md-3">
+            <form action="demo_form.asp" method="get" >
+            <button type="button" style="background: #BCF5A9; font-size: 13px">OK</button>
+            <button type="button" style="background: #F78181; font-size: 13px">X</button>
+            </form>
+            </div>                       
+            </div>
+            <div class="row">
+            <div class="col-md-3">
+            Foto3
+            </div>
+            <div class="col-md-5">
+            User description3
+            </div>
+            <div class="col-md-3">
+            <form action="demo_form.asp" method="get">
+            <button type="button" style="background: #BCF5A9; font-size: 13px">OK</button>
+            <button type="button" style="background: #F78181; font-size: 13px">X</button>
+            </form>
+            </div>                       
+            </div>
+
+            </form>
+
+              </div>
+              </div>
+           
+        </div>
+
+        <!--Aceptados de la oferta-->
+        <div class="col-md-4">
+         
+            <div class="panel panel-primary">
+              <div class="panel-heading">People Accepted</div>
+              <div class="panel-body">
+            <form>
+            <div class="row">
+            <div class="col-md-4">
+            Foto
+            </div>
+            <div class="col-md-5">
+            User description
+            </div>
+            <div class="col-md-3">
+            <form action="demo_form.asp" method="get">
+            <button type="button" style="background: #F78181; font-size: 13px">X</button>
+            </form>
+            </div>                       
+            </div>
+            <div class="row">
+            <div class="col-md-4">
+            Foto2
+            </div>
+            <div class="col-md-5">
+            User description2
+            </div>
+            <div class="col-md-3">
+            <form action="demo_form.asp" method="get">
+            <button type="button" style="background: #F78181; font-size: 13px">X</button>
+            </form>
+            </div>                       
+            </div>
+            <div class="row">
+            <div class="col-md-4">
+            Foto3
+            </div>
+            <div class="col-md-5">
+            User description3
+            </div>
+            <div class="col-md-3">
+            <form action="demo_form.asp" method="get">
+            <button type="button" style="background: #F78181; font-size: 13px">X</button>
+            </form>
+            </div>                       
+            </div>
+
+            </form>
+
+              </div>
+           </div>
+           
+           </div>
+    </div>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- CONTACT -->
+
+    <section id="contact" class="pad-hun page-fix-3">
+
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12 pad-top">
+            <div class="title clearfix" data-animated="bounceIn">
+              <h4>Feel Free To Contact Us</h4>
+		{% load staticfiles %}	
+              <img src="{% static "StartPage/images/lina.jpg" %}" alt="" data-animated="bounceIn">
+            </div>
+            
+            <h1 class="under-ll" data-animated="bounceIn">Give us you contact information for more details</h1>
+            
+          </div>
+        </div>
+      </div>
+
+      <div class="container">
+        <div class="row">
+
+               <div class="form-container"> 
+                <form id="contact-form" class="contact-form" method="post" action="process.php">
+
+                    <div class="result"></div>
+
+                     <div class="col-md-4 pad-top" data-animated="bounceIn">
+                    <div class="form-group">
+                      <input type="text" name="name" id="name" placeholder="Name" class="form-control">
+                    </div>
+
+                    <div class="form-group">
+                      <input type="text" name="email" id="email" placeholder="Mail" class="form-control">
+                    </div>
+
+                    </div>
+                    <div class="col-md-6 pad-top" data-animated="bounceIn">
+                    <div class="form-group">
+                      <textarea cols="5" rows="4" name="comments" id="comm" placeholder="Message:" class="form-control"></textarea>
+                    </div>
+
+                     </div>
+                     <div class="col-md-2 pad-top" data-animated="bounceIn">
+                    <div class="form-group">
+                      <input type="submit" class="btn btn-dark" name="submit" value="submit">
+                    </div>
+                     </div>
+                </form>
+              </div>
+        </div>
+        <br><br><br>
+            
+            <h1 class="under-llll" data-animated="bounceIn">Contáctanos para más información a pepquapp@gmail.com <br> Cualquier aporte nos enriquece! ...</h1>
+      </div>
+
+       <div class="riz-text">
+	<h1>
+	<a class="scroll" href="#home">
+	{% load staticfiles %}		
+	<img src="{% static "StartPage/images/tt.png" %}" alt="">
+	</a>
+	</h1>
+	</div>
+
+    </section>
+
+
+    <!-- /CONTACT -->
+
+
+    <!-- FOOTER -->
+
+    <footer id="footer">
+        <div class="container">
+          <div class="row">
+              <div class="col-md-6 col-sm-6 col-xs-6">
+		{% load staticfiles %}
+              <img src="{% static "StartPage/images/buffalo1.jpg" %}" alt="" class="footer_logo"/>
+                Juan Felipe Martínez, Jorge Luis Mayorga, and Mónica Tuta
+              </div>
+             </div>
+        </div>
+    </footer>
+
+    <!-- /FOOTER -->
+
+
+    <!-- JS -->
+
+<script>
+$(document).ready(function(){
+    $('[data-toggle="popover"]').popover();   
+});
+
+$('body').on('click', function (e) {
+    $('[data-toggle="popover"]').each(function () {
+        //the 'is' for buttons that trigger popups
+        //the 'has' for icons within a button that triggers a popup
+        if (!$(this).is(e.target) && $(this).has(e.target).length === 0 && $('.popover').has(e.target).length === 0) {
+            $(this).popover('hide');
+        }
+    });
+});
+</script>
+
+  </body>
+</html>

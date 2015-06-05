@@ -1,0 +1,36 @@
+<html>
+<head>
+<title>Demo Login </title>
+</head>
+<body>
+<div class="main">
+	<h1>Web App Buffalo Team! </h1>
+	<p>Hoy es {{Date}} <p>
+
+	
+	<form action="/DemoProfile/" method="get">
+	
+	<input  name="username"
+		type="text" 
+		class="text" 
+		value="Gmail" 
+		onfocus="this.value = '';" 
+		onblur="if (this.value == '') {this.value = 'Username';}" >
+	
+
+	<input  name="userpass"
+		type="password" 
+		value="Password" 
+		onfocus="this.value = '';" 
+		onblur="if (this.value == '') {this.value = 'Password';}">
+	
+	<input type="submit" value="LOG IN" >
+	</form>
+
+</div>	
+
+
+</body>
+
+
+</html>

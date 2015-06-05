@@ -32,13 +32,18 @@ Author URI: http://themecafe.serverkurd.com
 html, body{height: 100%;}
 body
 {
-	color: #000;
-    background:url('../images/bg.png') no-repeat;
+
+	background-color: red;
+	background:url('../images/bg.png'); 
+    background-repeat: no-repeat;
+    background-position: center center;
 	overflow: hidden;
 	line-height: 1;
 	font-weight: 100;
 	font-family: 'nexa', Helvetica, Arial, sans-serif ;
 	font-size: 16px;
+	background-size:cover;     
+             
 }
 a
 {

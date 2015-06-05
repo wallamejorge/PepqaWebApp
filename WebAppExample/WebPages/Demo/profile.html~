@@ -1,0 +1,38 @@
+<html>
+<head>
+<title>Demo Login </title>
+</head>
+<body>
+<div class="main">
+	<h1>{{FirstName}} {{LastName}} </h1>
+	<p>Hoy es {{Date}} <p>
+
+
+	<ul>
+	<p>FriendsList</p>		
+		{% for o in FriendsList %}
+			<li> {{o}} </li>
+			<input type="button" value="Borrar?">
+		{% endfor %} 
+	</ul>
+
+	<ul>
+	<p>Friends Request</p>		
+		{% for o in FriendsRequestList %}
+			<li> {{o}} </li>
+                        <input type="button" value="Aceptar?">	
+			<input type="button" value="Borrar?">
+		{% endfor %} 
+	</ul>
+
+
+	
+	
+
+</div>	
+
+
+</body>
+
+
+</html>

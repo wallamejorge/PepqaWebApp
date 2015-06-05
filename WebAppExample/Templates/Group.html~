@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>{{grp.group_name}}</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+{% load staticfiles %}
+<script src="{% static "Admin/jquery.min.js" %}"></script>
+{% load staticfiles %}
+<script src="{% static "Admin/bootstrap.min.js" %}"></script>
+{% load staticfiles %}
+<link href="{% static "Admin/bootstrap.min.css" %}" rel="stylesheet">
+</head>
+<body>
+  
+<div class="container">
+
+	<div class="jumbotron">
+    <h1>{{grp.group_name}}</h1>
+  	</div>	 
+  	
+  	<div class="panel panel-default">
+	<div class="panel-body">
+	<div class="col-md-9">
+  	    <p>{{grp.group_abstract}}</p>
+  	</div>
+  	<div class="col-md-3" style="width:80px" >
+		{% with "Photos/"|add:grp.group_photourl as image_name %}
+		{% load staticfiles %}
+		<img src="{% static image_name %}" width=80px  / >
+		{% endwith %}
+   </div>
+
+   </div>
+   </div>	
+
+
+     <div class="panel panel-default">
+		<div class="panel-body">
+
+		<div class="col-md-3" style="width:80px" >
+			{% with "Photos/"|add:me.user_photourl as image_name %}
+			{% load staticfiles %}
+			<img src="{% static image_name %}" width=80px  / >
+			{% endwith %}
+		</div>
+	
+		<div class="col-md-10">
+	
+		<form action="/AddCommentApp/">
+		<input type="text" name="grp_name" disabled hidden  value="{{grp.group_name}}">
+	
+		<textarea name="comment" rows="4" style="width:100%"></textarea> 
+				<input type="text" name="grp_name"  hidden value="{{grp.group_name}}">
+		<input type="submit" value="Send Comment">
+		</form>
+	
+		</div>
+  	</div>
+  	</div>
+  	
+  	
+ 
+  	
+  	{% for cmt in cmts reversed %}
+  	{% for usr in usrs %}
+
+  	
+  	{% ifequal cmt.comment_owner usr.user_email %}
+  	{% ifequal cmt.comment_group  grp.group_name %}
+	 <div class="panel panel-default">
+		<div class="panel-body">
+
+		<div class="col-md-1" style="width:80px" >
+			{% with "Photos/"|add:usr.user_photourl as image_name %}
+			{% load staticfiles %}
+			<img src="{% static image_name %}" width=80px  data-toggle="popover" title="{{usr.user_firstname}} {{usr.user_lastname}} " data-content="{{usr.user_abstract}}" data-trigger="hover" / > 
+			{% endwith %}
+		</div>
+	
+		<div class="col-md-10">
+		<form action="/AddCommentApp/">
+		<textarea name="comment" rows="4" style="width:100%" disabled>{{cmt.comment_abstract}}</textarea> 
+		Uploaded: {{cmt.comment_date}}
+		</form>
+	
+		</div>
+	</div>
+	</div>
+	{% endifequal %}
+	{% endifequal %}
+			{% endfor %}
+	{% endfor %}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	</div>
+	</div>
+  
+  
+        
+</div>
+
+<script>
+$(document).ready(function(){
+    $('[data-toggle="popover"]').popover();   
+});
+
+$('body').on('click', function (e) {
+    $('[data-toggle="popover"]').each(function () {
+        if (!$(this).is(e.target) && $(this).has(e.target).length === 0 && $('.popover').has(e.target).length === 0) {
+            $(this).popover('hide');
+        }
+    });
+});
+
+$('[data-toggle="popover"]').popover({
+    container: 'body'
+});
+</script>
+
+
+
+</body>
+</html>
+

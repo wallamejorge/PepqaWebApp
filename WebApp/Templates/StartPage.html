@@ -38,7 +38,7 @@
 
 <!--------------------------------------------------------------------------------------->
 <!--  Definir Meta Parametros del HTML5  ------------------------------------------------>
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width,nitial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="keywords" content="Academi,Industri,Tecnologi,Uniandes"./>
 <!---------------------------------------------------------------------------------------> 
@@ -46,7 +46,7 @@
  
 <!--------------------------------------------------------------------------------------->
 <!--  Definir Meta Parametros del HTML5  ------------------------------------------------>
-<title>Start {{user_firstname}}</title>
+<title>Start Page{{user_firstname}}</title>
 <!---------------------------------------------------------------------------------------> 
 
 <!--------------------------------------------------------------------------------------->
@@ -73,7 +73,12 @@
 <link href="{% static "StartPage/css/metro-style.css" %}" rel="stylesheet" type='text/css' >
 {% load staticfiles %}
 <link href="{% static "StartPage/css/Met-Js.css" %}" rel="stylesheet" type='text/css' >
-
+{% load staticfiles %}
+<link href="{% static "StartPage/metro-bootstrap.css" %}" rel="stylesheet" type='text/css' >
+{% load staticfiles %}
+<link href="{% static "StartPage/metro-bootstrap.css.map" %}" rel="stylesheet" type='text/css' >
+{% load staticfiles %}
+<link href="{% static "StartPage/metro-bootstrap.min.css" %}" rel="stylesheet" type='text/css' >
 <!---------------------------------------------------------------------------------------> 
 
 
@@ -161,7 +166,7 @@
 
 <!-- --------------------------------------------------------------------------------- -->
 <!--  Begin:Body OnePage Class  ------------------------------------------------------ -->
-<body class="onepage">
+<body style="background-repeat: repeat-y; " >
 <!-- --------------------------------------------------------------------------------- -->
 	
     
@@ -178,282 +183,82 @@
 </div>
 <!-- --------------------------------------------------------------------------------- -->
 
-
-
-<!-- --------------------------------------------------------------------------------- -->
-<!--  Begin: Top --------------------------------------------------------------------- -->
-<!--  Comments :
-		Banner superior, se pueden poner anunciones, links, u opciones ....
--->
-<a id="top">
-
-</a>
-<!-- --------------------------------------------------------------------------------- -->
+<div class="container" >
 
 
 
-<!-- --------------------------------------------------------------------------------- -->
-<!--  Begin: Home Class:Parallax ----------------------------------------------------- -->
-<section id="home" class="parallax">
-<!-- --------------------------------------------------------------------------------- -->
+<nav class="navbar navbar-inverse" >
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">StartPage of {{me.user_firstnam}} {{me.user_lastname}} Email:{{me.user_email}}</a>
+    </div>
+    <div>
+      <ul class="nav navbar-nav">
+        <li><a href="/Profile/?user_email={{me.user_email}}">Profile</a></li>
+        <li><a href="/Offers/">Offers</a></li>
+        <li><a href="/GroupsApp/">Groups & Forums</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
 
+<div class="row">
 
+	
+	<div class="col-md-2" >
+	<div class="thumbnail tile tile-medium tile-teal" style="max-width:200px;">
+	<a href="/Profile/?user_email={{me.user_email}}">
+			{% load staticfiles %}
+			{% with "Photos/"|add:me.user_photourl as image_name %}
+			<img src="{% static image_name  %}" width="100%">
+			{% endwith %}
+	</a>
+	</div>
+	</div>	
 
+	<div class="col-md-2">
+	<div class="thumbnail tile tile-medium tile-teal" >
+	<a href="/Offers/" ><img src="{% static "StartPage/images/ofertas.png" %} " width=100% > </a>
+	</div>
+	</div>
 
-<!-- --------------------------------------------------------------------------------- -->
-<!--  Begin: bg-parallax-------------------------------------------------------------- -->
-<div class="bg-parallax">
-
-</div>
-<!-- --------------------------------------------------------------------------------- -->
-
-<!-- --------------------------------------------------------------------------------- -->
-<!--  Begin: pattern ----------------------------------------------------------------- -->
-<div class="pattern">
-
-</div>
-<!-- --------------------------------------------------------------------------------- -->
-
-<!-- --------------------------------------------------------------------------------- -->
-<!--  Begin: overlay------------------------------------------------------------------ -->
-<div class="overlay">
-
-</div>
-<!-- --------------------------------------------------------------------------------- -->
-
-<!-- --------------------------------------------------------------------------------- -->
-<!--  Begin: units-row units-row-end topslider --------------------------------------- -->
-<div class="units-row units-row-end topslider">
-<!-- --------------------------------------------------------------------------------- -->
-
-<!-- --------------------------------------------------------------------------------- -->
-<!--  Begin: home-items -------------------------------------------------------------- -->
-<div id="home-items">
-<!-- --------------------------------------------------------------------------------- -->
-<!--  Begin: block-left -------------------------------------------------------------- -->
-<div id="block-left">
-<!-- --------------------------------------------------------------------------------- -->
-
-
-
-<!-- --------------------------------------------------------------------------------- -->
-<!--  Begin: tile : TITLE------------------------------------------------------------- -->
-<div class="tiles">
-<!-- --------------------------------------------------------------------------------- -->
-<!--  Begin: live-tile --------------------------------------------------------------- -->
-<div class="live-tile" id="bick1"  data-mode=""  data-delay="" data-direction="" >
-<!-- --------------------------------------------------------------------------------- -->
-<!--  Begin: navi-main --------------------------------------------------------------- -->
-<div class="navi-main">
-<h3>
-	Start Page of {{user_firstname}} {{user_lastname}}
-</h3>
-</div>
-<!--  End : navi-main ---------------------------------------------------------------- -->
-</div>
-<!--  End : live-tile ---------------------------------------------------------------- -->
-</div>
-<!--  End : tile --------------------------------------------------------------------- -->
-<!-- --------------------------------------------------------------------------------- -->            
-
-
-
-
-<!-- --------------------------------------------------------------------------------- -->
-<!--  Begin: tile : Logo Pepqa ------------------------------------------------------- -->
-<!-- --------------------------------------------------------------------------------- -->
-<!--  Begin: live-tile : bick-m ------------------------------------------------------ -->
-<div class="live-tile" id="bick-m"   data-mode=""  data-delay="" data-direction="" >
-<!-- --------------------------------------------------------------------------------- -->
-<!--  Begin: navi-sq-m --------------------------------------------------------------- -->
-<div class="navi-sq-m">
-{% load staticfiles %}
-<img src="{% static "StartPage/images/logo.png" %}" alt="" class="avatar" >
-</div>
-<!-- End : navi-sq-m ----------------------------------------------------------------- -->
-</div>
-<!-- End : live-tile ----------------------------------------------------------------- -->
-<!-- --------------------------------------------------------------------------------- -->
-
-
-
-
-<!-- --------------------------------------------------------------------------------- -->
-<!--  Begin: tile : Icono Profile ---------------------------------------------------- -->
-<!-- --------------------------------------------------------------------------------- -->
-<!-- Begin : live-tile ------------------------------------------------------------ -->
-<div class="live-tile" id="bick2"  data-mode="flip"  data-delay="17000" data-direction="vertical" >
-<!-- Begin : navi-sq-1 --------------------------------------------------------------- -->
-<div class="navi-sq-1">
-<!-- Begin : scroll  --------------------------------------------------------------- -->
-<a class="scroll" href="/Profile/?user_email={{user_email}}"/>
-<br>
-<br>
-<br>
-{% load staticfiles %}
-<img src="{% static "StartPage/images/perfil.png" %}" >
-</div>
-<!-- End Scroll ---------------------------------------------------------------------- -->
-</div>
-<!-- End navi-sq --------------------------------------------------------------------- -->
-<!-- --------------------------------------------------------------------------------- -->
-     
-
-
-<!-- --------------------------------------------------------------------------------- -->
-<!--  Begin: ilve-tile :  ---------------------------------------------------- -->
-<!-- --------------------------------------------------------------------------------- -->
-<div class="live-tile carousel" id="bick3"  data-mode="carousel"  data-delay="14000" data-direction="horizontal" >
-<div class="slide active" style="left: 0px; top: 0px; -webkit-transition-duration: 500ms; transition-duration: 500ms; -webkit-transition-property: left; transition-property: left; -webkit-transition-timing-function: ease; transition-timing-function: ease;">
-<br>
-<br>
-<br>
-{% load staticfiles %}
-<img src="{% static "StartPage/images/logo.png"  %} " alt="" class="avatar">
-</div>
-<div class="slide" style="left: -165px; top: 0px; -webkit-transition-duration: 500ms; transition-duration: 500ms; -webkit-transition-property: left; transition-property: left; -webkit-transition-timing-function: ease; transition-timing-function: ease;">
-<br>
-<br>
-<br>
-{% load staticfiles %}
-<img src="{% static "StartPage/images/IEEE.png" %} "  alt="" class="avatar">
-</div>
-</div>
-
-
-<div class="live-tile" id="bicks-1"  data-mode="carousel"  data-delay="8500" data-direction="vertical" >
+	{% for frnd in friendsList %}
+	{% ifequal me.user_email frnd.friendship_from %}
+		{% for usr2 in usersList %}
+			{% ifequal usr2.user_email frnd.friendship_to %}
+			<div class="col-md-2" style="color: black;" >
+			<div class="thumbnail tile tile-medium tile-teal" >
+			<a href="/Profile/?user_email={{usr2.user_email}}">
+			{% load staticfiles %}
+			{% with "Photos/"|add:usr2.user_photourl as image_name %}
+			<img src="{% static image_name  %}" width="100%">
+			{% endwith %}
+			</a>
+			</div>
+			</div>
+			{% endifequal %}
+		{% endfor %}
+	{% endifequal %}
+	{% endfor %}
+	
+	<div class="col-md-2">
+	<div class="thumbnail tile tile-medium tile-teal" >
+	<a href="/GroupsApp/" ><img src="{% static "Photos/foro.jpg" %} " width=100%  > </a>
+	</div>
+	</div>
+	
+	
+		
+	
+</div>	
 
 </div>
-            
-<div class="live-tile" id="bick5"  data-mode=""  data-delay="" data-direction="" >
-<div class="navi-sq-3"><a class="scroll" href="#services">
-<br>
-<br>
-<br>
-{% load staticfiles %}
-<img src="{% static "StartPage/images/contactos.png" %} " >                         
-</div>
-</div>
 
-
-<div class="live-tile" id="bick6"  data-mode="flip"  data-delay="12000" data-direction="vertical" >
-<div>
-{% load staticfiles %}
-<img src="{% static "StartPage/images/ecohouse.jpg" %} "  alt="" class="avatar">
-</div>
-<div>
-{% load staticfiles %}
-<img src="{% static "StartPage/images/technologywallpaper.jpg" %} " alt="" class="avatar">
-</div>
-</div>
-
-
-<div class="live-tile" id="bick7"  data-mode="flip"  data-delay="17000" data-direction="vertical" >
-<br>
-<br>
-<br>
-<div>
-{% load staticfiles %}
-<img src="{% static "StartPage/images/math.jpg" %}" alt="" >
-</div>
-
-<div>
-{% load staticfiles %}
-<img src="{% static "StartPage/images/lookingforajob.jpg" %}" alt="" >
-</div>
-</div>
-
-
-
-<div class="live-tile" id="bick8"  data-mode=""  data-delay="" data-direction="" >               
-<div class="navi-sq-4">
-<a class="scroll" href="/Offers/">
-<br>
-<br>
-<br>
-{% load staticfiles %}
-<img src="{% static "StartPage/images/ofertas.png" %}"> 
-</a>                  
-</div>  
-</div>
-
-
-
-<div class="live-tile" id="bick9"  data-mode="flip"  data-delay="22000" data-direction="vertical" >
-<br>
-<br>
-<br>
-<div>
-{% load staticfiles %}
-<img src="{% static "StartPage/images/work.jpg" %}" alt="" >
-</div>
-<div>
-{% load staticfiles %}
-<img src="{% static "StartPage/images/renewable.jpg" %}" alt="" >
-</div>
-
-</div>
-<div class="live-tile" id="bicks-2"  data-mode="carousel"  data-delay="15000" data-direction="vertical">
-</div>
-<div class="live-tile" id="bick10"  data-mode="flip"  data-delay="12000" data-direction="vertical" ><br><br><br>
-<div>
-{% load staticfiles %}
-<img src="{% static "StartPage/images/industria.jpg" %}" alt="" >
-</div>
-<br>
-<br>
-<br>
-
-<div>
-{% load staticfiles %}
-<img src="{% static "StartPage/images/renewable.jpg" %}" alt="" >
-</div>
-                    
-</div>
-<div class="live-tile" id="bick11"  data-mode=""  data-delay="" data-direction="" >
-<div class="navi-sq-5">
-<a class="scroll" href="/People/"> 
-<br>
-<br>
-<br>
-{% load staticfiles %}
-<img src="{% static "StartPage/images/correo.png" %}">   
-</a>                         
-</div>
-</div>
-
-<div class="live-tile" id="bicks-3"  data-mode="carousel"  data-delay="15000" data-direction="vertical" >
-</div>
-
-<div class="live-tile" id="bick12"  data-mode="flip"  data-delay="7000" data-direction="vertical" >
-<br>
-<br>
-<br>
-<div>
-{% load staticfiles %}
-<img src="{% static "StartPage/images/robot.jpg" %}" alt="" >
-</div>
-
-<div>
-{% load staticfiles %}
-<img src="{% static "StartPage/images/electricity.jpg" %}" alt="" >
-</div>
-</div>
-
-<div class="live-tile" id="bick13"   data-mode=""  data-delay="" data-direction="" >
-<div class="navi-sq-t">
-<a class="scroll" href="/About/">
-{% load staticfiles %}
-<img src="{% static "StartPage/images/electricity.jpg" %}" alt="" >
-</a>
-
-</div>
-</div>
-</div>   
-</div>
 </section>
 
-    <!-- /HEADER -->
+
+
+
 
     <!-- NAV -->
 
@@ -463,15 +268,37 @@
 	{% load staticfiles %}	
 	<img class="logo" "{% static "StartPage/images/buffalo1.jpg" %}" alt=""></a></h1>
         <ul>
-          <li><a href="#about"><span> About</span></a></li>
-          <li><a href="#team"><span>Team</span></a></li>
-          <li><a href="#services"><span>Services</span></a></li>
-          <li><a href="#contact"><span>Contact</span></a></li>
+          <li><a href="#start"><span>StartMenu</span></a></li>
+          <li><a href="#MyProfile"><span>My Profile</span></a></li>
+          <li><a href="#groups"><span>My Groups</span></a></li>
+          <li><a href="#offers"><span>My Offers</span></a></li>
         </ul>
       </div>
     </nav>
 
     <!-- /NAV -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -526,6 +353,506 @@
     </section>
 
     <!-- /SKILLS -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--Manager-->
+  <section id="manager" class="pad-hun page-fix-3">
+        <div data-animated="bounceIn">
+              <center>
+              <br>
+              <br>
+              <h1>Manage your Pages</h1>
+              </center>
+        </div>
+        <br>
+            <center>
+            <h4 data-animated="bounceIn">Modify your offers, groups and friends</h4>
+            </center>
+<br>
+<br>
+<div class="row">
+<div class="btn-group btn-group-justified" role="group" aria-label="..." >
+  <div class="btn-group" role="group">
+    <a href="#manageoffers"><button type="button" class="btn btn-default" style="background: #444; font-size: 11px">Offers</button></a>
+  </div>
+  <div class="btn-group" role="group">
+   <a href="#managegroups"><button type="button" class="btn btn-default" style="background: #444; font-size: 11px">Groups</button></a>
+  </div>
+  <div class="btn-group" role="group">
+    <a href="#managefriends"><button type="button" class="btn btn-default" style="background: #444; font-size: 11px">Friends</button></a>
+  </div>
+</div>
+</div>
+<br>
+<br>
+
+    <!--Manage offers--> 
+
+<div class="title clearfix" data-animated="bounceIn">
+<h1>Manage your Offers</h1>
+</div> 
+
+	<div class="container" id="MyProfile">
+<div class="panel panel-primary">
+<div class="panel-heading">ID:{{me.pk}} Name:{{me.user_firstname}} </div>
+<div class="panel-body">
+
+<form id='{{me.user_email}}' action="/StartPageSave/">
+<div class="row">
+<div class="col-md-4">
+<div class="well">
+
+{% with "Photos/"|add:me.user_photourl as image_name %}
+	{% load staticfiles %}
+	<img src="{% static image_name %}" width="100%" >
+	{% endwith %}
+
+<br/><br/><br/>
+PhotoFile : <input type="text" name="usr_photourl" value="{{me.user_photourl}}" > 
+<br/>
+</div>
+</div>
+
+<div class="col-md-8">
+
+<div class="row">
+	<div class="col-md-6">
+	<div class="well">
+	  
+	Email :  <input type="text" name="usr_email" value="{{me.user_email}}" > 
+	</div>
+	</div>
+
+	<div class="col-md-6">
+	<div class="well">
+	Password : <input type="password" name="usr_password" value="{{me.user_password}}" > 
+	</div>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-md-6">
+	<div class="well">
+	FirstName : <input type="text" name="usr_firstname" value="{{me.user_firstname}}" > 
+	</div>
+	</div>
+
+	<div class="col-md-6">
+	<div class="well">
+	LastName : <input type="text" name="usr_lastname" value="{{me.user_lastname}}" > 
+	</div>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-md-6">
+	<div class="well">
+	Age : <input type="text" name="usr_age" value="{{me.user_age}}" > 
+	</div>
+	</div>
+	<div class="col-md-6">
+	<div class="well">
+	Gender : <input type="text" name="usr_gender" value="{{me.user_gender}}" > 
+	</div>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-md-6">
+	<div class="well">
+	Country : <input type="text" name="usr_country" value="{{me.user_country}}" > 
+	</div>
+	</div>
+	
+	<div class="col-md-6">
+	<div class="well">
+	Language : <input type="text" name="usr_language" value="{{me.user_language}}" > 
+	</div>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-md-6">
+	<div class="well">
+	Category : <input type="text" name="usr_category" value="{{me.user_category}}" > 
+	</div>
+	</div>
+	
+	<div class="col-md-6">
+	<div class="well">
+	Company : <input type="text" name="usr_company" value="{{me.user_company}}" > 
+	</div>
+	</div>
+</div>
+
+
+</div>
+</div>
+
+<div class="row">
+	<div class="col-md-4">
+	<div class="well">
+	Studies : <input type="text" name="usr_studies" value="{{me.user_studies}}" >  
+	</div>
+	</div>
+	<div class="col-md-4">
+	<div class="well">
+	Topics : <input type="text" name="usr_topics" value="{{me.user_topics}}" > 
+	</div>
+	</div>
+	<div class="col-md-4">
+	<div class="well">
+	CVFile : <input type="text" name="usr_cvurl" value="{{me.user_cvurl}}" >  
+	</div>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-md-4">
+	<div class="well">
+	Facebook : <input type="text" name="usr_fburl" value="{{me.user_fburl}}"  >   
+	</div>
+	</div>
+	<div class="col-md-4">
+	<div class="well">
+	Twitter : <input type="text" name="usr_twitterurl" value="{{me.user_twitterurl}}" > 
+	</div>
+	</div>
+	<div class="col-md-4">
+	<div class="well">
+	Linkedln : <input type="text" name="usr_linkedlnurl" value="{{me.user_linkedlnurl}}" > 
+	</div>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-md-12">
+	<div class="well">
+	Abstract : <textarea name="usr_abstract" width=100% >{{me.user_abstract}}</textarea> 	   
+	</div>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-md-3">
+	<div class="well">
+	English.Reading : <input type="text" name="usr_englishReading" value="{{me.user_englishReading}}" > 
+	</div>
+	</div>
+	<div class="col-md-3">
+	<div class="well">
+	English.Writing : <input type="text" name="usr_englishWriting" value="{{me.user_englishWriting}}" > 
+	</div>
+	</div>
+	<div class="col-md-3">
+	<div class="well">
+	English.Listening : <input type="text" name="usr_englishListening" value="{{me.user_englishListening}}" >
+	</div>
+	</div>
+	<div class="col-md-3">
+	<div class="well">
+	English.Speaking : <input type="text" name="usr_englishSpeaking" value="{{me.user_englishSpeaking}}" > 
+	</div>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-md-3">
+	<div class="well">
+	Communication Skills : <input type="text" name="usr_skillCommunication" value="{{me.user_skillCommunication}} "> % 
+	</div>
+	</div>
+	<div class="col-md-3">
+	<div class="well">
+	Teamwork Skills : <input type="text" name="usr_skillTeamwork" value="{{me.user_skillTeamwork}} " > %
+	</div>
+	</div>
+	<div class="col-md-3">
+	<div class="well">
+	Initiative SKills : <input type="text" name="usr_skillInitiative" value="{{me.user_skillInitiative}} " > %
+	</div>
+	</div>
+	<div class="col-md-3">
+	<div class="well">
+	Problem Solving Skills : <input type="text" name="usr_skillProblemSolving" value="{{me.user_skillProblemSolving}} " > %
+	</div>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-md-3">
+	<div class="well">
+	Flexibility Skills : <input type="text" name="usr_skillFlexibility" value="{{me.user_skillFlexibility}} " > %
+	</div>
+	</div>
+	<div class="col-md-3">
+	<div class="well">
+	Computer Skills : <input type="text" name="usr_skillComputer" value="{{me.user_skillComputer}} " > %
+	</div>
+	</div>
+	<div class="col-md-3">
+	<div class="well">
+	Technical Skills : <input type="text" name="usr_skillTechnical" value="{{me.user_skillTechnical}} " > %
+	</div>
+	</div>
+	<div class="col-md-3">
+	<div class="well">
+	Leadership Skills : <input type="text" name="usr_skillLeadership" value="{{me.user_skillLeadership}} " > %
+	</div>
+	</div>
+</div>
+
+<input type="submit" value="Save"/>
+</form>
+</div>
+
+</div>
+</div>
+
+
+</div>  
+
+
+
+
+
+
+
+
+
+
+<div class="container">
+<div class="panel panel-primary">
+<div class="panel-heading">ID:{{me.pk}} Friends of {{me.user_firstname}}  , {{me.user_lastname}} [Email:{{me.user_email}}] </div>
+<div class="panel-body">
+<div class="row">
+<div class="col-md-6">
+<div class="list-group">
+
+
+
+{% for frnd in friendsList %}
+	{% ifequal me.user_email frnd.friendship_from %}
+		{% for usr2 in usersList %}
+			{% ifequal usr2.user_email frnd.friendship_to %}
+			<form id='{{me.user_email}}' action="/StartPageRemoveFriendship/">
+				<a class="list-group-item">
+				{% with "Photos/"|add:usr2.user_photourl as image_name %}
+				{% load staticfiles %}
+				<img src="{% static image_name %}" width=50px  data-toggle="popover" title="{{usr2.user_firstname}} {{usr2.user_lastname}} " data-content="{{usr2.user_abstract}}" data-trigger="hover" / >
+				{% endwith %}
+								<input type="text" name="friend1"  hidden value="{{me.user_email}}">
+								<input type="text" name="friend2"  hidden value="{{usr2.user_email}}">
+				{{usr2.user_firstname}} {{usr2.user_lastname}} 
+				<input type="submit" value="Remove"/>
+				</a>
+			</form>
+			{% endifequal %}
+		{% endfor %}
+	{% endifequal %}
+{% endfor %}
+
+
+
+
+</div>
+</div>	
+
+<div class="col-md-3">
+<div class="list-group">
+<li class="list-group-item">
+
+{% with "Photos/"|add:me.user_photourl as image_name %}
+	{% load staticfiles %}
+	<img src="{% static image_name %}" width="100%" >
+	{% endwith %}
+</li>
+</div>	
+</div>	
+
+<div class="col-md-3">
+<div class="list-group">
+<li class="list-group-item">{{me.user_firstname}} {{me.user_lastname}}</li>
+<li class="list-group-item">Age:{{me.user_age}}</li>
+<li class="list-group-item">Country:{{me.user_country}}</li>
+<li class="list-group-item">Language:{{me.user_language}}</li>
+<li class="list-group-item">Abstract:{{me.user_abstract}}</li>
+</div>
+</div>		
+	
+
+</div>
+</div>
+</div>
+</div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+        <!--Solicitudes de la oferta-->
+        <div class="col-md-4">
+            <div class="panel panel-primary">
+              <div class="panel-heading">REQUEST</div>
+              <div class="panel-body">
+            <form>
+            <div class="row">
+            <div class="col-md-3">
+            Foto
+            </div>
+            <div class="col-md-5">
+            User description
+            </div>
+            <div class="col-md-3">
+            <form action="demo_form.asp" method="get">
+            <button type="button" style="background: #BCF5A9; font-size: 13px">OK</button>
+            <button type="button" style="background: #F78181; font-size: 13px">X</button>
+            </form>
+            </div>                       
+            </div>
+            <div class="row">
+            <div class="col-md-3">
+            Foto2
+            </div>
+            <div class="col-md-5">
+            User description2
+            </div>
+            <div class="col-md-3">
+            <form action="demo_form.asp" method="get" >
+            <button type="button" style="background: #BCF5A9; font-size: 13px">OK</button>
+            <button type="button" style="background: #F78181; font-size: 13px">X</button>
+            </form>
+            </div>                       
+            </div>
+            <div class="row">
+            <div class="col-md-3">
+            Foto3
+            </div>
+            <div class="col-md-5">
+            User description3
+            </div>
+            <div class="col-md-3">
+            <form action="demo_form.asp" method="get">
+            <button type="button" style="background: #BCF5A9; font-size: 13px">OK</button>
+            <button type="button" style="background: #F78181; font-size: 13px">X</button>
+            </form>
+            </div>                       
+            </div>
+
+            </form>
+
+              </div>
+              </div>
+           
+        </div>
+
+        <!--Aceptados de la oferta-->
+        <div class="col-md-4">
+         
+            <div class="panel panel-primary">
+              <div class="panel-heading">People Accepted</div>
+              <div class="panel-body">
+            <form>
+            <div class="row">
+            <div class="col-md-4">
+            Foto
+            </div>
+            <div class="col-md-5">
+            User description
+            </div>
+            <div class="col-md-3">
+            <form action="demo_form.asp" method="get">
+            <button type="button" style="background: #F78181; font-size: 13px">X</button>
+            </form>
+            </div>                       
+            </div>
+            <div class="row">
+            <div class="col-md-4">
+            Foto2
+            </div>
+            <div class="col-md-5">
+            User description2
+            </div>
+            <div class="col-md-3">
+            <form action="demo_form.asp" method="get">
+            <button type="button" style="background: #F78181; font-size: 13px">X</button>
+            </form>
+            </div>                       
+            </div>
+            <div class="row">
+            <div class="col-md-4">
+            Foto3
+            </div>
+            <div class="col-md-5">
+            User description3
+            </div>
+            <div class="col-md-3">
+            <form action="demo_form.asp" method="get">
+            <button type="button" style="background: #F78181; font-size: 13px">X</button>
+            </form>
+            </div>                       
+            </div>
+
+            </form>
+
+              </div>
+           </div>
+           
+           </div>
+    </div>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     <!-- CONTACT -->
 
@@ -617,7 +944,21 @@
 
     <!-- JS -->
 
+<script>
+$(document).ready(function(){
+    $('[data-toggle="popover"]').popover();   
+});
 
+$('body').on('click', function (e) {
+    $('[data-toggle="popover"]').each(function () {
+        //the 'is' for buttons that trigger popups
+        //the 'has' for icons within a button that triggers a popup
+        if (!$(this).is(e.target) && $(this).has(e.target).length === 0 && $('.popover').has(e.target).length === 0) {
+            $(this).popover('hide');
+        }
+    });
+});
+</script>
 
   </body>
 </html>

@@ -109,8 +109,7 @@ def AuthenticationApp(request):
 	if 'usr_name' in request.GET and request.GET['usr_name']:
 		vStatus = AuthProcess(request)
 		if (vStatus['Status'] == 'Logged Succesfull'):
-			qUrl = '/setCookie/?user_email='+vStatus['User']
-			
+			qUrl = '/setCookie/?user_email='+vStatus['User']	
 			return HttpResponseRedirect(qUrl)
 		else:
 			fp=open(PATH_SITE+PATH_PAGES+'PopUp.html')
@@ -127,7 +126,7 @@ def AuthenticationApp(request):
 #----------------------------------------------------------------------------- #
 
 #----------------------------------------------------------------------------- #
-#--- SetCookie App --------------------------------------------------------------- #
+#--- SetCookie App ----------------------------------------------------------- #
 def setCookie(request):
 	html = setCookieProcess(request)
 	return html
@@ -155,6 +154,15 @@ def getCookie(request):
 
 
 
+#----------------------------------------------------------------------------- #
+#--- Login App --------------------------------------------------------------- #
+def UploadDropbox(request):
+	fp = open(PATH_SITE+PATH_PAGES+'UploadDropbox.html')
+	page = Template(fp.read())
+	fp.close()	
+	html=page.render(Context())
+	return HttpResponse(html)
+#----------------------------------------------------------------------------- #
 
 
 
@@ -169,17 +177,26 @@ def getCookie(request):
 #----------------------------------------------------------------------------- #
 #--- AdminDashboard App ------------------------------------------------------ #
 def AdminDashboard(request):
-	fp =open(PATH_SITE+PATH_PAGES+'AdminDashboard.html')
-	page = Template(fp.read())
-	fp.close()	
-	Data = {'usersList':User.objects.all(),
-			'groupsList':Group.objects.all(),
-			'offersList':Offer.objects.all(),
-			'friendsList':Friendship.objects.all(),
-			'articlesList':Article.objects.all()
-			}
-	html = page.render(Context(Data))
-	return HttpResponse(html)
+	if request.COOKIES['CurrentUser'] == 'admin':
+		fp =open(PATH_SITE+PATH_PAGES+'AdminDashboard.html')
+		page = Template(fp.read())
+		fp.close()	
+		Data = {'usersList':User.objects.all(),
+				'groupsList':Group.objects.all(),
+				'offersList':Offer.objects.all(),
+				'friendsList':Friendship.objects.all(),
+				'friendsRequestList':FriendshipRequest.objects.all(),
+				'articlesList':Article.objects.all(),
+				'commentsList':Comment.objects.all()
+				}
+		html = page.render(Context(Data))
+		return HttpResponse(html)
+	else:
+			fp=open(PATH_SITE+PATH_PAGES+'PopUp.html')
+			t= Template(fp.read())
+			fp.close()				
+			html=t.render(Context({'Message':'You are not admin'}))
+			return HttpResponse(html)
 #----------------------------------------------------------------------------- #
 
 
@@ -211,7 +228,6 @@ def AdminSave(request):
 			Usuario.user_englishWriting = request.GET['usr_englishWriting']
 			Usuario.user_englishListening = request.GET['usr_englishListening']	
 			Usuario.user_englishSpeaking = request.GET['usr_englishSpeaking']
-			Usuario.user_skillCommunication = request.GET['usr_englishSpeaking']	
 			Usuario.user_skillCommunication = request.GET['usr_skillCommunication']					
 			Usuario.user_skillTeamwork = request.GET['usr_skillTeamwork']					
 			Usuario.user_skillInitiative = request.GET['usr_skillInitiative']
@@ -219,7 +235,7 @@ def AdminSave(request):
 			Usuario.user_skillFlexibility = request.GET['usr_skillFlexibility']
 			Usuario.user_skillComputer = request.GET['usr_skillComputer']					
 			Usuario.user_skillTechnical = request.GET['usr_skillTechnical']
-			Usuario.user_skillLeadership |= request.GET['usr_skillLeadership']									
+			Usuario.user_skillLeadership = request.GET['usr_skillLeadership']									
 			Usuario.save()
 			return HttpResponseRedirect('/Dash/')
 		except:
@@ -267,16 +283,87 @@ def AdminSave(request):
 #----------------------------------------------------------------------------- #
 
 
-
-
-
-
-
-
-
-
-
-
+#----------------------------------------------------------------------------- #
+#--- AdminSaveApp ------------------------------------------------------------ #
+def StartPageSave(request):
+	if 'usr_email' in request.GET and request.GET['usr_email']:
+		try :
+			Usuario = User.objects.get(user_email=request.GET['usr_email'])
+			Usuario.user_email = request.GET['usr_email']
+			Usuario.user_password = request.GET['usr_password']
+			Usuario.user_firstname = request.GET['usr_firstname']
+			Usuario.user_lastname = request.GET['usr_lastname']
+			Usuario.user_age = request.GET['usr_age']
+			Usuario.user_gender = request.GET['usr_gender']
+			Usuario.user_country = request.GET['usr_country']
+			Usuario.user_language = request.GET['usr_language']
+			Usuario.user_category = request.GET['usr_category']
+			Usuario.user_company = request.GET['usr_company']
+			Usuario.user_studies = request.GET['usr_studies']
+			Usuario.user_topics = request.GET['usr_topics']
+			Usuario.user_photourl = request.GET['usr_photourl']
+			Usuario.user_cvurl = request.GET['usr_cvurl']
+			Usuario.user_abstract = request.GET['usr_abstract']
+			Usuario.user_fburl = request.GET['usr_fburl']
+			Usuario.user_twitterurl = request.GET['usr_twitterurl']
+			Usuario.user_linkedlnurl = request.GET['usr_linkedlnurl']
+			Usuario.user_englishReading = request.GET['usr_englishReading']
+			Usuario.user_englishWriting = request.GET['usr_englishWriting']
+			Usuario.user_englishListening = request.GET['usr_englishListening']	
+			Usuario.user_englishSpeaking = request.GET['usr_englishSpeaking']
+			Usuario.user_skillCommunication = request.GET['usr_skillCommunication']					
+			Usuario.user_skillTeamwork = request.GET['usr_skillTeamwork']					
+			Usuario.user_skillInitiative = request.GET['usr_skillInitiative']
+			Usuario.user_skillProblemSolving = request.GET['usr_skillProblemSolving']
+			Usuario.user_skillFlexibility = request.GET['usr_skillFlexibility']
+			Usuario.user_skillComputer = request.GET['usr_skillComputer']					
+			Usuario.user_skillTechnical = request.GET['usr_skillTechnical']
+			Usuario.user_skillLeadership = request.GET['usr_skillLeadership']									
+			Usuario.save()
+			return HttpResponseRedirect('/StartPageApp/')
+		except:
+			fp=open(PATH_SITE+PATH_PAGES+'PopUp.html')
+			t= Template(fp.read())
+			fp.close()				
+			html=t.render(Context({'Message':'Thats email does not exist'}))
+			return HttpResponse(html)
+	else:
+		if 'off_name' in request.GET and request.GET['off_name']:
+			try :
+				Oferta = Offer.objects.get(offer_name=request.GET['off_name'])
+				Oferta.offer_name = request.GET['off_name']
+				Oferta.offer_owner = request.GET['off_owner']
+				Oferta.offer_photourl = request.GET['off_photourl']
+				Oferta.offer_date = request.GET['off_date']
+				Oferta.offer_deadline = request.GET['off_deadline']	
+				Oferta.offer_abstract = request.GET['off_abstract']		
+				Oferta.save()
+				return HttpResponseRedirect('/StartPageApp/')
+			except:
+				fp=open(PATH_SITE+PATH_PAGES+'PopUp.html')
+				t= Template(fp.read())
+				fp.close()				
+				html=t.render(Context({'Message':'Thats offers does not exist'}))
+				return HttpResponse(html)
+		else:
+			if 'grp_name' in request.GET and request.GET['grp_name']:
+				try :
+					Grupo = Group.objects.get(group_name=request.GET['grp_name'])
+					Grupo.group_name = request.GET['grp_name']
+					Grupo.group_owner = request.GET['grp_owner']
+					Grupo.group_photourl = request.GET['grp_photourl']
+					Grupo.group_date = request.GET['grp_date']
+					Grupo.group_abstract = request.GET['grp_abstract']		
+					Grupo.save()
+					return HttpResponseRedirect('/StartPageApp/')
+				except:
+					fp=open(PATH_SITE+PATH_PAGES+'PopUp.html')
+					t= Template(fp.read())
+					fp.close()				
+					html=t.render(Context({'Message':'Thats group does not exist'}))
+					return HttpResponse(html)
+		
+#----------------------------------------------------------------------------- #
 
 
 
@@ -284,7 +371,7 @@ def AdminSave(request):
 
 
 #----------------------------------------------------------------------------- #
-#--- AdminSaveApp ----------------------------------------------------------- #
+#--- AdminUserRemove ----------------------------------------------------------- #
 def AdminUserRemove(request):
 	if 'usr_email' in request.GET and request.GET['usr_email']:
 		try :
@@ -298,6 +385,7 @@ def AdminUserRemove(request):
 			html=t.render(Context({'Message':'Thats email does not exist'}))
 			return HttpResponse(html)
 #----------------------------------------------------------------------------- #
+
 #----------------------------------------------------------------------------- #
 #--- AdminOfferRemove -------------------------------------------------------- #
 def AdminOfferRemove(request):
@@ -316,9 +404,9 @@ def AdminOfferRemove(request):
 #----------------------------------------------------------------------------- #
 #--- AdminOfferRemove -------------------------------------------------------- #
 def AdminGroupRemove(request):
-	if 'grp_name' in request.GET and request.GET['grp_name']:
+	if 'grp_name' in request.GET:
 		try :
-			Grupo = Group.objects.get(offer_name=request.GET['grp_name'])
+			Grupo = Group.objects.get(group_name=request.GET['grp_name'])
 			Grupo.delete()
 			return HttpResponseRedirect('/Dash/')
 		except:
@@ -328,8 +416,74 @@ def AdminGroupRemove(request):
 			html=t.render(Context({'Message':'Thats group does not existe, please check up'}))
 			return HttpResponse(html)
 #----------------------------------------------------------------------------- #
+#----------------------------------------------------------------------------- #
+#--- AdminSaveApp ----------------------------------------------------------- #
+def AdminCommentRemove(request):
+	if 'cmt_name' in request.GET and request.GET['cmt_name']:
+		try :
+			Comentario = Comment.objects.get(comment_name=request.GET['cmt_name'])
+			Comentario.delete()
+			return HttpResponseRedirect('/Dash/')
+		except:
+			fp=open(PATH_SITE+PATH_PAGES+'PopUp.html')
+			t= Template(fp.read())
+			fp.close()				
+			html=t.render(Context({'Message':'Thats email does not exist'}))
+			return HttpResponse(html)
+#----------------------------------------------------------------------------- #
+#----------------------------------------------------------------------------- #
+#--- AdminSaveApp ----------------------------------------------------------- #
+def AdminRemoveFriendship(request):
+	if 'friend1' in request.GET and request.GET['friend1']:
+		try :
+			Amigo=Friendship.objects.filter(pk=request.GET['pk'])
+			Amigo1 = User.objects.get(user_email=Amigo.friendship_from)
+			Amigo2 = User.objects.get(user_email=Amigo.friendship_to)
+			Amigo.delete()
+			Amigo=Friendship.objects.filter(friendship_from=Amigo2.user_email,friendship_to=Amigo1.user_email)
+			Amigo.delete()
+			return HttpResponseRedirect('/Dash/')
+		except:
+			fp=open(PATH_SITE+PATH_PAGES+'PopUp.html')
+			t= Template(fp.read())
+			fp.close()				
+			html=t.render(Context({'Message':'Thats email does not exist'}))
+			return HttpResponse(html)
+#----------------------------------------------------------------------------- #
 
-
+#----------------------------------------------------------------------------- #
+#--- AdminSaveApp ----------------------------------------------------------- #
+def StartPageRemoveFriendship(request):
+	if 'friend1' in request.GET and request.GET['friend1']:
+		try :
+			Amigo=Friendship.objects.filter(friendship_from=request.GET['friend1'],friendship_to=request.GET['friend2'])
+			Amigo.delete()
+			Amigo=Friendship.objects.filter(friendship_from=request.GET['friend2'],friendship_to=request.GET['friend1'])
+			Amigo.delete()
+			return HttpResponseRedirect('/StartPageApp/')
+		except:
+			fp=open(PATH_SITE+PATH_PAGES+'PopUp.html')
+			t= Template(fp.read())
+			fp.close()				
+			html=t.render(Context({'Message':'Thats email does not exist'}))
+			return HttpResponse(html)
+#----------------------------------------------------------------------------- #
+#--- AdminRemoveFriendshipRequest ---------------------------------------------- #
+def AdminRemoveFriendshipRequest(request):
+	if 'friend1' in request.GET and request.GET['friend1']:
+		try :
+			Amigo=FriendshipRequest.objects.filter(friendshiprequest_from=request.GET['friend1'],friendshiprequest_to=request.GET['friend2'])
+			Amigo.delete()
+			Amigo=FriendshipRequest.objects.filter(friendshiprequest_from=request.GET['friend2'],friendshiprequest_to=request.GET['friend1'])
+			Amigo.delete()
+			return HttpResponseRedirect('/Dash/')
+		except:
+			fp=open(PATH_SITE+PATH_PAGES+'PopUp.html')
+			t= Template(fp.read())
+			fp.close()				
+			html=t.render(Context({'Message':'Thats email does not exist'}))
+			return HttpResponse(html)
+#----------------------------------------------------------------------------- #
 
 
 
@@ -381,7 +535,6 @@ def upload_pic(request):
 #--- AdminNewUser App ------------------------------------------------------ #
 def AdminNewUser(request):
 	try :
-		#getUserDatabyRequest(request)
 		email = request.GET['usr_email']
 		usuario=User.objects.create(user_email=email)
 		usuario.save()
@@ -393,6 +546,50 @@ def AdminNewUser(request):
 		html=t.render(Context({'Message':'Thats email does not exist'}))
 		return HttpResponse(html)
 #----------------------------------------------------------------------------- #
+
+
+#----------------------------------------------------------------------------- #
+#--- AdminNewCommetApp ------------------------------------------------------ #
+def AddCommentApp(request):
+	try :
+	
+		Comentarios = Comment.objects.all()
+		n = Comentarios.count()
+		n = n + 1
+		CommentName = n
+		CommentOwner = request.COOKIES['CurrentUser']
+		CommentDate = str(datetime.datetime.now())
+		CommentGroup = request.GET['grp_name']
+		CommentText = request.GET['comment']
+		Comentario=Comment.objects.create(comment_name=CommentName,comment_owner=CommentOwner,comment_abstract=CommentText,comment_date=CommentDate,comment_group=CommentGroup)
+		Comentario.save()
+		return HttpResponseRedirect('/GroupApp/?group_name='+CommentGroup)
+	except:
+		fp=open(PATH_SITE+PATH_PAGES+'PopUp.html')
+		t= Template(fp.read())
+		fp.close()				
+		html=t.render(Context({'Message':'Problem with AddComment'}))
+		return HttpResponse(html)
+#----------------------------
+#--- AdminNewCommetApp ------------------------------------------------------ #
+def AdminNewComment(request):
+	try :
+		Comentarios = Comment.objects.all()
+		n = Comentarios.count()
+		n = n + 1
+		CommentName = n
+		Comentario=Comment.objects.create(comment_name=CommentName)
+		Comentario.save()
+		return HttpResponseRedirect('/Dash/')
+	except:
+		fp=open(PATH_SITE+PATH_PAGES+'PopUp.html')
+		t= Template(fp.read())
+		fp.close()				
+		html=t.render(Context({'Message':'Problem with AddComment'}))
+		return HttpResponse(html)
+#----------------------------
+
+
 #----------------------------------------------------------------------------- #
 #--- AdminNewOffer App ------------------------------------------------------ #
 def AdminNewOffer(request):
@@ -460,6 +657,29 @@ def AdminNewFriendship(request):
 		return HttpResponse(html)
 #----------------------------------------------------------------------------- #
 
+#----------------------------------------------------------------------------- #
+#--- AdminNewFrienship App --------------------------------------------------- #
+def AdminNewFriendshipRequest(request):
+	try :
+		UserFrom = request.GET['FromFriend']
+		ToFrom = request.GET['ToFriend']
+		FriendshipFrom =FriendshipRequest.objects.create(friendshiprequest_from=UserFrom,friendshiprequest_to=ToFrom)
+		FriendshipFrom.save()
+		UserFrom = request.GET['ToFriend']
+		ToFrom = request.GET['FromFriend']
+		FriendshipFrom =FriendshipRequest.objects.create(friendshiprequest_to=UserFrom,friendshiprequest_from=ToFrom)
+		FriendshipFrom.save()
+		return HttpResponseRedirect('/Dash/')
+	except:
+		fp=open(PATH_SITE+PATH_PAGES+'PopUp.html')
+		t= Template(fp.read())
+		fp.close()				
+		html=t.render(Context({'Message':'Thats email does not exist'}))
+		return HttpResponse(html)
+#----------------------------------------------------------------------------- #
+
+
+
 
 # ***** Login Start Page ***************************************************** #
 def StartPage(request):
@@ -476,8 +696,18 @@ def StartPage(request):
 		
 		fp=open(PATH_SITE+PATH_PAGES+'StartPage.html')
 		t= Template(fp.read())
-		fp.close()				
-		html=t.render(Context(getUserData(usuario)))
+		fp.close()			
+		Data = {'me':usuario,
+				'usersList':User.objects.all(),
+				'groupsList':Group.objects.all(),
+				'offersList':Offer.objects.all(),
+				'offersRequestList':OfferRequest.objects.all(),
+				'friendsList':Friendship.objects.all(),
+				'friendsRequestList':FriendshipRequest.objects.all(),
+				'articlesList':Article.objects.all(),
+				'commentsList':Comment.objects.all()
+				}	
+		html=t.render(Context(Data))
 		return HttpResponse(html)
 	else:
 		return HttpResponse('Ingrese algo por el amor de  Dios!')
@@ -511,7 +741,7 @@ def Offers(request):
 	fp=open(PATH_SITE+PATH_PAGES+'Offers.html')
 	page= Template(fp.read())
 	fp.close()	
-	html=page.render(Context({'offersList':Offer.objects.all()}))
+	html=page.render(Context({'offersList':Offer.objects.all(),'usersList':User.objects.all()}))
 	return HttpResponse(html)
 #----------------------------------------------------------------------------- #
 
@@ -527,13 +757,28 @@ def GroupApp (request):
 	# Redenrizar la plantilla con las variables
 	name = request.GET['group_name']
 	Grupo = Group.objects.get(group_name=name)
-	html=page.render(Context({'grp':Grupo}))
+	Usuarios = User.objects.all()
+	Me = User.objects.get(user_email=request.COOKIES['CurrentUser'])
+	Comentarios = Comment.objects.all()
+	html=page.render(Context({'grp':Grupo,'usrs':Usuarios,'cmts':Comentarios,'me':Me}))
 	return HttpResponse(html)
 #----------------------------------------------------------------------------- #
 
 
-
-
+#----------------------------------------------------------------------------- #
+#--- Group App  ------------------------------------------------------------ #
+def Groups(request):
+	# Abrir plantilla HTML-Mustache {{}} index
+	fp=open(PATH_SITE+PATH_PAGES+'Groups.html')
+	# Abrir archivo de texto como Template
+	page= Template(fp.read())
+	# Cerrar archivo
+	fp.close()	
+	# Redenrizar la plantilla con las variables
+	Grupos = Group.objects.all()
+	html=page.render(Context({'grps':Grupos}))
+	return HttpResponse(html)
+#----------------------------------------------------------------------------- #
 
 
 # ***** Login Start Page ***************************************************** #
@@ -542,24 +787,18 @@ def registration(request):
 		now = datetime.datetime.now()
 
 		username=request.GET['username']
-		password=request.GET['password']
-
-		firstname=request.GET['firstname']
-		lastname=request.GET['lastname']
-		age=request.GET['age']
-
-		country=request.GET['country']
- 		occupation=request.GET['occupation']
-		company=request.GET['company']
-		charge=request.GET['charge']
-		studies=request.GET['studies']
-		topics=request.GET['topics']
-		password=request.GET['password']
+		password1=request.GET['password']
+		password2=request.GET['password2']
 		
-		usuario=User.objects.create(email=username,password=password,first_name=firstname,last_name=lastname,age=age)
-	
-		html="Usuario Registrado Exitosamente"
-		return HttpResponse(html)
+		if password1 == password2 :
+			usuario=User.objects.create(user_email=username,user_password=password1)
+			return HttpResponseRedirect('/LoginApp/')
+		else:	
+			fp=open(PATH_SITE+PATH_PAGES+'PopUp.html')
+			t= Template(fp.read())
+			fp.close()				
+			html=t.render(Context({'Message':'Password are not equal'}))
+			return HttpResponse(html)
 
 
 

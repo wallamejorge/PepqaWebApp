@@ -1,330 +1,438 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
+
+<!--
+     ---------------------------------------------------------------------------		
+	 <html> Begin 
+     ---------------------------------------------------------------------------	
+     Author: Jorge Luis Mayorga Taborda
+     Description: En esta pagina se cargan los archivos
+     ---------------------------------------------------------------------------     	
+		
+		 Pagina para controlar las bases de datos de la aplicación Web 
+		 
+     ---------------------------------------------------------------------------				 
+-->
 <html>
 
 
 
 
+
+
+
+
+
+
+<!--
+     ---------------------------------------------------------------------------		
+	 <head> Begin 
+     ---------------------------------------------------------------------------   	
+	 	-Cargar Archivos CSS,JS,etc.
+	 	-
+     ---------------------------------------------------------------------------				 
+-->
 <head>
-<script>
-$(document).ready(function(){
-    $('[data-toggle="popover"]').popover(); 
-});
-</script>
-
-<style>
-    input {
-        resize: horizontal;
-        width: auto;
-    }
-
-    input:active {
-        width: auto;   
-    }
-
-    input:focus {
-        min-width: 5px;
-    }
-</style>
-
-{% load staticfiles %}
-<script src="{% static "Admin/jquery.min.js" %}"></script>
-{% load staticfiles %}
-<script src="{% static "Admin/bootstrap.min.js" %}"></script>
-{% load staticfiles %}
-<link href="{% static "Admin/bootstrap.min.css" %}" rel="stylesheet">
-
-<script src="http://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
-
-
-
-
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
-<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-
-
+    <!-- Cargar el archivo jQuery.min.js -->
+	{% load staticfiles %}
+	<script src="{% static "Admin/jquery.min.js" %}" ></script>
+	<!-- Cargar el archivo Bootstrap.min.js -->
+	{% load staticfiles %}
+	<script src="{% static "Admin/bootstrap.min.js" %}" ></script>
+	<!-- Cargar el archivo Bootstrap.min.css -->
+	{% load staticfiles %}
+	<link href="{% static "Admin/bootstrap.min.css" %}" rel="stylesheet">
+	
+	<script src="http://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+<!--
+     ---------------------------------------------------------------------------		
+	 <head> End
+     ---------------------------------------------------------------------------   					 
+-->
 </head>
 
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--
+     ---------------------------------------------------------------------------		
+	 <body> Begin 
+     ---------------------------------------------------------------------------   	
+	 	-jumbotron : Titlulo y mensajes
+	 	-NavigationBar: Barra de navegación 
+	 	-UsersLists: Listas de Usuarios
+     ---------------------------------------------------------------------------				 
+-->
 <body>
 
 
+<!-------------- container ------------------------------------------------------>
+<div class="container">
 
- <div class="container">
 
 
-  <div class="jumbotron">
-    <h1>Admin Dashboard </h1>
+
+
+<!-------------- Title: jumbotron ------------------------------------------------>
+<div class="jumbotron" name="Title">
+    <h1>Admin Dashboard</h1>
     <p>Web App Dashboard for Users,Groups,Offers Control</p>
-  </div>
-
-
-  <div class="row">
-      <h3>Add Objects to Database</h3>
-		<div class="panel panel-default">
-		  <div class="panel-heading">Web App Main Control's</div>
-		  <div class="panel-body">
-
-			<div class="row">
-		        <div class="col-md-3">
-			    	<h3><i class="fa fa-user"></i>Users & Persons</h3>
-				</div>
-				<div class="col-md-3">
-					<h3><i class="fa fa-graduation-cap"></i>Offers & Projects</h3>
-				</div>
-				<div class="col-md-3">
-					<h3><i class="fa fa-users"></i>Groups</h3>
-				</div>
-			    <div class="col-md-3">
-					<h3><i class="fa fa-newspaper-o"></i>Papers & Articles</h3>
-				</div>
-		    </div> 
-        	
-			<div class="row">
-		        <div class="col-md-3">
-			    	<form name="NewUser"  action="/AdminNewUser/" >
-					<input type="text" name="usr_email" value=" " size="15"/>
-					<input type="submit" value="Add User" />
-		        	</form>
-				</div>
-				<div class="col-md-3">
-					<form name="NewOffer"  action="/AdminNewOffer/" >
-					<input type="text" name="off_name" value="" size="15"/>
-					<input type="submit" value="Add Offer" />
-		        	</form>
-				</div>
-				<div class="col-md-3">
-					<form name="NewGroup"  action="/AdminNewGroup/" >
-					<input type="text" name="grp_name" value="" size="15"/>
-					<input type="submit" value="Add Group" />
-		        	</form>
-				</div>
-			    <div class="col-md-3">
-					<form name="NewArticle"  action="/AdminNewArticle/" >
-					<input type="text" name="art_name" value="" size="15"/>
-					<input type="submit" value="Add Article" />
-		        	</form>
-				</div>
-		    </div> 
-
-			<div class="row">
-		        <div class="col-md-3">
-			    	<form name="NewUser"  action="/AdminRemoveUser/" >
-					<select name="usr_email">
-						{% for usr in usersList %}
-						  <option value="{{usr.user_email}}">{{usr.user_email}}</option>
-						{% endfor %}
-					</select>
-					<input type="submit" value="Remove" />
-		        	</form>
-				</div>
-				<div class="col-md-3">
-					<form name="NewOffer"  action="/AdminRemoveOffer/" >
-					<select name="off_name">
-						{% for off in offersList %}
-						  <option value="{{off.offer_name}}">{{off.offer_name}}</option>
-						{% endfor %}
-					</select>
-					<input type="submit" value="Remove" />
-		        	</form>
-				</div>
-				<div class="col-md-3">
-					<form name="NewGroup"  action="/AdminRemoveGroup/" >
-					<select name="grp_name">
-						{% for usr in groupsList %}
-						  <option value="{{usr.group_name}}">{{usr.group_name}}</option>
-						{% endfor %}
-					</select>
-					<input type="submit" value="Remove" />
-		        	</form>
-				</div>
-			    <div class="col-md-3">
-					<form name="NewUser"  action="/AdminNewArticle/" >
-					<select name="FromFriend">
-						{% for usr in articlesList %}
-						  <option value="{{usr.article_name}}">{{usr.article_name}}</option>
-						{% endfor %}
-					</select>
-					<input type="submit" value="Remove" />
-		        	</form>
-				</div>
-		    </div> 
-
-
-		    
-		    <div class="row">
-		        <div class="col-md-3">
-			    	<h3><i class="fa fa-newspaper-o"></i>Ads</h3>
-				</div>
-				<div class="col-md-3">
-					<h3><i class="fa fa-newspaper-o"></i>Topics</h3>
-				</div>
-				<div class="col-md-3">
-					<h3><i class="fa fa-newspaper-o"></i>Ideas</h3>
-				</div>
-			    <div class="col-md-3">
-					<h3><i class="fa fa-newspaper-o"></i>Comments</h3>
-				</div>
-		    </div> 
-		    
-		    
-
-			<div class="row">
-		        <div class="col-md-3">
-			    	<form name="NewUser"  action="/AdminNewAd/" >
-					<input type="text" name="usr_email" value=" " size="15"/>
-					<input type="submit" value="Add Ad" />
-		        	</form>
-				</div>
-				<div class="col-md-3">
-					<form name="NewUser"  action="/AdminNewTopic/" >
-					<input type="text" name="usr_email" value="" size="15"/>
-					<input type="submit" value="Add Topic" />
-		        	</form>
-				</div>
-				<div class="col-md-3">
-					<form name="NewUser"  action="/AdminNewIdea/" >
-					<input type="text" name="usr_email" value="" size="15"/>
-					<input type="submit" value="Add Ideas" />
-		        	</form>
-				</div>
-			    <div class="col-md-3">
-					<form name="NewUser"  action="/AdminNewComment/" >
-					<input type="text" name="usr_email" value="" size="15"/>
-					<input type="submit" value="Add Comment" />
-		        	</form>
-				</div>
-		    </div> 
+ </div>
+<!-------------------------------------------------------------------------------->
 
 
 
 
-			<div class="row">
-		        <div class="col-md-3">
-			    	<h3><i class="fa fa-check-square-o"></i><i class="fa fa-user"></i>Friendship</h3>
-				</div>
-				<div class="col-md-3">
-					<h3><i class="fa fa-check-square-o"></i><i class="fa fa-user"></i>Friendship Request</h3>
-				</div>
-				<div class="col-md-3">
-					<h3><i class="fa fa-check-square-o"></i><i class="fa fa-users"></i>Group Request</h3>
-				</div>
-			    <div class="col-md-3">
-					<h3><i class="fa fa-check-square-o"></i><i class="fa fa-newspaper-o"></i>Offer Request</h3>
-				</div>
-		    </div> 
 
-			<div class="row">
-		        <div class="col-md-3">
-			    	<form name="NewUser"  action="/AdminNewFriendship/" >
-					<select name="FromFriend">
-						{% for usr in usersList %}
-						  <option value="{{usr.user_email}}">{{usr.user_email}}</option>
-						{% endfor %}
-					</select>
-					<select name="ToFriend">
-						 {% for usr in usersList %}
-						  <option value="{{usr.user_email}}">{{usr.user_email}}</option>
-						{% endfor %}
-					</select>
-					<input type="submit" value="Link Friends" />
-		        	</form>
-				</div>
-				<div class="col-md-3">
-			    	<form name="NewUser"  action="/AdminNewFriendshipRequest/" >
-					<select name="FromFriend">
-						{% for usr in usersList %}
-						  <option value="{{usr.user_email}}">{{usr.user_email}}</option>
-						{% endfor %}
-					</select>
-					<select name="ToFriend">
-						  {% for usr in usersList %}
-						  <option value="{{usr.user_email}}">{{usr.user_email}}</option>
-						   {% endfor %}
-					</select>
-					<input type="submit" value="Add Request" />
-		        	</form>
-				</div>
-				<div class="col-md-3">
-			    	<form name="NewUser"  action="/AdminNewGroupRequest/" >
-					<select name="User">
-						{% for usr in usersList %}
-						  <option value="{{usr.user_email}}">{{usr.user_email}}</option>
-						{% endfor %}
-					</select>
-					<select name="Group">
-						 {% for usr in usersList %}
-						  <option value="{{usr.user_email}}">{{usr.user_email}}</option>
-						{% endfor %}
-					</select>
-					<input type="submit" value="Add Request" />
-		        	</form>
-				</div>
-				<div class="col-md-3">
-			    	<form name="NewUser"  action="/AdminNewOfferRequest/" >
-					<select name="User">
-						 {% for usr in usersList %}
-						  <option value="{{usr.user_email}}">{{usr.user_email}}</option>
-						{% endfor %}
-					</select>
-					<select name="Offer">
-						{% for usr in usersList %}
-						  <option value="{{usr.user_email}}">{{usr.user_email}}</option>
-						{% endfor %}
-					</select>
-					<input type="submit" value="Add Request" />
-		        	</form>
-				</div>
-		    </div> 
+<!-------------- NavigationBar ------------------------------------------------------>
+<nav class="navbar navbar-inverse">
+<div class="container-fluid">
+<div class="navbar-header"><a class="navbar-brand" href="#Dash">Dash</a></div>
+<div>
+<ul class="nav navbar-nav">
+
+<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" >Users & Friends<span class="caret"></span></a>
+	<ul class="dropdown-menu">
+    <li><a href="#User">Users</a></li>
+    <li><a href="#Friendship">Friendship</a></li>
+    <li><a href="#FriendshipRequest">Friendship Request</a></li>
+    </ul>
+</li>
+<li><a href="#Offer">Offers</a></li>
+<li><a href="#Offer">Groups</a></li>
+<li><a href="#Comments">Comments</a></li>
+<li><a href="#Articles">Articles</a></li>
+</ul>
+</div>
+</div>
+</nav>
+<!-------------------------------------------------------------------------------->
 
 
-		    
-		    
-		    
-		    
-		  </div>
-		</div>
-  </div>
+
+
+
+
+
+
+<!-------------------------------------------------------------------------------->
+<!---                               Main Dash                                  --->
+<!-------------------------------------------------------------------------------->
+<div class="panel panel-default" id="FundamentalPanel">
+<div class="panel-heading">Web App Main Control's</div>
+<div class="panel-body">
+
+	<div class="col-md-3">
+	<ul class="list-group">
+	
+	<li class="list-group-item">
+		<center><h4><i class="fa fa-user"></i>Users</h4></center>
+		<form name="NewUser"  action="/AdminNewUser/" style="width:100%">
+			<input type="text" name="usr_email" value="" style="width:60%"/><input type="submit" value="Add User" style="width:40%"/>
+		</form>
+		<form name="RemoveUser"  action="/AdminRemoveUser/" style="width:100%">
+			<select name="usr_email" style="width:60%">
+			{% for usr in usersList %}
+			<option value="{{usr.user_email}}">{{usr.user_email}}</option>
+			{% endfor %}
+			</select><input type="submit" value="Remove" style="width:40%"/>
+		</form>
+	</li>
+	
+	<li class="list-group-item">
+		<center><h4><i class="fa fa-user"></i>Friendship</h4></center>
+		<form name="NewOffer"  action="/AdminNewFriendship/" style="width:100%">
+			<select name="FromFriend" style="width:50%">
+			{% for usr in usersList %}
+			<option value="{{usr.user_email}}">{{usr.user_email}}</option>
+			{% endfor %}
+			</select><select name="ToFriend" style="width:50%">
+			{% for usr in usersList %}
+			<option value="{{usr.user_email}}">{{usr.user_email}}</option>
+			{% endfor %}
+			</select><center><input type="submit" value="Add Friendship" style="width:60%"/></center>
+		</form>
+
+		<form name="RemoveOffer"  action="/AdminRemoveFriendship/" style="width:100%">
+			<select name="off_name" style="width:100%">
+			{% for frn in friendsList %}
+			<option value="{{frn.pk}}">{{frn.friendship_from}}-{{frn.friendship_to}}</option>
+			{% endfor %}
+			</select><center><input type="submit" value="Remove" style="width:60%"/></center>
+		</form>
+	</li>
+	
+	<li class="list-group-item">
+		<center><h4><i class="fa fa-user"></i>FriendshipRequest</h4></center>
+		<form name="NewOffer"  action="/AdminNewFriendshipRequest/" style="width:100%">
+			<select name="off_name" style="width:50%">
+			{% for usr in usersList %}
+			<option value="{{usr.user_email}}">{{usr.user_email}}</option>
+			{% endfor %}
+			</select><select name="off_name" style="width:50%">
+			{% for usr in usersList %}
+			<option value="{{usr.user_email}}">{{usr.user_email}}</option>
+			{% endfor %}
+			</select><center><input type="submit" value="Add Friendship" style="width:60%"/></center>
+		</form>
+
+		<form name="RemoveOffer"  action="/AdminRemoveFriendshipRequest/" style="width:100%">
+			<select name="off_name" style="width:100%">
+			{% for frn in friendsList %}
+			<option value="{{frn.pk}}">{{frn.friendship_from}}-{{frn.friendship_to}}</option>
+			{% endfor %}
+			</select><center><input type="submit" value="Remove" style="width:60%"/></center>
+		</form>
+	</li>
+	
+	</ul>
+	</div>
+		
+	
+	
+	<div class="col-md-3">
+	<ul class="list-group">
+	<li class="list-group-item">
+		<center><h4><i class="fa fa-user"></i>Offers</h4></center>
+		<form name="NewOffer"  action="/AdminNewOffer/" style="width:100%">
+			<input type="text" name="off_name" value="" style="width:60%"/><input type="submit" value="Add Offer" style="width:40%"/>
+		</form>
+
+		<form name="RemoveOffer"  action="/AdminRemoveOffer/" style="width:100%">
+			<select name="off_name" style="width:60%">
+			{% for off in offersList %}
+			<option value="{{off.offer_name}}">{{off.offer_name}}</option>
+			{% endfor %}
+			</select><input type="submit" value="Remove" style="width:40%"/>
+		</form>
+	</li>
+	
+	<li class="list-group-item">
+		<center><h4><i class="fa fa-user"></i>OfferAccepted</h4></center>
+		<form name="NewOffer"  action="/AdminNewOfferAccepted/" style="width:100%">
+			<select name="off_name" style="width:50%">
+			{% for usr in usersList %}
+			<option value="{{usr.user_email}}">{{usr.user_email}}</option>
+			{% endfor %}
+			</select><select name="off_name" style="width:50%">
+			{% for off in offersList %}
+			<option value="{{off.offer_name}}">{{off.offer_name}}</option>
+			{% endfor %}
+			</select><center><input type="submit" value="Add OfferRequest" style="width:60%"/></center>
+		</form>
+
+		<form name="RemoveOffer"  action="/AdminRemoveOfferAccepted/" style="width:100%">
+			<select name="off_name" style="width:100%">
+			{% for off in offersAcceptedList %}
+			<option value="{{frn.pk}}">{{off.offerassigned_name}}-{{off.offerassigned_user}}</option>
+			{% endfor %}
+			</select><center><input type="submit" value="Remove" style="width:60%"/></center>
+		</form>
+	</li>
+	
+	<li class="list-group-item">
+		<center><h4><i class="fa fa-user"></i>OfferRequest</h4></center>
+		<form name="NewOffer"  action="/AdminNewOfferRequest/" style="width:100%">
+			<select name="off_name" style="width:50%">
+			{% for usr in usersList %}
+			<option value="{{usr.user_email}}">{{usr.user_email}}</option>
+			{% endfor %}
+			</select><select name="off_name" style="width:50%">
+			{% for off in offersList %}
+			<option value="{{off.offer_name}}">{{off.offer_name}}</option>
+			{% endfor %}
+			</select><center><input type="submit" value="Add OfferRequest" style="width:60%"/></center>
+		</form>
+
+		<form name="RemoveOffer"  action="/AdminRemoveOfferRequest/" style="width:100%">
+			<select name="off_name" style="width:100%">
+			{% for off in offersRequestList %}
+			<option value="{{off.pk}}">{{off.groupmembershiprequest_name}}-{{off.groupmembershiprequest_from}}</option>
+			{% endfor %}
+			</select><center><input type="submit" value="Remove" style="width:60%"/></center>
+		</form>
+	</li>
+	
+	
+	</ul>
+	</div>
+	
+	
+	<div class="col-md-3">
+	<ul class="list-group">
+
+	<li class="list-group-item">
+		<center><h4><i class="fa fa-user"></i>Groups</h4></center>
+		<form name="NewGroup"  action="/AdminNewGroup/" style="width:100%">
+			<input type="text" name="grp_name" value="" style="width:60%"/><input type="submit" value="Add Group" style="width:40%"/>
+		</form>
+
+		<form name="RemoveGroup"  action="/AdminRemoveGroup/" style="width:100%">
+			<select name="grp_name" style="width:60%">
+			{% for grp in groupsList %}
+			<option value="{{grp.group_name}}">{{grp.group_name}}</option>
+			{% endfor %}
+			</select><input type="submit" value="Remove" style="width:40%"/>
+		</form>
+	</li>
+	
+	
+	<li class="list-group-item">
+		<center><h4><i class="fa fa-user"></i>GroupsMembers</h4></center>
+		<form name="NewOffer"  action="/AdminNewGroupMembership/" style="width:100%">
+			<select name="off_name" style="width:50%">
+			{% for usr in usersList %}
+			<option value="{{usr.user_email}}">{{usr.user_email}}</option>
+			{% endfor %}
+			</select><select name="off_name" style="width:50%">
+			{% for grp in groupsList %}
+			<option value="{{grp.group_name}}">{{grp.group_name}}</option>
+			{% endfor %}
+			</select><center><input type="submit" value="Add GroupMembership" style="width:60%"/></center>
+		</form>
+
+		<form name="RemoveOffer"  action="/AdminRemoveGroupMembership/" style="width:100%">
+			<select name="off_name" style="width:100%">
+			{% for off in groupsMembershipList %}
+			<option value="{{frn.pk}}">{{off.groupmembership_name}}-{{off.groupmembership_user}}</option>
+			{% endfor %}
+			</select><center><input type="submit" value="Remove" style="width:60%"/></center>
+		</form>
+	</li>
+
+
+	<li class="list-group-item">
+		<center><h4><i class="fa fa-user"></i>GroupsMembershipRequest</h4></center>
+		<form name="NewOffer"  action="/AdminNewGroupMembershipRequest/" style="width:100%">
+			<select name="off_name" style="width:50%">
+			{% for usr in usersList %}
+			<option value="{{usr.user_email}}">{{usr.user_email}}</option>
+			{% endfor %}
+			</select><select name="off_name" style="width:50%">
+			{% for grp in groupsList %}
+			<option value="{{grp.group_name}}">{{grp.group_name}}</option>
+			{% endfor %}
+			</select><center><input type="submit" value="Add GroupMembershipRequest" style="width:60%"/></center>
+		</form>
+
+		<form name="RemoveOffer"  action="/AdminRemoveGroupMembershipRequest/" style="width:100%">
+			<select name="off_name" style="width:100%">
+			{% for off in groupMembershipRequestList %}
+			<option value="{{frn.pk}}">{{off.groupmembershiprequest_name}}-{{off.groupmembershiprequest_from}}</option>
+			{% endfor %}
+			</select><center><input type="submit" value="Remove" style="width:60%"/></center>
+		</form>
+	</li>
+
+	</ul>
+	</div>
+	
+	
+	<div class="col-md-3">
+	<ul class="list-group">
+	
+	<li class="list-group-item">
+		<center><h4><i class="fa fa-user"></i>Articles</h4></center>
+		<form name="NewArticle"  action="/AdminNewArticle" style="width:100%">
+			<input type="text" name="grp_name" value="" style="width:60%"/><input type="submit" value="Add Article" style="width:40%"/>
+		</form>
+
+		<form name="RemoveArticle"  action="/AdminRemoveArticle/" style="width:100%">
+			<select name="article_name" style="width:60%">
+			{% for art in articlesList %}
+			<option value="{{art.article_name}}">{{art.article_name}}</option>
+			{% endfor %}
+			</select><input type="submit" value="Remove" style="width:40%"/>
+		</form>
+	</li>
+	
+	<li class="list-group-item">
+		<center><h4><i class="fa fa-user"></i>ArticleAuthor</h4></center>
+		<form name="NewOffer"  action="/AdminNewArticleAuthor/" style="width:100%">
+			<select name="off_name" style="width:50%">
+			{% for usr in usersList %}
+			<option value="{{usr.user_email}}">{{usr.user_email}}</option>
+			{% endfor %}
+			</select><select name="off_name" style="width:50%">
+			{% for art in articlesList %}
+			<option value="{{art.article_articlename}}">{{art.article_name}}</option>
+			{% endfor %}
+			</select><center><input type="submit" value="Add Author" style="width:60%"/></center>
+		</form>
+
+		<form name="RemoveOffer"  action="/AdminRemoveArticleAuthor/" style="width:100%">
+			<select name="off_name" style="width:100%">
+			{% for art in articlesAuthorList %}
+			<option value="{{art.pk}}">{{art.pk}}--{{art.articleauthor_articlename}}-{{art.articleauthor_articleauthor}}</option>
+			{% endfor %}
+			</select><center><input type="submit" value="Remove" style="width:60%"/></center>
+		</form>
+	</li>
+	
+	<li class="list-group-item">
+		<center><h4><i class="fa fa-user"></i>Comment</h4></center>
+		<form name="NewComment"  action="/AdminNewComment/" style="width:100%">
+			<input type="text" name="cmt_name" value="" style="width:60%"/><input type="submit" value="Add Comment" style="width:40%"/>
+		</form>
+
+		<form name="RemoveArticle"  action="/AdminRemoveComment/" style="width:100%">
+			<select name="cmt_name" style="width:60%">
+			{% for cmt in commentsList %}
+			<option value="{{cmt.comment_name}}">{{cmt.pk}}-{{cmt.comment_group}}--{{cmt.comment_abstract}}</option>
+			{% endfor %}
+			</select><input type="submit" value="Remove" style="width:40%"/>
+		</form>
+	</li>	
+	
+	</ul>
+	</div>
+	
+	
+</div>
 </div>
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-<!-- ----------------------------------------------------------------------------- -->
-<!-- 								Lista de Personas y Users        	           -->
-<!-- 																			   -->
-<!-- ----------------------------------------------------------------------------- -->
-
-  <div class="jumbotron">
-    <h2>Users & Persons List</h2>
-    <p>Editable List for Users and Persons</p>
-  </div>
-
+<!-------------------------------------------------------------------------------->
+<!---                           Users Profile                                  --->
+<!-------------------------------------------------------------------------------->
+<div class="panel panel-default" id="UserPanel">
+<div class="panel-heading">User's Profile Settings</div>
+<div class="panel-body">
 {% for usr in usersList %}
 <div class="container">
 <div class="panel panel-primary">
 <div class="panel-heading">ID:{{usr.pk}} Name:{{usr.user_firstname}} </div>
-<div class="panel-body">
-
 <form id='{{usr.user_email}}' action="/AdminSave/">
+
 <div class="row">
-<div class="col-md-4">
+<div class="col-md-3">
 <div class="well">
 {% with "Photos/"|add:usr.user_photourl as image_name %}
 {% load staticfiles %}
-<img alt="Linkedln" src="{% static image_name %}" width=100% / >
+<img src="{% static image_name %}" width=100% / >
 "{% static image_name %}"
 {% endwith %}
 <br/><br/><br/>
@@ -333,59 +441,65 @@ PhotoFile : <input type="text" name="usr_photourl" value="{{usr.user_photourl}}"
 </div>
 </div>
 
-<div class="col-md-8">
+<div class="col-md-9">
 
 <div class="row">
-	<div class="col-md-6">
+
+	<div class="col-md-4">
 	<div class="well">
-	  
 	Email :  <input type="text" name="usr_email" value="{{usr.user_email}}" > 
-	<input type="text" name="email" value="{{usr.user_email}}"  disabled = "disabled" />
 	</div>
 	</div>
 
-	<div class="col-md-6">
+	<div class="col-md-4">
 	<div class="well">
 	Password : <input type="text" name="usr_password" value="{{usr.user_password}}" > 
 	</div>
 	</div>
+	
+	<div class="col-md-4">
+	<div class="well">
+	Category : <input type="text" name="usr_category" value="{{usr.user_category}}" > 
+	</div>
+	</div>
+	
 </div>
 
-<div class="row">
-	<div class="col-md-6">
+ <div class="row">
+	<div class="col-md-4">
 	<div class="well">
 	FirstName : <input type="text" name="usr_firstname" value="{{usr.user_firstname}}" > 
 	</div>
 	</div>
 
-	<div class="col-md-6">
+	<div class="col-md-4">
 	<div class="well">
 	LastName : <input type="text" name="usr_lastname" value="{{usr.user_lastname}}" > 
 	</div>
 	</div>
-</div>
-
-<div class="row">
-	<div class="col-md-6">
+	
+	<div class="col-md-4">
 	<div class="well">
 	Age : <input type="text" name="usr_age" value="{{usr.user_age}}" > 
 	</div>
 	</div>
-	<div class="col-md-6">
+	
+</div>
+
+<div class="row">
+	<div class="col-md-4">
 	<div class="well">
 	Gender : <input type="text" name="usr_gender" value="{{usr.user_gender}}" > 
 	</div>
 	</div>
-</div>
-
-<div class="row">
-	<div class="col-md-6">
+	
+	<div class="col-md-4">
 	<div class="well">
 	Country : <input type="text" name="usr_country" value="{{usr.user_country}}" > 
 	</div>
 	</div>
 	
-	<div class="col-md-6">
+	<div class="col-md-4">
 	<div class="well">
 	Language : <input type="text" name="usr_language" value="{{usr.user_language}}" > 
 	</div>
@@ -393,24 +507,20 @@ PhotoFile : <input type="text" name="usr_photourl" value="{{usr.user_photourl}}"
 </div>
 
 <div class="row">
-	<div class="col-md-6">
-	<div class="well">
-	Category : <input type="text" name="usr_category" value="{{usr.user_category}}" > 
-	</div>
-	</div>
 	
-	<div class="col-md-6">
+	
+	
+</div>
+
+<div class="row">
+	
+	
+	<div class="col-md-4">
 	<div class="well">
 	Company : <input type="text" name="usr_company" value="{{usr.user_company}}" > 
 	</div>
 	</div>
-</div>
-
-
-</div>
-</div>
-
-<div class="row">
+	
 	<div class="col-md-4">
 	<div class="well">
 	Studies : <input type="text" name="usr_studies" value="{{usr.user_studies}}" >  
@@ -421,25 +531,30 @@ PhotoFile : <input type="text" name="usr_photourl" value="{{usr.user_photourl}}"
 	Topics : <input type="text" name="usr_topics" value="{{usr.user_topics}}" > 
 	</div>
 	</div>
-	<div class="col-md-4">
+	
+</div>
+
+
+</div>
+</div>
+
+<div class="row">
+	<div class="col-md-3">
 	<div class="well">
 	CVFile : <input type="text" name="usr_cvurl" value="{{usr.user_cvurl}}" >  
 	</div>
 	</div>
-</div>
-
-<div class="row">
-	<div class="col-md-4">
+	<div class="col-md-3">
 	<div class="well">
 	Facebook : <input type="text" name="usr_fburl" value="{{usr.user_fburl}}"  >   
 	</div>
 	</div>
-	<div class="col-md-4">
+	<div class="col-md-3">
 	<div class="well">
 	Twitter : <input type="text" name="usr_twitterurl" value="{{usr.user_twitterurl}}" > 
 	</div>
 	</div>
-	<div class="col-md-4">
+	<div class="col-md-3">
 	<div class="well">
 	Linkedln : <input type="text" name="usr_linkedlnurl" value="{{usr.user_linkedlnurl}}" > 
 	</div>
@@ -447,9 +562,13 @@ PhotoFile : <input type="text" name="usr_photourl" value="{{usr.user_photourl}}"
 </div>
 
 <div class="row">
+	
+</div>
+
+<div class="row">
 	<div class="col-md-12">
 	<div class="well">
-	Abstract : <textarea name="usr_abstract" rows="10" cols="120" >{{usr.user_abstract}}</textarea> 	   
+	Abstract : <textarea name="usr_abstract" rows="3" cols="120" >{{usr.user_abstract}}</textarea> 	   
 	</div>
 	</div>
 </div>
@@ -525,15 +644,10 @@ PhotoFile : <input type="text" name="usr_photourl" value="{{usr.user_photourl}}"
 
 <input type="submit" value="Save"/>
 </form>
-</div>
 
-</div>
 </div>
 </div>
 {% endfor %}
-<!-- ----------------------------------------------------------------------------- -->
-<!-- ----------------------------------------------------------------------------- -->
-
 
 
 
@@ -571,6 +685,8 @@ PhotoFile : <input type="text" name="usr_photourl" value="{{usr.user_photourl}}"
 				{% load staticfiles %}
 				<img src="{% static image_name %}" width=50px  data-toggle="popover" title="{{usr2.user_firstname}} {{usr2.user_lastname}} " data-content="{{usr2.user_abstract}}" data-trigger="hover" / >
 				{% endwith %}
+								<input type="text" name="friend1"  hidden value="{{usr.user_email}}">
+								<input type="text" name="friend2"  hidden value="{{usr2.user_email}}">
 				{{usr2.user_firstname}} {{usr2.user_lastname}} 
 				<input type="submit" value="Remove"/>
 				</a>
@@ -615,6 +731,105 @@ PhotoFile : <input type="text" name="usr_photourl" value="{{usr.user_photourl}}"
 {% endfor %}
 <!-- ----------------------------------------------------------------------------- -->
 <!-- ----------------------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+<!-- ----------------------------------------------------------------------------- -->
+<!--       	    	Lista de las Solicitudes de Amistades				           -->
+<!-- 																			   -->
+<!-- ----------------------------------------------------------------------------- -->
+
+<div class="jumbotron">
+	<h2>Friendships Request</h2>
+	<p>Editable List for Users and Persons</p>
+</div>
+
+{% for usr in usersList %}
+<div class="container">
+<div class="panel panel-primary">
+<div class="panel-heading">ID:{{usr.pk}} Friends Request from {{usr.user_firstname}}  , {{usr.user_lastname}} [Email:{{usr.user_email}}] </div>
+<div class="panel-body">
+<div class="row">
+<div class="col-md-6">
+<div class="list-group">
+
+{% for frnd in friendsRequestList %}
+	{% ifequal usr.user_email frnd.friendshiprequest_from %}
+		{% for usr2 in usersList %}
+			{% ifequal usr2.user_email frnd.friendshiprequest_to %}
+			
+				<a class="list-group-item">
+				{% with "Photos/"|add:usr2.user_photourl as image_name %}
+				{% load staticfiles %}
+				<img src="{% static image_name %}" width=50px  data-toggle="popover" title="{{usr2.user_firstname}} {{usr2.user_lastname}} " data-content="{{usr2.user_abstract}}" data-trigger="hover" / >
+				{% endwith %}
+				<form id='{{usr.user_email}}' action="/AdminRemoveFriendship/">
+								<input type="text" name="friend1"  hidden value="{{usr.user_email}}">
+								<input type="text" name="friend2"  hidden value="{{usr2.user_email}}">
+				<input type="submit" value="Decline"/>
+				<form id='{{usr.user_email}}' action="/AdminRemoveFriendship/">
+								<input type="text" name="friend1"  hidden value="{{usr.user_email}}">
+								<input type="text" name="friend2"  hidden value="{{usr2.user_email}}">
+				<input type="submit" value="Accept"/>
+				{{usr2.user_firstname}} {{usr2.user_lastname}} 
+				
+				</a>
+			</form>
+			{% endifequal %}
+		{% endfor %}
+	{% endifequal %}
+{% endfor %}
+
+
+
+
+</div>
+</div>	
+
+<div class="col-md-3">
+<div class="list-group">
+<li class="list-group-item">
+{% with "Photos/"|add:usr.user_photourl as image_name %}
+	{% load staticfiles %}
+	<img src="{% static image_name %}" width=100% / >
+	{% endwith %}
+	</li>
+</div>	
+</div>	
+
+<div class="col-md-3">
+<div class="list-group">
+<li class="list-group-item">{{usr.user_firstname}} {{usr.user_lastname}}</li>
+<li class="list-group-item">Age:{{usr.user_age}}</li>
+<li class="list-group-item">Country:{{usr.user_country}}</li>
+<li class="list-group-item">Language:{{usr.user_language}}</li>
+<li class="list-group-item">Abstract:{{usr.user_abstract}}</li>
+</div>
+</div>		
+	
+
+</div>
+</div>
+</div>
+</div>
+{% endfor %}
+<!-- ----------------------------------------------------------------------------- -->
+<!-- ----------------------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
 
 
 
@@ -841,6 +1056,13 @@ Abstract : <textarea name="off_abstract" rows="10" cols="80" >{{off.offer_abstra
 
 
 
+
+
+
+
+
+
+<!-------------------------------------------------------------------------------->
 <script>
 $(document).ready(function(){
     $('[data-toggle="popover"]').popover();   
@@ -868,7 +1090,11 @@ $('body').on('click', function (e) {
 
 
 
-
+<!--
+     ---------------------------------------------------------------------------		
+	 <body> End
+     ---------------------------------------------------------------------------   					 
+-->
 </body>
 </html>
 

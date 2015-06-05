@@ -58,10 +58,14 @@
 
 <div class="container">
    
-   
-	<div class="page-header">
-	<h1>Example Page Header</h1>
-	</div>
+   <div class="panel" style="background-color:#8db8d2;color: #ffffff;">
+ <div class="panel-heading"><center> <h1>Offers List Web Page</h1></center></div>
+ <div class="panel-body">
+ </div>
+ </div>
+ 
+
+</div>
 
 
 
@@ -73,10 +77,14 @@
 	<div id="myCarousel" class="carousel slide" data-ride="carousel" >
 	  <!-- Indicators -->
 	  <ol class="carousel-indicators">
-		<li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-		<li data-target="#myCarousel" data-slide-to="1"></li>
-		<li data-target="#myCarousel" data-slide-to="2"></li>
-		<li data-target="#myCarousel" data-slide-to="3"></li>
+	  		<li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+	  		
+	  		
+	  {% for off in offersList %}
+		<li data-target="#myCarousel" data-slide-to="{{off.pk}}"></li>
+     {% endfor %}
+     
+     
 	  </ol>
 	  <!-- Wrapper for slides -->
 	  <div class="carousel-inner" role="listbox">
@@ -120,21 +128,29 @@
 <!- Industrial ->
 <div class="col-md-6">
 <div class="panel">
- <div class="panel-heading">Find:  <input type="text" name="grp_date" value="{{grp.group_date}}" > </div>
+ <div class="panel-heading">Industrial Offers </div>
  <div class="panel-body">
  <div class="list-group">
 {% for off in offersList %}
-{% with "Photos/"|add:off.offer_photourl as image_name %}
-{% load staticfiles %}
-<div class="form-group">
-<form id='{{off.offer_name}' action="/AddOfferRequest/">
- <a class="list-group-item">
-		<img src="{% static image_name %}" data-toggle="popover" title="{{off.offer_name}}" data-content="{{off.offer_abstract}}" data-trigger="hover"  width=25% alt="Flower">
-<input type="submit" value="Add"/>
- </form>
- </a>
- </div>
-{% endwith %}
+{% for usr in usersList %}
+	{% ifequal off.offer_owner usr.user_email %}
+	{% ifequal "Industrial" usr.user_category %}
+			{% with "Photos/"|add:off.offer_photourl as image_name %}
+			{% load staticfiles %}
+			<div class="form-group">
+			<form id='{{off.offer_name}}' action="#">
+			 <a class="list-group-item">
+					<img src="{% static image_name %}" data-toggle="popover" title="{{off.offer_name}}" data-content="{{off.offer_abstract}}" data-trigger="hover"  width=25% alt="Flower">
+					 {{off.offer_abstract}}
+			<input type="submit" value="Add"/>
+			 </form>
+
+			 </a>
+			 </div>
+			{% endwith %}
+			{% endifequal %}
+			{% endifequal %}
+{% endfor %}
 {% endfor %}
 </div>
 </div>
@@ -142,15 +158,38 @@
 </div>
 
 
-<!- Academico ->
+<!- Industrial ->
 <div class="col-md-6">
 <div class="panel">
- <div class="panel-heading">Web App Main Control's</div>
-<div class="panel-body">
-		<img src="/static/Photos/img_flower2.jpg" width=100% alt="Flower">
+ <div class="panel-heading">Academical Offers </div>
+ <div class="panel-body">
+ <div class="list-group">
+{% for off in offersList %}
+{% for usr in usersList %}
+	{% ifequal off.offer_owner usr.user_email %}
+	{% ifequal "Academic" usr.user_category %}
+			{% with "Photos/"|add:off.offer_photourl as image_name %}
+			{% load staticfiles %}
+			<div class="form-group">
+			<form id='{{off.offer_name}}' action="#">
+			 <a class="list-group-item">
+					<img src="{% static image_name %}" data-toggle="popover" title="{{off.offer_name}}" data-content="{{off.offer_abstract}}" data-trigger="hover"  width=25% alt="Flower">
+					 {{off.offer_abstract}}
+			<input type="submit" value="Add"/>
+			 </form>
+
+			 </a>
+			 </div>
+			{% endwith %}
+			{% endifequal %}
+			{% endifequal %}
+{% endfor %}
+{% endfor %}
 </div>
 </div>
 </div>
+</div>
+
 
 
 
